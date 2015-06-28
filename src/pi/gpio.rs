@@ -15,6 +15,10 @@ impl Pin {
         Pin{port:port}
     }
 
+    pub fn set_mode(&mut self) -> bool {
+        false
+    }
+
     pub fn get_mode(&self) -> Direction {
         Direction::Out
     }
