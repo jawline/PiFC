@@ -5,9 +5,16 @@ use std::fs::File;
 pub enum Direction {In, Out}
 
 pub struct Pin {
-    port : u32,
-    fd : File
+    port : usize
 }
 
 impl Pin {
+    
+    pub fn new(port : usize) -> Pin {
+        Pin{port:port}
+    }
+
+    pub fn get_mode() -> Direction {
+        Direction::Out
+    }
 }
