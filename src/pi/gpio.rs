@@ -15,7 +15,7 @@ impl Pin {
         Pin{port:port}
     }
 
-    pub fn set_mode(&mut self) -> bool {
+    pub fn set_mode(&mut self, direction : Direction) -> bool {
         false
     }
 
