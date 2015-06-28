@@ -3,6 +3,7 @@
 use std::fs::File;
 
 pub enum Direction {In, Out}
+pub enum State {High, Low}
 
 pub struct Pin {
     port : usize
@@ -14,7 +15,18 @@ impl Pin {
         Pin{port:port}
     }
 
-    pub fn get_mode() -> Direction {
+    pub fn get_mode(&self) -> Direction {
         Direction::Out
+    }
+
+    pub fn write(&self, state : State) -> bool {
+        match self.get_mode() {
+            Direction::In => false,
+            Direction::Out => true
+        }
+    }
+
+    pub fn read(&self) -> Option<State> {
+        None
     }
 }
