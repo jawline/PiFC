@@ -6,7 +6,7 @@ pub struct PolledButton {
 }
 
 impl PolledButton {
-  pub fn new(pin : Pin) -> PolledButton {
+  pub fn new(pin : mut Pin) -> PolledButton {
     pin.set_mode(Direction::In);
     PolledButton{pin : pin}
   }
