@@ -20,7 +20,18 @@ impl Pin {
     }
 
     pub fn set_mode(&mut self, direction : Direction) -> bool {
-        false
+        
+        let dir = match direction {
+            Direction::In => "in",
+            Direction::Out => "out"
+        };
+        
+        let direction_file = File::create(self.get_pin_folder() + "direction");
+        
+        match direction_file.write_all(&dir) {
+            Ok => true,
+            Err => false
+        }
     }
 
     pub fn get_mode(&self) -> Direction {
