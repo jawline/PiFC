@@ -75,7 +75,7 @@ impl Pin {
         };
 
         match value_file.write_all(&state_str) {
-            Ok => true
+            Ok => true,
             Err => false
         }
     }
