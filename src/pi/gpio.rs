@@ -1,6 +1,8 @@
 #![allow(dead_code)]
 
 use std::fs::File;
+use std::io::{Write, Read};
+use std::io::error;
 
 pub enum Direction {In, Out}
 pub enum State {High, Low}
@@ -16,12 +18,15 @@ impl Pin {
         Pin{port:port}
     }
     
-    fn export_pin(port : usize) -> Result<(), ()> {
+    fn export_pin(port : usize) -> Result<(), error::Error> {
         let fmt_port = format!("{}", port);
-        File::create("/sys/class/gpio/export").write_all(&fmt_port)
+        match File::create("/sys/class/gpio/export") {
+            Ok(file) => file.write_all(b"500"),
+            Err(x) => Err(x)
+        }
     }
     
-    fn get_pin_folder(&self) -> str {
+    fn get_pin_folder(&self) -> String {
         format!("/sys/class/gpio/gpio{}/", self.port)
     }
 
@@ -32,11 +37,17 @@ impl Pin {
             Direction::Out => "out"
         };
         
-        let direction_file = File::create(self.get_pin_folder() + "direction");
+        let direction_file_res = File::create(self.get_pin_folder() + "direction");
         
-        match direction_file.write_all(&dir) {
-            Ok => true,
-            Err => false
+        if let Err(x) = direction_file_res {
+            return false;
+        }
+
+        let direction_file = direction_file_res.unwrap();
+
+        match direction_file.write_all(dir) {
+            Ok(x) => true,
+            Err(x) => false
         }
     }
 
