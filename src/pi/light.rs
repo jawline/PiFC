@@ -5,10 +5,9 @@ pub struct Light {
 }
 
 impl Light {
-
   pub fn new(pin : Pin) -> Light {
     pin.set_mode(Direction::Out);
-    Light{pin : pin};
+    Light{pin : pin}
   }
 
   pub fn enable(&self) {
