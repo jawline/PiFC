@@ -14,6 +14,10 @@ impl Pin {
     pub fn new(port : usize) -> Pin {
         Pin{port:port}
     }
+    
+    fn get_pin_folder(&self) -> str {
+        format!("/sys/class/gpio/gpio{}/", self.port)
+    }
 
     pub fn set_mode(&mut self, direction : Direction) -> bool {
         false
