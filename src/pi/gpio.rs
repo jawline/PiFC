@@ -12,7 +12,13 @@ pub struct Pin {
 impl Pin {
     
     pub fn new(port : usize) -> Pin {
+        export_pin(port);
         Pin{port:port}
+    }
+    
+    fn export_pin(port : usize) -> Result<()> {
+        let fmt_port = format!("{}", port);
+        File::create("/sys/class/gpio/export").write_all(&fmt_port)
     }
     
     fn get_pin_folder(&self) -> str {
