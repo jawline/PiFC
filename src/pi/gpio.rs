@@ -72,7 +72,7 @@ impl Pin {
         let state_str = match state {
             State::High => "1",
             State::Low => "0"
-        }
+        };
 
         match value_file.write_all(&state_str) {
             Ok => true
