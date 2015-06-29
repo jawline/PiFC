@@ -34,8 +34,17 @@ impl Pin {
         }
     }
 
-    pub fn get_mode(&self) -> Direction {
-        Direction::Out
+    pub fn get_mode(&self) -> Option<Direction> {
+        let mut direction_str = String::new();
+        let read_result = File::open(self.get_pin_folder() + "direction").read_to_string(&mut direction_str);
+        match read_result {
+            Ok => match read_result {
+                     "in" => Some(Direction::In),
+                     "out" => Some(Direction::Out),
+                     _ => None
+                  },
+            Err => None
+        }
     }
 
     pub fn write(&self, state : State) -> bool {
