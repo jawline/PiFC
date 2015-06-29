@@ -1,3 +1,6 @@
+mod gpio;
+mod button;
+
 use button::{Button, ButtonState};
 use gpio::{Pin, Direction, State};
 
