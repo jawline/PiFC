@@ -1,6 +1,4 @@
-mod gpio;
-
-use gpio::{Pin, Direction, State};
+use pi::gpio::{Pin, Direction, State};
 
 pub enum ButtonState { Pressed, NotPressed }
 

@@ -1,8 +1,5 @@
-mod gpio;
-mod button;
-
-use button::{Button, ButtonState};
-use gpio::{Pin, Direction, State};
+use pi::button::{Button, ButtonState};
+use pi::gpio::{Pin, Direction, State};
 
 pub struct PolledButton {
   pin : Pin
@@ -17,7 +14,7 @@ impl PolledButton {
 
 impl Button for PolledButton {
   pub fn read_state(&self) -> ButtonState {
-    if let Option(state) = self.pin.read() {
+    if let Some(state) = self.pin.read() {
       match state {
         State::High => ButtonState::Pressed,
         State::Low => ButtonState::NotPressed

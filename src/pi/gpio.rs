@@ -12,11 +12,11 @@ pub struct Pin {
 impl Pin {
     
     pub fn new(port : usize) -> Pin {
-        export_pin(port);
+        Pin::export_pin(port);
         Pin{port:port}
     }
     
-    fn export_pin(port : usize) -> Result<()> {
+    fn export_pin(port : usize) -> Result<(), ()> {
         let fmt_port = format!("{}", port);
         File::create("/sys/class/gpio/export").write_all(&fmt_port)
     }
@@ -58,10 +58,10 @@ impl Pin {
     pub fn write(&self, state : State) -> bool {
         let current_mode_op = self.get_mode();
         
-        match can_write {
+        let can_write = match current_mode_op {
             Some(Direction::Out) => true,
             _ => false
-        }
+        };
         
         if !can_write {
             return false;

@@ -1,6 +1,4 @@
-mod gpio;
-
-use gpio::{Pin, Direction, State};
+use pi::gpio::{Pin, Direction, State};
 
 pub struct Light {
   pin : Pin
@@ -13,10 +11,10 @@ impl Light {
   }
 
   pub fn enable(&self) {
-    pin.write(State::High);
+    self.pin.write(State::High);
   }
   
   pub fn disable(&self) {
-    pin.write(State::Low);
+    self.pin.write(State::Low);
   }
 }
