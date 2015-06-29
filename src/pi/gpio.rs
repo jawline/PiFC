@@ -65,8 +65,11 @@ impl Pin {
             State::High => "1",
             State::Low => "0"
         }
-        
-        value_file.write_all(&state_str);
+
+        match value_file.write_all(&state_str) {
+            Ok => true
+            Err => false
+        }
     }
 
     pub fn read(&self) -> Option<State> {
