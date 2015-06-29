@@ -48,10 +48,25 @@ impl Pin {
     }
 
     pub fn write(&self, state : State) -> bool {
-        match self.get_mode() {
-            Direction::In => false,
-            Direction::Out => true
+        let current_mode_op = self.get_mode();
+        
+        match can_write {
+            Some(Direction::Out) => true,
+            _ => false
         }
+        
+        if !can_write {
+            return false;
+        }
+        
+        let value_file = File::create(self.get_pin_folder() + "value");
+        
+        let state_str = match state {
+            State::High => "1",
+            State::Low => "0"
+        }
+        
+        value_file.write_all(&state_str);
     }
 
     pub fn read(&self) -> Option<State> {
