@@ -61,9 +61,9 @@ impl Pin {
         }
         
         let read_result = file_open_res.unwrap().read_to_string(&mut direction_str);
+        let direction : &str = &direction_str;
         
         match read_result {
-            let direction : &str = &direction_str;
             Ok(res) => match direction {
                      "in" => Some(Direction::In),
                      "out" => Some(Direction::Out),
