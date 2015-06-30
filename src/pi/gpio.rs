@@ -112,9 +112,7 @@ impl Pin {
         }
         
         let mut pin_value_str = String::new();
-        
-        file_open_res.unwrap().read_to_string(&mut pin_value_str);
-        
+        let read_result = file_open_res.unwrap().read_to_string(&mut pin_value_str);
         let pin_value : &str = &pin_value_str;
         
         match read_result {
