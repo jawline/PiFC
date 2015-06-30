@@ -1,3 +1,5 @@
+#![allow(dead_code)]
+
 use pi::button::{Button, ButtonState};
 use pi::gpio::{Pin, Direction, State};
 
