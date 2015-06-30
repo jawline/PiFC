@@ -63,7 +63,7 @@ impl Pin {
         
         let file_open_res = File::open(self.get_pin_folder() + "direction");
         
-        if let Err(err_msg) = file_open_res {
+        if let Err(_) = file_open_res {
             return None;
         }
         
