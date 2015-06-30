@@ -14,7 +14,7 @@ impl Light {
     Light{pin : pin}
   }
   
-  pub fn set_state(state : LightState) {
+  pub fn set_state(&self, state : LightState) {
     match state {
       On => self.pin_write(State::High),
       Off => self.pin_write(State::Low)
