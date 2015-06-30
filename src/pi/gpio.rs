@@ -111,14 +111,14 @@ impl Pin {
             return None;
         }
         
-        let mut direction_str = String::new();
+        let mut pin_value_str = String::new();
         
-        file_open_res.unwrap().read_to_string(&mut direction_str);
+        file_open_res.unwrap().read_to_string(&mut pin_value_str);
         
-        let direction : &str = &direction_str;
+        let pin_value : &str = &direction_str;
         
         match read_result {
-            Ok(_) => match read_result {
+            Ok(_) => match pin_value {
                      "1" => Some(State::High),
                      "0" => Some(State::Low),
                      _ => None
