@@ -21,7 +21,7 @@ impl Pin {
         let fmt_port = &format!("{}", port);
         match File::create("/sys/class/gpio/export") {
             Ok(_) => match file.write_all(fmt_port.as_bytes()) {
-                        Ok(_) => true
+                        Ok(_) => true,
                         Err(_) => false
                      },
             Err(_) => false
