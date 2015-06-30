@@ -2,7 +2,6 @@
 
 use std::fs::File;
 use std::io::{Write, Read};
-use std::io::error::{Error};
 
 pub enum Direction {In, Out}
 pub enum State {High, Low}
@@ -18,11 +17,14 @@ impl Pin {
         Pin{port:port}
     }
     
-    fn export_pin(port : usize) -> Result<(), Error> {
-        let fmt_port = format!("{}", port);
+    fn export_pin(port : usize) -> bool {
+        let fmt_port = &format!("{}", port);
         match File::create("/sys/class/gpio/export") {
-            Ok(file) => file.write_all(b"500"),
-            Err(x) => Err(x)
+            Ok(_) => match file.write_all(fmt_port.as_bytes()) {
+                        Ok(_) => true
+                        Err(_) => false
+                     }},
+            Err(_) => false
         }
     }
     
