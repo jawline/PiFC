@@ -54,7 +54,13 @@ impl Pin {
     pub fn get_mode(&self) -> Option<Direction> {
         let mut direction_str = String::new();
         
-        let read_result = File::open(self.get_pin_folder() + "direction").read_to_string(&mut direction_str);
+        let file_open_res = File::open(self.get_pin_folder() + "direction");
+        
+        if let Err(err_msg) = file_open_res {
+            return None;
+        }
+        
+        let read_result = file_open_res.unwrap().read_to_string(&mut direction_str);
         
         match read_result {
             Ok => match read_result {
