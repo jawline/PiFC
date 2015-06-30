@@ -2,7 +2,7 @@
 
 use std::fs::File;
 use std::io::{Write, Read};
-use std::io::error;
+use std::io::error::{Error};
 
 pub enum Direction {In, Out}
 pub enum State {High, Low}
