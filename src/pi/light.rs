@@ -1,3 +1,5 @@
+#![allow(dead_code)]
+
 use pi::gpio::{Pin, Direction, State};
 
 pub struct Light {
