@@ -23,7 +23,7 @@ impl Pin {
             Ok(_) => match file.write_all(fmt_port.as_bytes()) {
                         Ok(_) => true
                         Err(_) => false
-                     }},
+                     },
             Err(_) => false
         }
     }
