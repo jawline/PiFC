@@ -18,7 +18,7 @@ impl Pin {
         Pin{port:port}
     }
     
-    fn export_pin(port : usize) -> Result<(), error::Error> {
+    fn export_pin(port : usize) -> Result<(), Error> {
         let fmt_port = format!("{}", port);
         match File::create("/sys/class/gpio/export") {
             Ok(file) => file.write_all(b"500"),
