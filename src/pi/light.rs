@@ -2,6 +2,8 @@
 
 use pi::gpio::{Pin, Direction, State};
 
+pub enum LightState { On, Off }
+
 pub struct Light {
   pin : Pin
 }
@@ -11,12 +13,19 @@ impl Light {
     pin.set_mode(Direction::Out);
     Light{pin : pin}
   }
+  
+  pub fn set_state(state : LightState) {
+    match state {
+      On => self.pin_write(State::High),
+      Off => self.pin_write(State::Low)
+    };
+  }
 
   pub fn enable(&self) {
-    self.pin.write(State::High);
+    self.set_state(On);
   }
   
   pub fn disable(&self) {
-    self.pin.write(State::Low);
+    self.set_state(Off);
   }
 }
