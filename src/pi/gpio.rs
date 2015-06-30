@@ -33,8 +33,8 @@ impl Pin {
     pub fn set_mode(&mut self, direction : Direction) -> bool {
         
         let dir = match direction {
-            Direction::In => &b"in",
-            Direction::Out => &b"out"
+            Direction::In => "in",
+            Direction::Out => "out"
         };
         
         let direction_file_res = File::create(self.get_pin_folder() + "direction");
