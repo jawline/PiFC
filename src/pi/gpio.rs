@@ -59,7 +59,6 @@ impl Pin {
     }
 
     pub fn get_mode(&self) -> Option<Direction> {
-        let mut direction_str = String::new();
         
         let file_open_res = File::open(self.get_pin_folder() + "direction");
         
@@ -67,11 +66,11 @@ impl Pin {
             return None;
         }
         
-        let read_result = file_open_res.unwrap().read_to_string(&mut direction_str);
-        let direction : &str = &direction_str;
+        let mut direction = String::new();
+        let read_result = file_open_res.unwrap().read_to_string(&mut direction);
         
         match read_result {
-            Ok(_) => match direction {
+            Ok(_) => match direction.as_str() {
                      "in" => Some(Direction::In),
                      "out" => Some(Direction::Out),
                      _ => None
@@ -121,8 +120,8 @@ impl Pin {
         let mut pin_value = String::new();
         let read_result = file_open_res.unwrap().read_to_string(&mut pin_value);
         
-        match pin_value.as_str() {
-            Ok(_) => match pin_value {
+        match read_result {
+            Ok(_) => match pin_value.as_str() {
                      "1" => Some(State::High),
                      "0" => Some(State::Low),
                      _ => None
