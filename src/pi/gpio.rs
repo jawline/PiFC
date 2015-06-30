@@ -37,7 +37,7 @@ impl Pin {
         format!("/sys/class/gpio/gpio{}/", self.port)
     }
 
-    pub fn set_mode(&mut self, direction : Direction) -> bool {
+    pub fn set_mode(&self, direction : Direction) -> bool {
         
         let direction_file_res = File::create(self.get_pin_folder() + "direction");
         
