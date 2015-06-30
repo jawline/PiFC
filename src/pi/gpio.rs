@@ -33,8 +33,8 @@ impl Pin {
     pub fn set_mode(&mut self, direction : Direction) -> bool {
         
         let dir = match direction {
-            Direction::In => "in",
-            Direction::Out => "out"
+            Direction::In => b"in",
+            Direction::Out => b"out"
         };
         
         let direction_file_res = File::create(self.get_pin_folder() + "direction");
@@ -45,7 +45,7 @@ impl Pin {
 
         let direction_file = direction_file_res.unwrap();
 
-        match direction_file.write_all(&dir) {
+        match direction_file.write_all(dir) {
             Ok(x) => true,
             Err(x) => false
         }
