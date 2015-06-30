@@ -19,11 +19,16 @@ impl Pin {
     
     fn export_pin(port : usize) -> bool {
         let fmt_port = &format!("{}", port);
-        match File::create("/sys/class/gpio/export") {
-            Ok(file) => match file.write_all(fmt_port.as_bytes()) {
-                        Ok(_) => true,
-                        Err(_) => false
-                     },
+        let export_file_res = File::create("/sys/class/gpio/export");
+        
+        if let Err(_) = export_file_res {
+            return false;
+        }
+        
+        let mut export_file = export_file_res.unwrap();
+        
+        match export_file.write_all(fmt_port.as_bytes()) {
+            Ok(_) => true,
             Err(_) => false
         }
     }
