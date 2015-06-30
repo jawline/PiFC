@@ -115,7 +115,7 @@ impl Pin {
         
         file_open_res.unwrap().read_to_string(&mut pin_value_str);
         
-        let pin_value : &str = &direction_str;
+        let pin_value : &str = &pin_value_str;
         
         match read_result {
             Ok(_) => match pin_value {
