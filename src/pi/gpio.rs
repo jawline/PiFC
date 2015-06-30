@@ -68,9 +68,10 @@ impl Pin {
         
         let mut direction = String::new();
         let read_result = file_open_res.unwrap().read_to_string(&mut direction);
+        let direction_str : &str = &direction;
         
         match read_result {
-            Ok(_) => match direction.as_str() {
+            Ok(_) => match direction_str {
                      "in" => Some(Direction::In),
                      "out" => Some(Direction::Out),
                      _ => None
@@ -119,9 +120,10 @@ impl Pin {
         
         let mut pin_value = String::new();
         let read_result = file_open_res.unwrap().read_to_string(&mut pin_value);
+        let pin_value_str : &str = &pin_value;
         
         match read_result {
-            Ok(_) => match pin_value.as_str() {
+            Ok(_) => match pin_value_str {
                      "1" => Some(State::High),
                      "0" => Some(State::Low),
                      _ => None
