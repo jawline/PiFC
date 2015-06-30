@@ -105,8 +105,18 @@ impl Pin {
     }
 
     pub fn read(&self) -> Option<State> {
+        let file_open_res = File::open(self.get_pin_folder() + "value");
+        
+        if let Err(_) = file_open_res {
+            return None;
+        }
+        
         let mut direction_str = String::new();
-        let read_result = File::open(self.get_pin_folder() + "value").read_to_string(&mut direction_str);
+        
+        file_open_res.unwrap().read_to_string(&mut direction_str);
+        
+        let direction : &str = &direction_str;
+        
         match read_result {
             Ok(_) => match read_result {
                      "1" => Some(State::High),
