@@ -6,12 +6,12 @@ use pi::button::{Button, ButtonState};
 use pi::polled_button::PolledButton;
 use std::thread;
 
-const status_light_pin : usize = 5;
-const switch_in_pin : usize = 6;
+const STATUS_LIGHT_PIN : usize = 5;
+const SWITCH_IN_PIN : usize = 6;
 
 fn main() {
-	let status_light = Light::new(Pin::new(status_light_pin));
-	let switch_in = PolledButton::new(Pin::new(switch_in_pin));
+	let status_light = Light::new(Pin::new(STATUS_LIGHT_PIN));
+	let switch_in = PolledButton::new(Pin::new(SWITCH_IN_PIN));
 	
 	loop {
 		status_light.set_state(match switch_in.read_state() {
