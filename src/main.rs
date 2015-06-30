@@ -15,8 +15,8 @@ fn main() {
 	
 	loop {
 		status_light.set_state(match switch_in.read_state() {
-			Pressed => LightState::On,
-			NotPressed => LightState::Off
+			ButtonState::Pressed => LightState::On,
+			ButtonState::NotPressed => LightState::Off
 		});
 		thread::sleep_ms(50);
 	}
