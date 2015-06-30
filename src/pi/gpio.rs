@@ -32,18 +32,18 @@ impl Pin {
 
     pub fn set_mode(&mut self, direction : Direction) -> bool {
         
-        let dir = match direction {
-            Direction::In => "in",
-            Direction::Out => "out"
-        };
-        
         let direction_file_res = File::create(self.get_pin_folder() + "direction");
         
         if let Err(_) = direction_file_res {
             return false;
         }
 
-        let direction_file = direction_file_res.unwrap();
+        let direction_file = direction_file_res.unwrap();        
+        
+        let dir = match direction {
+            Direction::In => "in",
+            Direction::Out => "out"
+        };
 
         match direction_file.write_all(dir.as_bytes()) {
             Ok(_) => true,
@@ -85,7 +85,13 @@ impl Pin {
             return false;
         }
         
-        let value_file = File::create(self.get_pin_folder() + "value");
+        let value_file_create_res = File::create(self.get_pin_folder() + "value");
+        
+        if let Err(_) = value_file_create_res {
+            return false;
+        }
+        
+        let value_file = value_file_create_res.unwrap();
         
         let state_str = match state {
             State::High => "1",
