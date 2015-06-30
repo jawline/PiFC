@@ -16,16 +16,16 @@ impl Light {
   
   pub fn set_state(&self, state : LightState) {
     match state {
-      LightState::On => self.pin_write(State::High),
-      LightState::Off => self.pin_write(State::Low)
+      On => self.pin_write(State::High),
+      Off => self.pin_write(State::Low)
     };
   }
 
   pub fn enable(&self) {
-    self.set_state(On);
+    self.set_state(LightState::On);
   }
   
   pub fn disable(&self) {
-    self.set_state(Off);
+    self.set_state(LightState::Off);
   }
 }
