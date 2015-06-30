@@ -3,6 +3,7 @@ mod pi;
 use pi::gpio::Pin;
 use pi::light::{Light, LightState};
 use pi::polled_button::PolledButton;
+use std::thread;
 
 const status_light_pin : usize = 5;
 const switch_in_pin : usize = 6;
@@ -16,5 +17,6 @@ fn main() {
 			Pressed => LightState::On,
 			NotPressed => LightState::Off
 		});
+		thread::sleep_ms(50);
 	}
 }
