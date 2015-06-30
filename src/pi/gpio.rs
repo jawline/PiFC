@@ -39,15 +39,15 @@ impl Pin {
         
         let direction_file_res = File::create(self.get_pin_folder() + "direction");
         
-        if let Err(x) = direction_file_res {
+        if let Err(_) = direction_file_res {
             return false;
         }
 
         let direction_file = direction_file_res.unwrap();
 
         match direction_file.write_all(dir) {
-            Ok(x) => true,
-            Err(x) => false
+            Ok(_) => true,
+            Err(_) => false
         }
     }
 
@@ -64,12 +64,12 @@ impl Pin {
         let direction : &str = &direction_str;
         
         match read_result {
-            Ok(res) => match direction {
+            Ok(_) => match direction {
                      "in" => Some(Direction::In),
                      "out" => Some(Direction::Out),
                      _ => None
                   },
-            Err(msg) => None
+            Err(_) => None
         }
     }
 
@@ -93,8 +93,8 @@ impl Pin {
         };
 
         match value_file.write_all(&state_str) {
-            Ok => true,
-            Err => false
+            Ok(_) => true,
+            Err(_) => false
         }
     }
 
@@ -102,12 +102,12 @@ impl Pin {
         let mut direction_str = String::new();
         let read_result = File::open(self.get_pin_folder() + "value").read_to_string(&mut direction_str);
         match read_result {
-            Ok => match read_result {
+            Ok(_) => match read_result {
                      "1" => Some(State::High),
                      "0" => Some(State::Low),
                      _ => None
                   },
-            Err => None
+            Err(_) => None
         }
     }
 }
