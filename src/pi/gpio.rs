@@ -45,7 +45,7 @@ impl Pin {
 
         let direction_file = direction_file_res.unwrap();
 
-        match direction_file.write_all(dir) {
+        match direction_file.write_all(dir.as_bytes()) {
             Ok(_) => true,
             Err(_) => false
         }
