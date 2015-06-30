@@ -13,8 +13,8 @@ fn main() {
 	
 	loop {
 		status_light.set_state(match switch_in.read_state() {
-			Pressed => On,
-			NotPressed => Off
+			Pressed => LightState::On,
+			NotPressed => LightState::Off
 		});
 	}
 }
