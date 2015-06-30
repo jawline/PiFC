@@ -26,7 +26,7 @@ impl Pin {
         }
     }
     
-    fn get_pin_folder(&self) -> &str {
+    fn get_pin_folder(&self) -> String {
         format!("/sys/class/gpio/gpio{}/", self.port)
     }
 
