@@ -2,7 +2,7 @@ mod pi;
 
 use pi::gpio::Pin;
 use pi::light::{Light, LightState};
-use pi::button::Button;
+use pi::button::{Button, ButtonState};
 use pi::polled_button::PolledButton;
 use std::thread;
 
