@@ -40,7 +40,7 @@ impl Pin {
             return false;
         }
 
-        let direction_file = direction_file_res.unwrap();        
+        let mut direction_file = direction_file_res.unwrap();        
         
         let dir = match direction {
             Direction::In => "in",
@@ -93,7 +93,7 @@ impl Pin {
             return false;
         }
         
-        let value_file = value_file_create_res.unwrap();
+        let mut value_file = value_file_create_res.unwrap();
         
         let state_str = match state {
             State::High => "1",
