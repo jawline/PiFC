@@ -32,7 +32,7 @@ impl Pin {
 
     pub fn set_mode(&mut self, direction : Direction) -> bool {
         
-        let dir = match direction {
+        let dir : [u8] = match direction {
             Direction::In => b"in",
             Direction::Out => b"out"
         };
