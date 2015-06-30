@@ -92,7 +92,7 @@ impl Pin {
             State::Low => "0"
         };
 
-        match value_file.write_all(&state_str) {
+        match value_file.write_all(state_str.as_bytes()) {
             Ok(_) => true,
             Err(_) => false
         }
