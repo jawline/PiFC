@@ -11,7 +11,6 @@ pub struct Pin {
 }
 
 impl Pin {
-    
     pub fn new(port : usize) -> Pin {
         Pin::export_pin(port);
         Pin{port:port}
