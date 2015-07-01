@@ -9,7 +9,7 @@ pub struct AdafruitOled {
 }
 
 impl AdafruitOled {
-  fn new(scl : Pin, sda : Pin) -> AdafruitOled {
+  pub fn new(scl : Pin, sda : Pin) -> AdafruitOled {
     AdafruitOled{scl : scl, sda : sda }
   }
 }
