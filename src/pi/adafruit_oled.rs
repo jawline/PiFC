@@ -1,3 +1,4 @@
+use pi::gpio::{Pin, State, Direction};
 use pi::screen::{Screen, PixelScreen};
 
 pub struct AdafruitOled {
