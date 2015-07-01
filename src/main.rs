@@ -8,6 +8,8 @@ use std::thread;
 
 const STATUS_LIGHT_PIN : usize = 5;
 const SWITCH_IN_PIN : usize = 6;
+const ADAFR_SCL_PIN : usize = 10;
+const ADAFR_SDA_PIN : usize = 11;
 
 fn main() {
 	let status_light = Light::new(Pin::new(STATUS_LIGHT_PIN));
