@@ -3,5 +3,9 @@ trait Screen {
 }
 
 trait PixelScreen {
-  fn 
+  fn set(x : usize, y : usize, rgb : (u8, u8, u8));
+}
+
+trait TextScreen {
+  fn set(x : usize, y : usize, text : char);
 }
