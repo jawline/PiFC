@@ -8,6 +8,12 @@ pub struct AdafruitOled {
   sda : Pin
 }
 
+impl AdafruitOled {
+  fn new(scl : Pin, sda : Pin) -> AdafruitOled {
+    AdafruitOled{scl : scl, sda : sda }
+  }
+}
+
 impl Screen for AdafruitOled {
   fn resolution() -> (usize, usize) {
     (128, 64)
