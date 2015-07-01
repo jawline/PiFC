@@ -1,4 +1,4 @@
-use pi::screen::{Screen, PixelScreen}
+use pi::screen::{Screen, PixelScreen};
 
 pub struct AdafruitOled {
   scl : Pin,
