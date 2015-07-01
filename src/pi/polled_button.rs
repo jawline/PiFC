@@ -22,8 +22,7 @@ impl Button for PolledButton {
         State::High => ButtonState::Pressed,
         State::Low => ButtonState::NotPressed
       }
-    }
-    else {
+    } else {
       ButtonState::NotPressed
     }
   }
