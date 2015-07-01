@@ -13,7 +13,7 @@ const SWITCH_IN_PIN : usize = 6;
 const ADAFR_SCL_PIN : usize = 10;
 const ADAFR_SDA_PIN : usize = 11;
 
-fn red_screen(screen : AdafruitOled) {
+fn red_screen(screen : &AdafruitOled) {
 	let (width, height) = screen.resolution();
 	for x in 0..width {
 		for y in 0..height {
@@ -32,7 +32,7 @@ fn main() {
 			ButtonState::Pressed => LightState::On,
 			ButtonState::NotPressed => LightState::Off
 		});
-		red_screen(screen);
+		red_screen(&screen);
 		thread::sleep_ms(50);
 	}
 }
