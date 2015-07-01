@@ -1,3 +1,5 @@
+#![allow(dead_code)]
+
 use pi::gpio::{Pin, State, Direction};
 use pi::screen::{Screen, PixelScreen};
 
