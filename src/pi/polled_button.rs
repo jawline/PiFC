@@ -15,14 +15,17 @@ impl PolledButton {
 }
 
 impl Button for PolledButton {
+
   fn read_state(&self) -> ButtonState {
     if let Some(state) = self.pin.read() {
       match state {
         State::High => ButtonState::Pressed,
         State::Low => ButtonState::NotPressed
       }
-    } else {
+    }
+    else {
       ButtonState::NotPressed
     }
   }
+
 }
