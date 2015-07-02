@@ -10,7 +10,7 @@ pub struct FCConfig {
 
 impl FCConfig {
   fn read_config_file(base_file : &str) -> String {
-    let mut result : String;
+    let mut result = String::new();
     File::open(base_file).unwrap().read_to_string(&mut result);
     return result;
   }
