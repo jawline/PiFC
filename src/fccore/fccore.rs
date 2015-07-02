@@ -9,7 +9,7 @@ use std::sync::{Arc, Mutex};
 pub struct FCCore {
   armed : bool,
   status_led : Light,
-  arm_switch : Button,
+  arm_switch : PolledButton,
   config : FCConfig
 }
 
