@@ -66,7 +66,7 @@ impl FCCore {
       return;
     }
   
-    let handle = self.join_handle.take();
+    let handle = self.join_handle.take().unwrap();
     handle.join();
   }
 }
