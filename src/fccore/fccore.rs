@@ -1,11 +1,24 @@
 use fccore::FCConfig;
+use std::thread::{spawn, JoinHandle};
 
 pub struct FCCore {
+  armed : bool,
   config : FCConfig
 }
 
 impl FCCore {
-  pub fn new(config_file : &str) -> FCCore {
-    return FCCore{FCConfig::new(config_file)};
+  pub fn new(config_file : &str) -> &mut FCCore {
+    
+    let mut core = FCCore{
+      armed: false,
+      FCConfig::new(config_file)
+    };
+    
+    fccore_thread_loop(&mut core); 
+    
+    return &mut core;
+  }
+  
+  fn fccore_thread_loop(core : &mut FCCore) {
   }
 }
