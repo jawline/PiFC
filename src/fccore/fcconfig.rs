@@ -14,7 +14,7 @@ impl FCConfig {
     let mut result = String::new();
     
     if let Err(_) = File::open(base_file).unwrap().read_to_string(&mut result) {
-      panic!(concat!("Could not read from FCConfig file ", base_file));
+      panic!("Could not read from FCConfig file {}", base_file);
     }
     
     return result;
