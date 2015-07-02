@@ -1,4 +1,4 @@
-use fccore::FCConfig;
+use fccore::fcconfig::FCConfig;
 use std::thread::{spawn, JoinHandle};
 
 pub struct FCCore {
