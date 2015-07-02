@@ -1,5 +1,6 @@
 pub struct FCConfig {
-  
+  status_pin : usize,
+  arm_switch_pin : usize
 }
 
 impl FCConfig {
