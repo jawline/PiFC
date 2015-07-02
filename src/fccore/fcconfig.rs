@@ -15,7 +15,7 @@ impl FCConfig {
     File::open(base_file).unwrap().read_to_string(&mut result);
     return result;
   }
-  pub fn new(base_file : &str) -> FCConfig {
+  pub fn load(base_file : &str) -> FCConfig {
     let text = FCConfig::read_config_file(base_file);
     return json::decode(&text).unwrap();
   }
