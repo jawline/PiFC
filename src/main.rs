@@ -34,11 +34,9 @@ fn main() {
 	let screen = AdafruitOled::new(Pin::new(ADAFR_SCL_PIN), Pin::new(ADAFR_SDA_PIN));
 	
 	loop {
-		status_light.set_state(match switch_in.read_state() {
-			ButtonState::Pressed => LightState::On,
-			ButtonState::NotPressed => LightState::Off
-		});
-		red_screen(&screen);
+		if core.lock().unwrap().armed {
+			red_screen(&screen);
+		}
 		thread::sleep_ms(50);
 	}
 }
