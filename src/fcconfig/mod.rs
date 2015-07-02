@@ -1,3 +1,3 @@
-extern crate rustc-serialize;
+extern crate rustc_serialize;
 
 pub mod fcconfig;
