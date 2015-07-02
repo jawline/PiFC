@@ -16,6 +16,7 @@ const STATUS_LIGHT_PIN : usize = 5;
 const SWITCH_IN_PIN : usize = 6;
 const ADAFR_SCL_PIN : usize = 10;
 const ADAFR_SDA_PIN : usize = 11;
+const BASE_CFG_FILE : &str = "./base.cfg";
 
 fn red_screen(screen : &AdafruitOled) {
 	let (width, height) = screen.resolution();
@@ -27,6 +28,7 @@ fn red_screen(screen : &AdafruitOled) {
 }
 
 fn main() {
+	let config = FCConfig::new(BASE_CFG_FILE);
 	let status_light = Light::new(Pin::new(STATUS_LIGHT_PIN));
 	let switch_in = PolledButton::new(Pin::new(SWITCH_IN_PIN));
 	let screen = AdafruitOled::new(Pin::new(ADAFR_SCL_PIN), Pin::new(ADAFR_SDA_PIN));
