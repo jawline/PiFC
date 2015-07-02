@@ -31,9 +31,9 @@ impl FCCore {
     
     let thread_core = core.clone();
     
-    core.lock().unwrap().join_handle = spawn(move || {
+    core.lock().unwrap().join_handle = Some(spawn(move || {
       FCCore::fccore_thread_loop(thread_core);
-    });
+    }));
 
     return core;
   }
