@@ -25,5 +25,6 @@ impl FCCore {
   }
   
   fn fccore_thread_loop(core : Arc<FCCore>) {
+    core.armed = false;
   }
 }
