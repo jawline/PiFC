@@ -18,6 +18,6 @@ impl FCConfig {
   pub fn new(base_file : &str) -> FCConfig {
     //let text = FCConfig::read_config_file(base_file);
     //return json::decode(&text).unwrap();
-    FCConfig{fc_serve_port:0, status_pin:0, arm_switch_pin:0};
+    FCConfig{fc_serve_port:0, status_pin:0, arm_switch_pin:0}
   }
 }
