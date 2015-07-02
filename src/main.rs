@@ -1,7 +1,7 @@
 extern crate rustc_serialize;
 
 mod pi;
-mod fcconfig;
+mod fccore;
 
 use pi::gpio::Pin;
 use pi::light::{Light, LightState};
@@ -10,7 +10,7 @@ use pi::polled_button::PolledButton;
 use pi::screen::{Screen, PixelScreen};
 use pi::adafruit_oled::AdafruitOled;
 use std::thread;
-use fcconfig::fcconfig::FCConfig;
+use fccore::fccore::FCCore;
 
 const STATUS_LIGHT_PIN : usize = 5;
 const SWITCH_IN_PIN : usize = 6;
@@ -28,7 +28,7 @@ fn red_screen(screen : &AdafruitOled) {
 }
 
 fn main() {
-	let config = FCConfig::new(BASE_CFG_FILE);
+	let core = FCCore::new(BASE_CFG_FILE);
 	let status_light = Light::new(Pin::new(STATUS_LIGHT_PIN));
 	let switch_in = PolledButton::new(Pin::new(SWITCH_IN_PIN));
 	let screen = AdafruitOled::new(Pin::new(ADAFR_SCL_PIN), Pin::new(ADAFR_SDA_PIN));
