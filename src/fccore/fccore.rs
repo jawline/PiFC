@@ -25,7 +25,9 @@ impl FCCore {
   }
   
   fn fccore_thread_loop(core : Arc<Mutex<FCCore>>) {
-    core.lock().unwrap().armed = false;
-    println!("Did Something");
+    loop {
+      core.lock().unwrap().armed = false;
+      println!("Did Something");
+    }
   }
 }
