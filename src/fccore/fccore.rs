@@ -36,8 +36,12 @@ impl FCCore {
   
   fn fccore_thread_loop(core : Arc<Mutex<FCCore>>) {
     loop {
-      core.lock().unwrap().armed = false;
       sleep_ms(50);
+      let mut_ref = core.lock().unwrap();
+      mut_ref.armed = match mut_ref.arm_switch.read_state() {
+        ButtonState::ButtonPressed => true,
+        ButtonState::NotPressed => false
+      };
     }
   }
 }
