@@ -12,7 +12,7 @@ pub struct FCCore {
   status_led : Light,
   arm_switch : PolledButton,
   config : FCConfig,
-  join_handle : Option<bool>
+  join_handle : Option<JoinHandle<()>>
 }
 
 impl FCCore {
