@@ -3,7 +3,7 @@ use std::thread::{spawn, JoinHandle};
 
 pub struct FCCore<'a> {
   armed : bool,
-  config : FCConfig<FnMut() + 'a>
+  config : FCConfig
 }
 
 impl<'a> FCCore<'a> {
