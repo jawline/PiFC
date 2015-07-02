@@ -4,6 +4,7 @@ use std::io::{Write, Read};
 
 #[derive(RustcEncodable, RustcDecodable)]
 pub struct FCConfig {
+  fc_serve_port : usize,
   status_pin : usize,
   arm_switch_pin : usize
 }
