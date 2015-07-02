@@ -3,7 +3,7 @@ use fcconfig::rustc_serialize::{Encodable, Decodable};
 use std::fs::File;
 use std::io::{Write, Read};
 
-#[derive(Decodable, Encodable)]
+#[derive(RustcEncodable, RustcEncodable)]
 pub struct FCConfig {
   status_pin : usize,
   arm_switch_pin : usize
