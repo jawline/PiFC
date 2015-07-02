@@ -18,13 +18,12 @@ impl FCCore {
     return core;
   }
   
-  fn start_thread<'a>(&'a mut self) {
+  fn start_thread(&mut self) {
     spawn(|| {
       self.fccore_thread_loop();
-    });    
+    });
   }
   
   fn fccore_thread_loop(&mut self) {
-    self.armed = false;
   }
 }
