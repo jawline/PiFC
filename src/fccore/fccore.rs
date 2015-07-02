@@ -62,10 +62,8 @@ impl FCCore {
   pub fn kill(&mut self) {
     self.alive = false;
     match self.join_handle {
-      None => return,
-      _ => {}
+      Some(handle) => handle.join(),
+      None => {}
     };
-    let handle = self.join_handle.unwrap();
-    handle.join();
   }
 }
