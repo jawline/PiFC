@@ -11,7 +11,7 @@ impl FCCore {
     
     let mut core = FCCore{
       armed: false,
-      FCConfig::new(config_file)
+      config: FCConfig::new(config_file)
     };
     
     fccore_thread_loop(&mut core); 
