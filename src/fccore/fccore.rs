@@ -53,7 +53,7 @@ impl FCCore {
   }
   
   fn fccore_thread_loop(core_ref : Arc<Mutex<FCCore>>) {
-    while alive {
+    while self.alive {
       sleep_ms(50);
       core_ref.lock().unwrap().update_sensors();
     }
