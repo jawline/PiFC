@@ -1,4 +1,5 @@
 mod pi;
+mod fcconfig;
 
 use pi::gpio::Pin;
 use pi::light::{Light, LightState};
@@ -7,6 +8,7 @@ use pi::polled_button::PolledButton;
 use pi::screen::{Screen, PixelScreen};
 use pi::adafruit_oled::AdafruitOled;
 use std::thread;
+use fcconfig::fcconfig::FCConfig;
 
 const STATUS_LIGHT_PIN : usize = 5;
 const SWITCH_IN_PIN : usize = 6;
