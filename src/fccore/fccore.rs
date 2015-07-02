@@ -23,6 +23,6 @@ impl FCCore {
   }
   
   fn fccore_thread_loop(core : Mutex<FCCore>) {
-    core.armed = false;
+    core.lock().unwrap().armed = false;
   }
 }
