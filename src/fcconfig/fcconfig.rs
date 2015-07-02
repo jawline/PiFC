@@ -1,5 +1,5 @@
 use fcconfig::rustc_serialize::json;
-use fcconfig::rustc_serialize::{RustcEncodable, RustcDecodable};
+use fcconfig::rustc_serialize;
 use std::fs::File;
 use std::io::{Write, Read};
 
