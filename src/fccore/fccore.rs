@@ -1,6 +1,6 @@
 use fccore::fcconfig::FCConfig;
 use std::thread::{spawn, JoinHandle};
-use std::sync::{Mutex};
+use std::sync::{Arc, Mutex};
 
 pub struct FCCore {
   armed : bool,
@@ -8,21 +8,23 @@ pub struct FCCore {
 }
 
 impl FCCore {
-  pub fn new(config_file : &str) -> Mutex<FCCore> {
+  pub fn new(config_file : &str) -> Arc<Mutex<FCCore>> {
   
-    let core = Mutex::new(FCCore{
+    let core = Arc::new(Mutex::new(FCCore{
       armed: false,
       config: FCConfig::new(config_file)
-    });
+    }));
+    
+    let thread_core = core.clone();
     
     spawn(move || {
-      FCCore::fccore_thread_loop(core);
+      FCCore::fccore_thread_loop(thread_core);
     });
 
     return core;
   }
   
-  fn fccore_thread_loop(core : Mutex<FCCore>) {
+  fn fccore_thread_loop(core : Arc<Mutex<FCCore>>) {
     core.lock().unwrap().armed = false;
   }
 }
