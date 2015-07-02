@@ -4,7 +4,6 @@ mod pi;
 mod fccore;
 
 use pi::gpio::Pin;
-use pi::polled_button::PolledButton;
 use pi::screen::{Screen, PixelScreen};
 use pi::adafruit_oled::AdafruitOled;
 use std::thread;
