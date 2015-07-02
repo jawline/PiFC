@@ -16,7 +16,7 @@ impl FCCore {
     });
     
     spawn(move || {
-      fccore_thread_loop(core);
+      FCCore::fccore_thread_loop(core);
     });
 
     return core;
