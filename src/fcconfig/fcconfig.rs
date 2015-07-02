@@ -1,4 +1,4 @@
-use rustc_serialize::json;
+use fcconfig::rustc_serialize::json;
 use std::fs::File;
 use std::io::{Write, Read};
 
