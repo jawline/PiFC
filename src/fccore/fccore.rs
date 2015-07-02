@@ -38,10 +38,18 @@ impl FCCore {
     loop {
       sleep_ms(50);
       let mut core_ref = core.lock().unwrap();
+      
+      //Switch ARM to true if arm switch is pressed
       core_ref.armed = match core_ref.arm_switch.read_state() {
         ButtonState::Pressed => true,
         ButtonState::NotPressed => false
       };
+      
+      //Update armed state LED
+      core_ref.status_led.set_state(match core_ref.armed {
+        true => LightState::On,
+        false => LightState::Off
+      });
     }
   }
 }
