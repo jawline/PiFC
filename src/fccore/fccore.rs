@@ -6,8 +6,8 @@ pub struct FCCore {
   config : FCConfig
 }
 
-impl<'a> FCCore<'a> {
-  pub fn new(config_file : &str) -> FCCore<'a> {
+impl FCCore {
+  pub fn new(config_file : &str) -> FCCore {
   
     let mut core = FCCore{
       armed: false,
@@ -18,7 +18,7 @@ impl<'a> FCCore<'a> {
     return core;
   }
   
-  fn start_thread<T: FnMut() + 'a>(&mut self) {
+  fn start_thread<'a>(&'a mut self) {
     spawn(|| {
       self.fccore_thread_loop();
     });    
