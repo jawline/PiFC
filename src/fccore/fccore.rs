@@ -34,22 +34,24 @@ impl FCCore {
     return core;
   }
   
-  fn fccore_thread_loop(core : Arc<Mutex<FCCore>>) {
+  fn update_sensors(&mut self) {
+    //Switch ARM to true if arm switch is pressed
+    self.armed = match self.arm_switch.read_state() {
+      ButtonState::Pressed => true,
+      ButtonState::NotPressed => false
+    };
+    
+    //Update armed state LED
+    self.status_led.set_state(match self.armed {
+      true => LightState::On,
+      false => LightState::Off
+    });
+  }
+  
+  fn fccore_thread_loop(core_ref : Arc<Mutex<FCCore>>) {
     loop {
       sleep_ms(50);
-      let mut core_ref = core.lock().unwrap();
-      
-      //Switch ARM to true if arm switch is pressed
-      core_ref.armed = match core_ref.arm_switch.read_state() {
-        ButtonState::Pressed => true,
-        ButtonState::NotPressed => false
-      };
-      
-      //Update armed state LED
-      core_ref.status_led.set_state(match core_ref.armed {
-        true => LightState::On,
-        false => LightState::Off
-      });
+      core_ref.lock().unwrap().update_sensors();
     }
   }
 }
