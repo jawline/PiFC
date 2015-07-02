@@ -15,8 +15,10 @@ impl FCCore {
       config: FCConfig::new(config_file)
     });
     
+    let thread_core = core.clone();
+    
     spawn(move || {
-      FCCore::fccore_thread_loop(core);
+      FCCore::fccore_thread_loop(thread_core);
     });
 
     return core;
