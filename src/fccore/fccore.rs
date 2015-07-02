@@ -1,5 +1,5 @@
 use fccore::fcconfig::FCConfig;
-use std::thread::{spawn, JoinHandle};
+use std::thread::{spawn, JoinHandle, sleep_ms};
 use std::sync::{Arc, Mutex};
 
 pub struct FCCore {
@@ -28,6 +28,7 @@ impl FCCore {
     loop {
       core.lock().unwrap().armed = false;
       println!("Did Something");
+      sleep_ms(50);
     }
   }
 }
