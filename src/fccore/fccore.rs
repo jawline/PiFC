@@ -1,7 +1,7 @@
 use fccore::fcconfig::FCConfig;
 use std::thread::{spawn, JoinHandle};
 
-pub struct FCCore<'a> {
+pub struct FCCore {
   armed : bool,
   config : FCConfig
 }
