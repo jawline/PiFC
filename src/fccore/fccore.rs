@@ -14,9 +14,11 @@ impl FCCore {
       config: FCConfig::new(config_file)
     };
     
-    FCCore::fccore_thread_loop(&mut core); 
+    spawn(|| {
+      FCCore::fccore_thread_loop(&mut core); 
+    });
     
-    return &mut core;
+    return core;
   }
   
   fn fccore_thread_loop(core : &mut FCCore) {
