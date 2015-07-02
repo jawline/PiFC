@@ -12,7 +12,11 @@ pub struct FCConfig {
 impl FCConfig {
   fn read_config_file(base_file : &str) -> String {
     let mut result = String::new();
-    assert!(File::open(base_file).unwrap().read_to_string(&mut result) == Ok);
+    
+    if let Err(_) = File::open(base_file).unwrap().read_to_string(&mut result) {
+      panic!("Could not read from FCConfig file " + base_file);
+    }
+    
     return result;
   }
   pub fn load(base_file : &str) -> FCConfig {
