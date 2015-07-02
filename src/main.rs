@@ -16,7 +16,7 @@ const STATUS_LIGHT_PIN : usize = 5;
 const SWITCH_IN_PIN : usize = 6;
 const ADAFR_SCL_PIN : usize = 10;
 const ADAFR_SDA_PIN : usize = 11;
-const BASE_CFG_FILE : &str = "./base.cfg";
+const BASE_CFG_FILE : str = "./base.cfg";
 
 fn red_screen(screen : &AdafruitOled) {
 	let (width, height) = screen.resolution();
