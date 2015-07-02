@@ -67,7 +67,7 @@ impl FCCore {
     }
 
     if self.join_handle.take().unwrap().join().is_err() {
-      kill("Error when shutting down FCCore thread");
+      panic!("Error when shutting down FCCore thread");
     }
   }
 }
