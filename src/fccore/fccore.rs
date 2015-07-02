@@ -14,7 +14,7 @@ impl FCCore {
       config: FCConfig::new(config_file)
     };
     
-    spawn(|| {
+    spawn(move || {
       FCCore::fccore_thread_loop(&mut core); 
     });
     
