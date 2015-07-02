@@ -14,7 +14,7 @@ impl FCCore {
       config: FCConfig::new(config_file)
     };
     
-    fccore_thread_loop(&mut core); 
+    FCCore::fccore_thread_loop(&mut core); 
     
     return &mut core;
   }
