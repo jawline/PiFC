@@ -1,9 +1,8 @@
 use fcconfig::rustc_serialize::json;
-use fcconfig::rustc_serialize;
 use std::fs::File;
 use std::io::{Write, Read};
 
-#[derive(RustcEncodable, RustcDecodable)]
+#[derive(fcconfig::rustc_serialize::RustcEncodable, fcconfig::rustc_serialize::RustcDecodable)]
 pub struct FCConfig {
   status_pin : usize,
   arm_switch_pin : usize
