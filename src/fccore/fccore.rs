@@ -16,7 +16,7 @@ pub struct FCCore {
 impl FCCore {
   pub fn new(config_file : &str) -> Arc<Mutex<FCCore>> {
 
-    let config = FCConfig::new(config_file);
+    let config = FCConfig::load(config_file);
   
     let core = Arc::new(Mutex::new(FCCore{
       armed: false,
