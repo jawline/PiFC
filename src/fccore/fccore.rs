@@ -13,12 +13,15 @@ impl FCCore {
       armed: false,
       config: FCConfig::new(config_file)
     };
-    
-    spawn(move || {
-      FCCore::fccore_thread_loop(&mut core); 
-    });
-    
+
+    core.start_thread();
     return core;
+  }
+  
+  fn start_thread(&mut self) {
+    spawn(move || {
+      FCCore::fccore_thread_loop(self); 
+    });    
   }
   
   fn fccore_thread_loop(core : &mut FCCore) {
