@@ -61,7 +61,7 @@ impl FCCore {
   
   pub fn kill(&mut self) {
     self.alive = false;
-    if let Some(handle) = self.join_handle {
+    if let Some(ref handle) = self.join_handle {
       handle.join();
     }
   }
