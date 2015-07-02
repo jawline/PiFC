@@ -4,7 +4,8 @@ use std::io::{Read};
 
 #[derive(RustcEncodable, RustcDecodable)]
 pub struct FCConfig {
-  pub fc_serve_port : usize,
+  pub fc_webserve_enabled : bool,
+  pub fc_webserve_port : usize,
   pub status_pin : usize,
   pub arm_switch_pin : usize
 }

@@ -3,42 +3,29 @@ use pi::gpio::Pin;
 use pi::light::{Light, LightState};
 use pi::button::{Button, ButtonState};
 use pi::polled_button::PolledButton;
-use std::thread::{spawn, JoinHandle, sleep_ms};
-use std::sync::{Arc, Mutex};
 
 pub struct FCCore {
   pub armed : bool,
   alive : bool,
   status_led : Light,
   arm_switch : PolledButton,
-  config : FCConfig,
-  join_handle : Option<JoinHandle<()>>
+  config : FCConfig
 }
 
 impl FCCore {
-  pub fn new(config_file : &str) -> Arc<Mutex<FCCore>> {
-
+  pub fn new(config_file : &str) -> FCCore {
     let config = FCConfig::load(config_file);
-  
-    let core = Arc::new(Mutex::new(FCCore{
+    FCCore {
       armed: false,
       alive : true,
       status_led : Light::new(Pin::new(config.status_pin)),
       arm_switch : PolledButton::new(Pin::new(config.arm_switch_pin)),
-      config: config,
-      join_handle: None
-    }));
-    
-    let thread_core = core.clone();
-    
-    core.lock().unwrap().join_handle = Some(spawn(move || {
-      FCCore::fccore_thread_loop(thread_core);
-    }));
-
-    return core;
+      config: config
+    }
   }
   
-  fn update_sensors(&mut self) {
+  pub fn update_sensors(&mut self) {
+
     //Switch ARM to true if arm switch is pressed
     self.armed = match self.arm_switch.read_state() {
       ButtonState::Pressed => true,
@@ -51,23 +38,16 @@ impl FCCore {
       false => LightState::Off
     });
   }
-  
-  fn fccore_thread_loop(core_ref : Arc<Mutex<FCCore>>) {
-    while core_ref.lock().unwrap().alive {
-      sleep_ms(50);
-      core_ref.lock().unwrap().update_sensors();
-    }
-  }
-  
-  pub fn kill(&mut self) {
-    self.alive = false;
-    
-    if self.join_handle.is_none() {
-      return;
-    }
 
-    if self.join_handle.take().unwrap().join().is_err() {
-      panic!("Error when shutting down FCCore thread");
-    }
-  }
+  pub fn config(&self) -> &FCConfig { &self.config }
+  
+  /**
+   * Set the alive flag to false, does not wait for threads to terminate
+   */
+  pub fn kill(&mut self) { self.alive = false; }
+
+  /**
+   * Returns true if the core is still alive, false if it is terminating or terminated
+   */
+  pub fn alive(&self) -> bool { self.alive }
 }
