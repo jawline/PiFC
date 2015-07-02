@@ -20,10 +20,10 @@ impl FCCore {
   
   fn start_thread(&mut self) {
     spawn(move || {
-      FCCore::fccore_thread_loop(self); 
+      self.fccore_thread_loop();
     });    
   }
   
-  fn fccore_thread_loop(core : &mut FCCore) {
+  fn fccore_thread_loop(&mut self) {
   }
 }
