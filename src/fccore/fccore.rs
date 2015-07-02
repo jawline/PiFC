@@ -19,7 +19,7 @@ impl FCCore {
   }
   
   fn start_thread(&mut self) {
-    spawn(move || {
+    spawn(|| {
       self.fccore_thread_loop();
     });    
   }
