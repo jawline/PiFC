@@ -6,7 +6,7 @@ use pi::polled_button::PolledButton;
 use std::thread::{spawn, JoinHandle, sleep_ms};
 use std::sync::{Arc, Mutex};
 
-pub struct FCCore {
+struct FCCore {
   pub armed : bool,
   status_led : Light,
   arm_switch : PolledButton,
