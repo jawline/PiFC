@@ -1,9 +1,9 @@
 use fccore::fcconfig::FCConfig;
 use std::thread::{spawn, JoinHandle};
 
-pub struct FCCore {
+pub struct FCCore<'a> {
   armed : bool,
-  config : FCConfig
+  config : FCConfig<FnMut() + 'a>
 }
 
 impl<'a> FCCore<'a> {
