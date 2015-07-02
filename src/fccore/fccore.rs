@@ -18,7 +18,7 @@ impl<'a> FCCore<'a> {
     return core;
   }
   
-  fn<T: FnMut() + 'a> start_thread(&mut self) {
+  fn start_thread<T: FnMut() + 'a>(&mut self) {
     spawn(|| {
       self.fccore_thread_loop();
     });    
