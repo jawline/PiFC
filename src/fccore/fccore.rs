@@ -39,7 +39,7 @@ impl FCCore {
       sleep_ms(50);
       let mut_ref = core.lock().unwrap();
       mut_ref.armed = match mut_ref.arm_switch.read_state() {
-        ButtonState::ButtonPressed => true,
+        ButtonState::Pressed => true,
         ButtonState::NotPressed => false
       };
     }
