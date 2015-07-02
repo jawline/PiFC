@@ -7,7 +7,7 @@ pub struct FCCore {
 }
 
 impl FCCore {
-  pub fn new(config_file : &str) -> &mut FCCore {
+  pub fn new(config_file : &str) -> FCCore {
     
     let mut core = FCCore{
       armed: false,
