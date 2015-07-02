@@ -1,3 +1,5 @@
+extern crate rustc_serialize;
+
 mod pi;
 mod fcconfig;
 
