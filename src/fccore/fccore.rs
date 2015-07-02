@@ -14,7 +14,6 @@ impl FCCore {
       config: FCConfig::new(config_file)
     };
 
-    core.start_thread();
     return core;
   }
   
