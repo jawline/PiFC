@@ -12,7 +12,7 @@ use fccore::fccore::FCCore;
 
 const ADAFR_SCL_PIN : usize = 10;
 const ADAFR_SDA_PIN : usize = 11;
-const BASE_CFG_FILE : &'static str = "./base.cfg";
+const BASE_CFG_FILE : &'static str = "./assets/base.cfg";
 
 fn red_screen(screen : &AdafruitOled) {
 	let (width, height) = screen.resolution();
