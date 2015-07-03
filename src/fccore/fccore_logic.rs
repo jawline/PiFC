@@ -10,7 +10,7 @@ pub fn start_logic_thread(core : &Arc<Mutex<FCCore>>) -> JoinHandle<()> {
 }
 
 fn fccore_thread_loop(core_ref : Arc<Mutex<FCCore>>) {
-	while core_ref.lock().unwrap().alive() {
+    while core_ref.lock().unwrap().alive() {
       sleep_ms(50);
       core_ref.lock().unwrap().update_sensors();
     }
