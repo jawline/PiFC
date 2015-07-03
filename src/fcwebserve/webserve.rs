@@ -8,8 +8,9 @@ fn unknown() -> IronResult<Response> {
  Ok(Response::with((status::NotFound, "unknown command")))
 }
 
-fn armed_page(core : &Arc<Mutex<FCCore>>) -> IronResult<Response> {
- Ok(Response::with((status::Ok, format!("Armed? {}", core.lock().unwrap().armed()))))
+fn armed_page(core_ref : &Arc<Mutex<FCCore>>) -> IronResult<Response> {
+ let core = core_ref.lock().unwrap();
+ Ok(Response::with((status::Ok, format!("ARM_SAFETY: {} ARM_COMMAND: {} FULLY ARMED: {}", core.armed_switch(), core.armed_cmd(), core.armed()))))
 }
 
 fn arm_core(core : &Arc<Mutex<FCCore>>) -> IronResult<Response> {
