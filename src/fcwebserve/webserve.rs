@@ -26,10 +26,10 @@ fn page_handler(req : &mut Request, core : Arc<Mutex<FCCore>>) -> IronResult<Res
 }
 
 pub fn spawn(core : &Arc<Mutex<FCCore>>) {
+ let webserve_core = core.clone();
  println!("Spawning WebServe thread");
  thread::spawn(move || {
    println!("Starting webserve");
-   let webserve_core = core.clone();
    Iron::new(move |req: &mut Request| {
     Ok(Response::with((status::Ok, "")))
    }).http("localhost:3000").unwrap();
