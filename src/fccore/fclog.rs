@@ -37,7 +37,7 @@ impl ToString for Log {
   fn to_string(&self) -> String {
     let mut log_data = String::new();
     
-    for item in self.entries {
+    for item in &self.entries {
       log_data = log_data + &item.to_string();
     }
     
