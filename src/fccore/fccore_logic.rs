@@ -4,7 +4,7 @@ use std::thread::{spawn, sleep_ms, JoinHandle};
 
 pub fn start_logic_thread(core : &Arc<Mutex<FCCore>>) -> JoinHandle<()> {
     let thread_core = core.clone();
-    spawn(move || fccore_thread_loop(thread_core); )
+    spawn(move || { fccore_thread_loop(thread_core); } )
 }
 
 fn fccore_thread_loop(core_ref : Arc<Mutex<FCCore>>) {
