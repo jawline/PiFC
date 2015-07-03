@@ -8,7 +8,7 @@ fn landing_page( req : &mut Request ) -> IronResult<Response>  {
  Ok(Response::with((status::Ok, "Landing Page!!")))
 }
 
-fn page_handler(req : &mut Request, core : Arc<Mutex<FCCore>>) -> IronResult<Response> {    	
+fn page_handler(req : &mut Request, core : &Arc<Mutex<FCCore>>) -> IronResult<Response> {    	
   println!("Length: {}", req.url.path.len());
   
   if req.url.path.len() == 0 || (req.url.path.len() == 1 && req.url.path[0] == "") {
@@ -31,7 +31,7 @@ pub fn spawn(core : &Arc<Mutex<FCCore>>) {
  thread::spawn(move || {
    println!("Starting webserve");
    Iron::new(move |req: &mut Request| {
-    page_handler(req, webserve_core)
+    page_handler(req, &webserve_core)
    }).http("localhost:3000").unwrap();
  });
 }
