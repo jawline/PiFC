@@ -25,7 +25,7 @@ fn disarm_core(core : &Arc<Mutex<FCCore>>) -> IronResult<Response> {
 fn page_handler(req : &mut Request, core : &Arc<Mutex<FCCore>>) -> IronResult<Response> {    	
   println!("Length: {}", req.url.path.len());
   
-  if req.url.path.len() == 1 {
+  if req.url.path.len() != 0 {
    let base_cmd : &str = &req.url.path[0].clone();
    match base_cmd {
     "armed" => armed_page(core),
