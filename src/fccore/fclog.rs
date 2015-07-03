@@ -30,8 +30,8 @@ impl Log {
 
   pub fn add(&mut self, info : &str) {
     let entry = LogEntry::new(info);
+    println!("Add {} to log", entry.to_string());
     self.entries.push(entry);
-    println!(entry.to_string());
   }
 }
 
