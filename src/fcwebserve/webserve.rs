@@ -5,8 +5,6 @@ use fccore::FCCore;
 use std::thread;
 use std::sync::{Arc, Mutex};
 
-let html_content_type : Mime = "text/html".parse::<Mime>().unwrap();
-
 fn unknown() -> IronResult<Response> {
  Ok(Response::with((status::NotFound, "unknown command")))
 }
@@ -25,6 +23,7 @@ fn status_report(core_ref : &Arc<Mutex<FCCore>>) -> IronResult<Response> {
 
  let response = format!("{}{}{}{}", boiler_start, status_portion, arm_portion, boiler_end);
 
+let html_content_type : Mime = "text/html".parse::<Mime>().unwrap();
  Ok(Response::with((html_content_type, status::Ok, response)))
 }
 
