@@ -13,14 +13,14 @@ fn armed_page(core : &Arc<Mutex<FCCore>>) -> IronResult<Response> {
 }
 
 fn arm_core(core : &Arc<Mutex<FCCore>>) -> IronResult<Response> {
+ println!("Request: Armed FC");
  core.lock().unwrap().armed = true;
- println!("Armed");
  Ok(Response::with((status::Ok, "ok")))
 }
 
 fn disarm_core(core : &Arc<Mutex<FCCore>>) -> IronResult<Response> {
+ println!("Request: Disarmed FC");
  core.lock().unwrap().armed = false;
- println!("Disarmed");
  Ok(Response::with((status::Ok, "ok")))
 }
 
