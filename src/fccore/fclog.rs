@@ -9,7 +9,7 @@ struct LogEntry {
 
 impl LogEntry {
   pub fn new(info : &str) -> LogEntry {
-    LogEntry{info: info.to_string(), time_entered: time::get_time()}
+    LogEntry{info: info.to_string(), time_entered: time::get_time().to_string()}
   }
 }
 
