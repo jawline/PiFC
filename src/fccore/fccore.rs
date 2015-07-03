@@ -11,6 +11,11 @@ use pi::polled_button::PolledButton;
 pub struct FCCore {
   
   /**
+   * Is the core alive
+   */
+  alive : bool,
+  
+  /**
    * Base ARM requirement, safety switch must be switched to on
    */
   armed_switch : bool,
@@ -20,7 +25,6 @@ pub struct FCCore {
    */
   armed_command : bool,
   
-  alive : bool,
   status_led : Light,
   arm_switch : PolledButton,
   config : FCConfig,
