@@ -5,11 +5,21 @@ use std::thread;
 use std::sync::{Arc, Mutex};
 
 fn unknown() -> IronResult<Response> {
- Ok(Response::with(status::NotFound))
+ Ok(Response::with((status::NotFound, "unknown command")))
 }
 
 fn armed_page(req : &mut Request, core : &Arc<Mutex<FCCore>>) -> IronResult<Response> {
  Ok(Response::with((status::Ok, core.lock().unwrap().armed.to_string())))
+}
+
+fn arm_core(core : &Arc<Mutex<FCCore>>) -> IronResult<Response> {
+ core.lock().unwrap().armed = true;
+ Ok(Response::with((status::Ok, "ok")))
+}
+
+fn disarm_core(core : &Arc<Mutex<FCCore>>) -> IronResult<Response> {
+ core.lock().unwrap().armed = false;
+ Ok(Response::with((status::Ok, "ok")))
 }
 
 fn page_handler(req : &mut Request, core : &Arc<Mutex<FCCore>>) -> IronResult<Response> {    	
