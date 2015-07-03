@@ -11,7 +11,7 @@ fn main() {
 	let (core, handle) = fccore::spawn_fc(BASE_CFG_FILE);
 
 	if core.lock().unwrap().config().fc_webserve_enabled {
-		println!("I would start webserve, if I knew how");
+		fcwebserve::spawn(core);
 	} else {
 		println!("WebServe disabled");
 	}
