@@ -24,7 +24,7 @@ fn status_report(core_ref : &Arc<Mutex<FCCore>>) -> IronResult<Response> {
  Ok(Response::with((html_type, status::Ok, response)))
 }
 
-fn log(core_ref : &Arc<Mutex<FCCore>>) -> IronResult<Response> {
+fn get_log(core_ref : &Arc<Mutex<FCCore>>) -> IronResult<Response> {
  let core = core_ref.lock().unwrap();
  Ok(Response::with((status::Ok, core.log().to_string())))
 }
@@ -52,7 +52,7 @@ fn page_handler(req : &mut Request, core : &Arc<Mutex<FCCore>>) -> IronResult<Re
     "status" => status_report(core),
     "arm" => arm_core(core),
     "disarm" => disarm_core(core),
-    "log" => log(core),
+    "log" => get_log(core),
     _ => unknown()
    }
   } else {
