@@ -6,10 +6,11 @@ mod fccore;
 const BASE_CFG_FILE : &'static str = "./assets/base.cfg";
 
 fn main() {
-	let (core, handle) = fccore::spawn_core(BASE_CFG_FILE);
-	println!("This is where I would do other setup");
+	let (core, handle) = fccore::spawn_fc(BASE_CFG_FILE);
+	
+	let config = core.lock().unwrap().config();
 
-	if core.lock().unwrap().config().fc_webserve_enabled {
+	if config.fc_webserve_enabled {
 		println!("I would start webserve, if I knew how");
 	} else {
 		println!("WebServe disabled");
