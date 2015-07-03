@@ -33,9 +33,10 @@ pub fn spawn(core : &Arc<Mutex<FCCore>>) {
  println!("Spawning WebServe thread");
  
  thread::spawn(move || {
-   println!("Starting webserve");
-   Iron::new(move |req: &mut Request| {
-    page_handler(req, &webserve_core)
-   }).http(webserve_addr).unwrap();
+  let webserve_addr_str : &str = &webserve_addr;
+  println!("Starting webserve");
+  Iron::new(move |req: &mut Request| {
+   page_handler(req, &webserve_core)
+  }).http(webserve_addr).unwrap();
  });
 }
