@@ -1,5 +1,6 @@
 use iron::prelude::*;
 use iron::status;
+use iron::mime::Mime;
 use fccore::FCCore;
 use std::thread;
 use std::sync::{Arc, Mutex};
