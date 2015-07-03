@@ -23,7 +23,7 @@ fn status_report(core_ref : &Arc<Mutex<FCCore>>) -> IronResult<Response> {
  
  let boiler_end = format!("</body></html>");
 
- let response = &format!("{}{}{}{}", boiler_start, status_portion, arm_portion, boiler_end);
+ let response : &str = &format!("{}{}{}{}", boiler_start, status_portion, arm_portion, boiler_end);
 
  Ok(Response::with((html_content_type, status::Ok, response)))
 }
