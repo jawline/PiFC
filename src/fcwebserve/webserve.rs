@@ -30,14 +30,14 @@ fn log(core_ref : &Arc<Mutex<FCCore>>) -> IronResult<Response> {
 }
 
 fn arm_core(core_ref : &Arc<Mutex<FCCore>>) -> IronResult<Response> {
- let core = core_ref.lock().unwrap();
+ let mut core = core_ref.lock().unwrap();
  core.log_mut().add("arm core network request");
  core.set_armed_command(true);
  Ok(Response::with((status::Ok, "ok")))
 }
 
 fn disarm_core(core_ref : &Arc<Mutex<FCCore>>) -> IronResult<Response> {
- let core = core_ref.lock().unwrap();
+ let mut core = core_ref.lock().unwrap();
  core.log_mut().add("disarm core network request");
  core.set_armed_command(false);
  Ok(Response::with((status::Ok, "ok")))
