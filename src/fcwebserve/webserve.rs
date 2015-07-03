@@ -8,7 +8,7 @@ fn unknown() -> IronResult<Response> {
  Ok(Response::with((status::NotFound, "unknown command")))
 }
 
-fn armed_page(req : &mut Request, core : &Arc<Mutex<FCCore>>) -> IronResult<Response> {
+fn armed_page(core : &Arc<Mutex<FCCore>>) -> IronResult<Response> {
  Ok(Response::with((status::Ok, core.lock().unwrap().armed.to_string())))
 }
 
@@ -28,7 +28,9 @@ fn page_handler(req : &mut Request, core : &Arc<Mutex<FCCore>>) -> IronResult<Re
   if req.url.path.len() == 1 {
    let base_cmd : &str = &req.url.path[0].clone();
    match base_cmd {
-    "armed" => armed_page(req, core),
+    "armed" => armed_page(core),
+    "arm" => arm_core(core),
+    "disarm" => disarm_core(core),
     _ => unknown()
    }
   } else {
