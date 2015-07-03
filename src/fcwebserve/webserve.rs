@@ -24,6 +24,11 @@ fn status_report(core_ref : &Arc<Mutex<FCCore>>) -> IronResult<Response> {
  Ok(Response::with((html_type, status::Ok, response)))
 }
 
+fn log(core : &Arc<Mutex<FCCore>>) -> IronResult<Response> {
+ let core = core_ref.lock().unwrap();
+ Ok(Response::with((status::Ok, core.log().to_string())))
+}
+
 fn arm_core(core : &Arc<Mutex<FCCore>>) -> IronResult<Response> {
  println!("Request: Armed FC");
  core.lock().unwrap().set_armed_command(true);
