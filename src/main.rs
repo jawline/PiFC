@@ -2,6 +2,7 @@ extern crate rustc_serialize;
 
 mod pi;
 mod fccore;
+mod fcwebserve;
 
 const BASE_CFG_FILE : &'static str = "./assets/base.cfg";
 
