@@ -45,6 +45,11 @@ impl FCCore {
       ButtonState::NotPressed => false
     };
     
+    //The ARM from command state is reset to false if the safety is off
+    if !self.armed_switch {
+      self.armed_command = false;
+    }
+    
     //Update armed state LED
     self.status_led.set_state(match self.armed() {
       true => LightState::On,
