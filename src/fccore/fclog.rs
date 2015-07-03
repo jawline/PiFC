@@ -20,7 +20,7 @@ impl ToString for LogEntry {
 }
 
 pub struct Log {
-  pub entries : Vec<LogEntry>
+  entries : Vec<LogEntry>
 }
 
 impl Log {
