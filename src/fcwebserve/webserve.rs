@@ -1,7 +1,7 @@
 use iron::prelude::*;
 use iron::status;
 use fccore::FCCore;
-use std::thread::spawn;
+use std::thread;
 use std::sync::{Arc, Mutex};
 
 fn landing_page( req : &mut Request ) -> IronResult<Response>  {
@@ -26,13 +26,13 @@ fn page_handler(req : &mut Request, core : Arc<Mutex<FCCore>>) -> IronResult<Res
 }
 
 pub fn spawn(core : &Arc<Mutex<FCCore>>) {
-  let webserve_core = core.cloned();
-  println!("Spawning WebServe thread");
+ let webserve_core = core.cloned();
+ println!("Spawning WebServe thread");
 
-  spawn(|| {
-    println!("Starting webserve");
-    Iron::new(| req : &mut Request | {
-      page_handle(req, webserve_core);
-    }).http("localhost:3000").unwrap();
-  });
+ thread::spawn(|| {
+   println!("Starting webserve");
+   Iron::new(| req : &mut Request | {
+     page_handle(req, webserve_core);
+   }).http("localhost:3000").unwrap();
+ });
 }
