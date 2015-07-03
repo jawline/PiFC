@@ -40,7 +40,7 @@ impl ToString for Log {
     let mut log_data = String::new();
     
     for item in &self.entries {
-      log_data = log_data + &item.to_string();
+      log_data = log_data + &format!("{}\n", item.to_string());
     }
     
     log_data
