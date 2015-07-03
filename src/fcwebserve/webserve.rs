@@ -35,7 +35,7 @@ pub fn spawn(core : &Arc<Mutex<FCCore>>) {
   
   let webserve_addr_str : &str = &format!("localhost:{}", webserve_core.lock().unwrap().fc_webserve_port);
   
-  println!("Starting webserve on {}",);
+  println!("Starting webserve on {}", webserve_addr_str);
   
   Iron::new(move |req: &mut Request| {
    page_handler(req, &webserve_core)
