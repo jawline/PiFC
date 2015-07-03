@@ -9,7 +9,7 @@ fn unknown() -> IronResult<Response> {
 }
 
 fn armed_page(req : &mut Request, core : &Arc<Mutex<FCCore>>) -> IronResult<Response> {
- Ok(Response::with((status::Ok, core.lock().unwrap().armed.to_string())));
+ Ok(Response::with((status::Ok, core.lock().unwrap().armed.to_string())))
 }
 
 fn page_handler(req : &mut Request, core : &Arc<Mutex<FCCore>>) -> IronResult<Response> {    	
