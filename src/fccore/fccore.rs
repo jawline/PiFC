@@ -28,7 +28,8 @@ impl FCCore {
   pub fn new(config_file : &str) -> FCCore {
     let config = FCConfig::load(config_file);
     FCCore {
-      armed: false,
+      armed_switch: false,
+      armed_command: false,
       alive : true,
       status_led : Light::new(Pin::new(config.status_pin)),
       arm_switch : PolledButton::new(Pin::new(config.arm_switch_pin)),
