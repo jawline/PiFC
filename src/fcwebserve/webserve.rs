@@ -14,7 +14,7 @@ fn status_report(core_ref : &Arc<Mutex<FCCore>>) -> IronResult<Response> {
  
  let boiler_start = format!("<html><body>");
  let status_portion = format!("ALIVE: {}<br/>", core.alive());
- let arm_portion = format!("ARM_SAFETY: {} ARM_COMMAND: {} FULLY ARMED: {}<br/>", core.armed_switch(), core.armed_cmd(), core.armed());
+ let arm_portion = format!("ARM_SAFETY: {}<br/>ARM_COMMAND: {}<br/>FULLY ARMED: {}<br/>", core.armed_switch(), core.armed_cmd(), core.armed());
  let boiler_end = format!("</body></html>");
  
  let html_type = "text/html".parse::<Mime>().unwrap();
