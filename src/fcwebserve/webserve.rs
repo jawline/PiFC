@@ -32,7 +32,7 @@ pub fn spawn(core : &Arc<Mutex<FCCore>>) {
  thread::spawn(|| {
    println!("Starting webserve");
     Iron::new(|_: &mut Request| {
-        Ok(Response::new().set(status::Ok).set(Body("Hello World!")))
+        Ok(Response::with(status::Ok, "Hello World"));
     }).listen("localhost:3000").unwrap();
  });
 }
