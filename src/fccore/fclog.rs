@@ -14,6 +14,6 @@ impl LogEntry {
 
 impl ToString for LogEntry {
   fn to_string(&self) -> String {
-    format!("{}: {}", self.time_entered, self.info);
+    format!("{:?}: {}", self.time_entered, self.info);
   }
 }
