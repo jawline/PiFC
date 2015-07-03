@@ -70,7 +70,7 @@ impl FCCore {
    * If the physical ARM button is off this will do nothing
    */
   pub fn set_armed_command(&mut self, state : bool) {
-    self.log().add(format!("ARM request to set to {} handled at core", state));
+    self.log().add(&format!("ARM request to set to {} handled at core", state));
     if self.armed_switch {
       self.armed_command = state;
     }
