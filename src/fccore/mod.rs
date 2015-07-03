@@ -1,6 +1,7 @@
 pub mod fcconfig;
 pub mod fccore;
 pub mod fccore_logic;
+pub mod fclog;
 
 pub use fccore::fccore::FCCore;
 use std::thread::{JoinHandle};
