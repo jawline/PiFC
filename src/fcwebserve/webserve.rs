@@ -26,7 +26,7 @@ fn page_handler(req : &mut Request, core : Arc<Mutex<FCCore>>) -> IronResult<Res
 }
 
 pub fn spawn(core : &Arc<Mutex<FCCore>>) {
- let webserve_core = core.cloned();
+ let webserve_core = core.clone();
  println!("Spawning WebServe thread");
 
  thread::spawn(|| {
