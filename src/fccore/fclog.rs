@@ -2,7 +2,7 @@ use std::string::ToString;
 use std::vec::Vec;
 use time;
 
-struct LogEntry {
+pub struct LogEntry {
   info : String,
   time_entered : time::Tm
 }
