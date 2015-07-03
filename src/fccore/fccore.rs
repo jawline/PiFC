@@ -46,7 +46,7 @@ impl FCCore {
     };
     
     //Update armed state LED
-    self.status_led.set_state(match self.armed {
+    self.status_led.set_state(match self.armed() {
       true => LightState::On,
       false => LightState::Off
     });
