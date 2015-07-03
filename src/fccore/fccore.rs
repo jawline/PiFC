@@ -90,5 +90,5 @@ impl FCCore {
   /**
    * Return the core log
    */
-  pub fn log(&self) -> &Log { self.log }
+  pub fn log(&self) -> &Log { &self.log }
 }
