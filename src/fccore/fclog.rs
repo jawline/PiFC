@@ -1,10 +1,10 @@
 use std::string::ToString;
 use time;
-use time::Timespec;
+use time::Duration;
 
 struct LogEntry {
   info : String,
-  time_entered : Timespec
+  time_entered : time::Timespec
 }
 
 impl LogEntry {
