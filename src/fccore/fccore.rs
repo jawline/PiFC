@@ -7,7 +7,16 @@ use pi::button::{Button, ButtonState};
 use pi::polled_button::PolledButton;
 
 pub struct FCCore {
-  pub armed : bool,
+  
+  /**
+   * Base ARM requirement, safety switch must be switched to on
+   */
+  armed_switch : bool,
+  
+  /**
+   * Second ARM requirement, a external request must arm the FC
+   */
+  armed_command : bool,
   alive : bool,
   status_led : Light,
   arm_switch : PolledButton,
@@ -40,6 +49,10 @@ impl FCCore {
       false => LightState::Off
     });
   }
+  
+  pub fn armed(&self) { self.armed_switch && self.armed_command }
+  
+  pub fn set_armed_command(&mut self, state : bool) { self.armed_command = state; }
 
   pub fn config(&self) -> &FCConfig { &self.config }
   
