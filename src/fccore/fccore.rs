@@ -17,6 +17,7 @@ pub struct FCCore {
    * Second ARM requirement, a external request must arm the FC
    */
   armed_command : bool,
+  
   alive : bool,
   status_led : Light,
   arm_switch : PolledButton,
@@ -38,7 +39,7 @@ impl FCCore {
   pub fn update_sensors(&mut self) {
 
     //Switch ARM to true if arm switch is pressed
-    self.armed = match self.arm_switch.read_state() {
+    self.armed_switch = match self.arm_switch.read_state() {
       ButtonState::Pressed => true,
       ButtonState::NotPressed => false
     };
@@ -51,7 +52,8 @@ impl FCCore {
   }
   
   pub fn armed(&self) { self.armed_switch && self.armed_command }
-  
+  pub fn armed_cmd(&self) -> bool { self.armed_command }
+  pub fn armed_switch(&self) -> bool { self.armed_switch }
   pub fn set_armed_command(&mut self, state : bool) { self.armed_command = state; }
 
   pub fn config(&self) -> &FCConfig { &self.config }
