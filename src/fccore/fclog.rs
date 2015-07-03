@@ -1,15 +1,14 @@
 use std::string::ToString;
 use time;
-use time::Duration;
 
 struct LogEntry {
   info : String,
-  time_entered : time::Timespec
+  time_entered : time::Tm
 }
 
 impl LogEntry {
   pub fn new(info : &str) -> LogEntry {
-    LogEntry{info: info.to_string(), time_entered: time::get_time()}
+    LogEntry{info: info.to_string(), time_entered: time::now()}
   }
 }
 
