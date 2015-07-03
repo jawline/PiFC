@@ -15,7 +15,7 @@ impl LogEntry {
 
 impl ToString for LogEntry {
   fn to_string(&self) -> String {
-    format!("{}: {}", time::strftime("yyyy'-'MM'-'dd'T'HH':'mm':'ss", &self.time_entered), self.info)
+    format!("{}: {}", time::strftime("yyyy'-'MM'-'dd'T'HH':'mm':'ss", &self.time_entered).unwrap(), self.info)
   }
 }
 
