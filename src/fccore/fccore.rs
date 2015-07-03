@@ -1,6 +1,8 @@
 #![allow(dead_code)]
 
 use fccore::fcconfig::FCConfig;
+use fccore::fclog::Log;
+
 use pi::gpio::Pin;
 use pi::light::{Light, LightState};
 use pi::button::{Button, ButtonState};
@@ -21,7 +23,8 @@ pub struct FCCore {
   alive : bool,
   status_led : Light,
   arm_switch : PolledButton,
-  config : FCConfig
+  config : FCConfig,
+  log : Log
 }
 
 impl FCCore {
@@ -33,7 +36,8 @@ impl FCCore {
       alive : true,
       status_led : Light::new(Pin::new(config.status_pin)),
       arm_switch : PolledButton::new(Pin::new(config.arm_switch_pin)),
-      config: config
+      config: config,
+      log: Log::new()
     }
   }
   
@@ -82,4 +86,9 @@ impl FCCore {
    * Returns true if the core is still alive, false if it is terminating or terminated
    */
   pub fn alive(&self) -> bool { self.alive }
+  
+  /**
+   * Return the core log
+   */
+  pub fn log(&self) -> &Log { self.log }
 }
