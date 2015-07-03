@@ -37,12 +37,16 @@ impl Log {
 
 impl ToString for Log {
   fn to_string(&self) -> String {
-    let mut log_data = String::new();
-    
-    for item in &self.entries {
-      log_data = log_data + &format!("{}\n", item.to_string());
+    if self.entries.length() == 0 {
+      return "Log Empty";
+    } else {
+      let mut log_data = String::new();
+      
+      for item in &self.entries {
+        log_data = log_data + &format!("{}\n", item.to_string());
+      }
+      
+      return log_data;
     }
-    
-    log_data
   }
 }
