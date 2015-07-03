@@ -5,6 +5,8 @@ use fccore::FCCore;
 use std::thread;
 use std::sync::{Arc, Mutex};
 
+const html_content_type : Mime = "text/html".parse::<Mime>().unwrap();
+
 fn unknown() -> IronResult<Response> {
  Ok(Response::with((status::NotFound, "unknown command")))
 }
@@ -15,15 +17,15 @@ fn status_report(core_ref : &Arc<Mutex<FCCore>>) -> IronResult<Response> {
  core.log_mut().add("serving status request");
  
  let boiler_start = format!("<html><body>");
+ 
  let status_portion = format!("ALIVE: {}<br/>", core.alive());
  let arm_portion = format!("ARM_SAFETY: {}<br/>ARM_COMMAND: {}<br/>FULLY ARMED: {}<br/>", core.armed_switch(), core.armed_cmd(), core.armed());
- let boiler_end = format!("</body></html>");
  
- let html_type = "text/html".parse::<Mime>().unwrap();
+ let boiler_end = format!("</body></html>");
 
- let response = boiler_start + &status_portion + &arm_portion + &boiler_end;
+ let response = &format!("{}{}{}{}", boiler_start, status_portion, arm_portion, boiler_end);
 
- Ok(Response::with((html_type, status::Ok, response)))
+ Ok(Response::with((html_content_type, status::Ok, response)))
 }
 
 fn get_log(core_ref : &Arc<Mutex<FCCore>>) -> IronResult<Response> {
