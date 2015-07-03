@@ -29,7 +29,9 @@ impl Log {
   }
 
   pub fn add(&mut self, info : &str) {
-    self.entries.push(LogEntry::new(info));
+    let entry = LogEntry::new(info);
+    self.entries.push(entry);
+    println!(entry.to_string());
   }
 }
 
