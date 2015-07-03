@@ -29,7 +29,7 @@ fn log(core_ref : &Arc<Mutex<FCCore>>) -> IronResult<Response> {
  Ok(Response::with((status::Ok, core.log().to_string())))
 }
 
-fn arm_core(core : &Arc<Mutex<FCCore>>) -> IronResult<Response> {
+fn arm_core(core_ref : &Arc<Mutex<FCCore>>) -> IronResult<Response> {
  let core = core_ref.lock().unwrap();
  core.log_mut().add("arm core network request");
  core.set_armed_command(true);
