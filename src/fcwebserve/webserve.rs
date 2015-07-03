@@ -33,7 +33,7 @@ pub fn spawn(core : &Arc<Mutex<FCCore>>) {
  
  thread::spawn(move || {
   
-  let webserve_addr_str : &str = &format!("localhost:{}", webserve_core.lock().unwrap().fc_webserve_port);
+  let webserve_addr_str : &str = &format!("localhost:{}", webserve_core.lock().unwrap().config().fc_webserve_port);
   
   println!("Starting webserve on {}", webserve_addr_str);
   
