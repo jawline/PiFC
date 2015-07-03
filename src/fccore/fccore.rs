@@ -1,3 +1,5 @@
+#![allow(dead_code)]
+
 use fccore::fcconfig::FCConfig;
 use pi::gpio::Pin;
 use pi::light::{Light, LightState};
