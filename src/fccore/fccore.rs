@@ -41,6 +41,9 @@ impl FCCore {
     }
   }
   
+  /**
+   * Check the state of sensors and react to any changes
+   */
   pub fn update_sensors(&mut self) {
 
     //Switch ARM to true if arm switch is pressed
@@ -50,7 +53,8 @@ impl FCCore {
     };
     
     //The ARM from command state is reset to false if the safety is off
-    if !self.armed_switch {
+    if !self.armed_switch && self.armed_command {
+      self.log_mut().add("set core armed_command to false as switch is false");
       self.armed_command = false;
     }
     
@@ -70,12 +74,17 @@ impl FCCore {
    * If the physical ARM button is off this will do nothing
    */
   pub fn set_armed_command(&mut self, state : bool) {
-    self.log_mut().add(&format!("ARM request to set to {} handled at core", state));
     if self.armed_switch {
+      self.log_mut().add(&format!("ARM command request to set to {} handled at core", state));
       self.armed_command = state;
+    } else {
+      self.log_mut().add("ARM command request ignored as armed_switch is disabled");
     }
   }
 
+  /**
+   * Get the core config struct
+   */
   pub fn config(&self) -> &FCConfig { &self.config }
   
   /**
