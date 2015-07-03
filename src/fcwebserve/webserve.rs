@@ -9,19 +9,19 @@ fn unknown() -> IronResult<Response> {
 }
 
 fn armed_page(core : &Arc<Mutex<FCCore>>) -> IronResult<Response> {
- Ok(Response::with((status::Ok, format!("Armed? {}", core.lock().unwrap().armed))))
+ Ok(Response::with((status::Ok, format!("Armed? {}", core.lock().unwrap().armed()))))
 }
 
 fn arm_core(core : &Arc<Mutex<FCCore>>) -> IronResult<Response> {
  println!("Request: Armed FC");
- core.lock().unwrap().armed = true;
- Ok(Response::with((status::Ok, format!("Armed? {}", core.lock().unwrap().armed))))
+ core.lock().unwrap().set_armed_command(true);
+ Ok(Response::with((status::Ok, "ok")))
 }
 
 fn disarm_core(core : &Arc<Mutex<FCCore>>) -> IronResult<Response> {
- println!("Request: Disarmed FC");
- core.lock().unwrap().armed = false;
- Ok(Response::with((status::Ok, format!("Armed? {}", core.lock().unwrap().armed))))
+ println!("Request: Armed FC");
+ core.lock().unwrap().set_armed_command(false);
+ Ok(Response::with((status::Ok, "ok")))
 }
 
 fn page_handler(req : &mut Request, core : &Arc<Mutex<FCCore>>) -> IronResult<Response> {    	
