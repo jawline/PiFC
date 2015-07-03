@@ -6,4 +6,5 @@ authors = [ "Blake Loring <blake_l@parsed.uk>" ]
 
 [dependencies]
 
-rustc-serialize = "0.3.15"
+rustc-serialize = "*"
+iron = "*"
