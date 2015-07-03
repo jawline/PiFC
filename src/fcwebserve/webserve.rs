@@ -32,6 +32,7 @@ pub fn spawn(core : &Arc<Mutex<FCCore>>) {
  thread::spawn(move || {
    println!("Starting webserve");
     Iron::new(|_: &mut Request| {
+     let response = page_handler(req, webserve_core);
         Ok(Response::with((status::Ok, "Hello world!")))
     }).http("localhost:3000").unwrap();
  });
