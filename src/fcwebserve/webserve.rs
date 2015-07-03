@@ -5,7 +5,7 @@ use fccore::FCCore;
 use std::thread;
 use std::sync::{Arc, Mutex};
 
-const html_content_type : Mime = "text/html".parse::<Mime>().unwrap();
+let html_content_type : Mime = "text/html".parse::<Mime>().unwrap();
 
 fn unknown() -> IronResult<Response> {
  Ok(Response::with((status::NotFound, "unknown command")))
