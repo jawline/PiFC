@@ -16,7 +16,7 @@ fn page_handler(req : &mut Request, core : &Arc<Mutex<FCCore>>) -> IronResult<Re
   println!("Length: {}", req.url.path.len());
   
   if req.url.path.len() == 1 {
-   let base_cmd : &str = &req.url.path[0];
+   let base_cmd : &str = &req.url.path[0].clone();
    match base_cmd {
     "armed" => armed_page(req, core),
     _ => unknown()
