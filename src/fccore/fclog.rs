@@ -1,4 +1,5 @@
 use std::string::ToString;
+use time;
 use time::Timespec;
 
 struct LogEntry {
