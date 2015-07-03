@@ -14,7 +14,7 @@ fn status_report(core_ref : &Arc<Mutex<FCCore>>) -> IronResult<Response> {
  let response = format!("ALIVE: {}<br/>", core.alive());
  response += format!("ARM_SAFETY: {} ARM_COMMAND: {} FULLY ARMED: {}<br/>", core.armed_switch(), core.armed_cmd(), core.armed());
 
- Ok(Response::with((status::Ok, response))
+ Ok(Response::with((status::Ok, response)))
 }
 
 fn arm_core(core : &Arc<Mutex<FCCore>>) -> IronResult<Response> {
