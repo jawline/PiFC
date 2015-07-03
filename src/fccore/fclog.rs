@@ -38,7 +38,7 @@ impl Log {
 impl ToString for Log {
   fn to_string(&self) -> String {
     if self.entries.len() == 0 {
-      return "Log Empty";
+      return format!("Log Empty");
     } else {
       let mut log_data = String::new();
       
