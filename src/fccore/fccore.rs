@@ -52,7 +52,7 @@ impl FCCore {
     });
   }
   
-  pub fn armed(&self) { self.armed_switch && self.armed_command }
+  pub fn armed(&self) -> bool { self.armed_switch && self.armed_command }
   pub fn armed_cmd(&self) -> bool { self.armed_command }
   pub fn armed_switch(&self) -> bool { self.armed_switch }
   pub fn set_armed_command(&mut self, state : bool) { self.armed_command = state; }
