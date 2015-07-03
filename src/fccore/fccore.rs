@@ -92,4 +92,9 @@ impl FCCore {
    * Return the core log
    */
   pub fn log(&self) -> &Log { &self.log }
+  
+  /**
+   * Return the core log as mutable
+   */
+   pub fn log_mut(&mut self) -> &mut Log { &mut self.log }
 }
