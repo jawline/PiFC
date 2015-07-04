@@ -71,10 +71,18 @@ impl FCCore {
   pub fn update_sensors(&mut self) {
 
     //Switch ARM to true if arm switch is pressed
-    self.armed_switch = match self.armed_safety_switch.read_state() {
+    let safety_state = match self.armed_safety_switch.read_state() {
       ButtonState::Pressed => true,
       ButtonState::NotPressed => false
     };
+
+    if safety_state && !self.armed_switch {
+      self.log_mut().add(TAG, "physical safety switched to armed");
+      self.armed_switch = true;
+    } else if !safety_state && self.armed_switch {
+      self.log_mut().add(TAG, "physical safety switched to disarmed");
+      self.armed_switch = false;
+    }
     
     //The ARM from command state is reset to false if the safety is off
     if !self.armed_switch && self.armed_command {
