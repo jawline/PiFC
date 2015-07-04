@@ -7,6 +7,7 @@ mod fccore;
 mod fcwebserve;
 
 const BASE_CFG_FILE : &'static str = "./assets/base.cfg";
+const TAG : &'static str = "main";
 
 fn main() {
 	let (core, handle) = fccore::spawn_fc(BASE_CFG_FILE);
@@ -14,7 +15,7 @@ fn main() {
 	if core.lock().unwrap().config().fc_webserve_enabled {
 		fcwebserve::spawn(&core);
 	} else {
-		println!("WebServe disabled");
+		core.lock().unwrap().log_mut().add(TAG, "webserve disabled by config");
 	}
 
 	if handle.join().is_err() {

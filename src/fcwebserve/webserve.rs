@@ -60,7 +60,14 @@ fn disarm_core(core_ref : &Arc<Mutex<FCCore>>) -> IronResult<Response> {
 }
 
 fn page_handler(req : &mut Request, core : &Arc<Mutex<FCCore>>) -> IronResult<Response> {    	
-  println!("Length: {}", req.url.path.len());
+  
+  let mut full_req_path = String::new();
+
+  for item in &req.url.path {
+    full_req_path = full_req_path + "/" + item;
+  }
+
+  core.lock().unwrap().log_mut().add(TAG, &format!("Request: {}", full_req_path));
   
   if req.url.path.len() != 0 {
    let base_cmd : &str = &req.url.path[0].clone();
@@ -79,11 +86,14 @@ fn page_handler(req : &mut Request, core : &Arc<Mutex<FCCore>>) -> IronResult<Re
 }
 
 pub fn spawn(core : &Arc<Mutex<FCCore>>) {
+
  let webserve_core = core.clone();
- println!("Spawning WebServe thread");
+ 
  thread::spawn(move || {
   let webserve_addr_str : &str = &format!("localhost:{}", webserve_core.lock().unwrap().config().fc_webserve_port);
-  println!("Starting webserve on {}", webserve_addr_str);
+ 
+  webserve_core.lock().unwrap().log_mut().add(TAG, &format!("Starting webserve on {}", webserve_addr_str));
+  
   Iron::new(move |req: &mut Request| {
    page_handler(req, &webserve_core)
   }).http(webserve_addr_str).unwrap();

@@ -89,8 +89,19 @@ impl FCCore {
     });
   }
   
+  /**
+   * true if the device is fully armed
+   */
   pub fn armed(&self) -> bool { self.armed_switch && self.armed_command }
+
+  /**
+   * true if an external arm is set
+   */
   pub fn armed_cmd(&self) -> bool { self.armed_command }
+  
+  /**
+   * true if the physical safety arm switch is armed
+   */
   pub fn armed_switch(&self) -> bool { self.armed_switch }
   
   /**

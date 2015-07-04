@@ -12,9 +12,11 @@ pub fn start_logic_thread(core : &Arc<Mutex<FCCore>>) -> JoinHandle<()> {
 
 fn fccore_thread_loop(core_ref : Arc<Mutex<FCCore>>) {
 	core_ref.lock().unwrap().log_mut().add(TAG, "started logic thread loop");
+    
     while core_ref.lock().unwrap().alive {
       sleep_ms(50);
       core_ref.lock().unwrap().update_sensors();
     }
+
 	core_ref.lock().unwrap().log_mut().add(TAG, "logic thread loop has died, core is no longer alive");
 }
