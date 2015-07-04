@@ -3,10 +3,10 @@
 use fccore::fcconfig::FCConfig;
 use fccore::fclog::Log;
 
-use pi::gpio::Pin;
-use pi::light::{Light, LightState};
-use pi::button::{Button, ButtonState};
-use pi::polled_button::PolledButton;
+use physical::gpio::Pin;
+use physical::light::{Light, LightState};
+use physical::button::{Button, ButtonState};
+use physical::polled_button::PolledButton;
 
 const TAG : &'static str = "core";
 

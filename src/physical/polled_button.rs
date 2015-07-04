@@ -1,7 +1,7 @@
 #![allow(dead_code)]
 
-use pi::button::{Button, ButtonState};
-use pi::gpio::{Pin, Direction, State};
+use physical::button::{Button, ButtonState};
+use physical::gpio::{Pin, Direction, State};
 
 pub struct PolledButton {
   pin : Pin

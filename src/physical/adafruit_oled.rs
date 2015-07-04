@@ -1,7 +1,7 @@
 #![allow(dead_code)]
 
-use pi::gpio::{Pin, State, Direction};
-use pi::screen::{Screen, PixelScreen};
+use physical::gpio::{Pin, State, Direction};
+use physical::screen::{Screen, PixelScreen};
 
 pub struct AdafruitOled {
   scl : Pin,
