@@ -1,6 +1,7 @@
 use std::string::ToString;
 use std::fs::File;
 use std::vec::Vec;
+use std::io::Write;
 use time;
 
 struct LogEntry {
@@ -33,7 +34,15 @@ impl Log {
 
   pub fn add(&mut self, tag : &str, info : &str) {
     let entry = LogEntry::new(tag, info);
+
     println!("Add {} to log", entry.to_string());
+    
+    let log_string = format!("{}\n", entry.to_string());
+
+    if let Err(_) = self.out_file.write_all(log_string.as_bytes()) {
+      println!("Could not write to log file");
+    }
+
     self.entries.push(entry);
   }
 }

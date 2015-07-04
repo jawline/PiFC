@@ -8,15 +8,17 @@ use physical::light::{Light, LightState};
 use physical::button::{Button, ButtonState};
 use physical::polled_button::PolledButton;
 
+use time;
+
 const TAG : &'static str = "core";
-const LOG_FILE : &'static str = "./core.log";
+const LOG_DIR : &'static str = "./logs/";
 
 pub struct FCCore {
   
   /**
    * Is the core alive
    */
-  alive : bool,
+  pub alive : bool,
   
   /**
    * Base ARM requirement, safety switch must be switched to on
@@ -59,7 +61,7 @@ impl FCCore {
       armed_status_led : Light::new(Pin::new(config.status_pin)),
       armed_safety_switch : PolledButton::new(Pin::new(config.arm_switch_pin)),
       config: config,
-      log: Log::new(LOG_FILE)
+      log: Log::new(&format!("{}log{}", LOG_DIR, time::now().to_timespec().sec))
     }
   }
   
@@ -108,18 +110,6 @@ impl FCCore {
    * Get the core config struct
    */
   pub fn config(&self) -> &FCConfig { &self.config }
-  
-  /**
-   * Set the alive flag to false, does not wait for threads to terminate
-   */
-  pub fn kill(&mut self) {
-    self.alive = false;
-  }
-
-  /**
-   * Returns true if the core is still alive, false if it is terminating or terminated
-   */
-  pub fn alive(&self) -> bool { self.alive }
   
   /**
    * Return the core log

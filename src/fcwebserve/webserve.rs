@@ -13,12 +13,17 @@ fn unknown() -> IronResult<Response> {
 
 fn status_report(core_ref : &Arc<Mutex<FCCore>>) -> IronResult<Response> {
  let mut core = core_ref.lock().unwrap();
+ 
  core.log_mut().add(TAG, "serving status request");
+ 
  let boiler_start = format!("<html><body>");
- let status_portion = format!("ALIVE: {}<br/>", core.alive());
+ let status_portion = format!("ALIVE: {}<br/>", core.alive);
  let arm_portion = format!("ARM_SAFETY: {}<br/>ARM_COMMAND: {}<br/>FULLY ARMED: {}<br/>", core.armed_switch(), core.armed_cmd(), core.armed());
+ 
  let boiler_end = format!("</body></html>");
+ 
  let html_content_type : Mime = "text/html".parse::<Mime>().unwrap();
+ 
  Ok(Response::with((html_content_type, status::Ok, format!("{}{}{}{}", boiler_start, status_portion, arm_portion, boiler_end))))
 }
 
@@ -43,7 +48,7 @@ fn arm_core(core_ref : &Arc<Mutex<FCCore>>) -> IronResult<Response> {
 fn kill_core(core_ref : &Arc<Mutex<FCCore>>) -> IronResult<Response> {
  let mut core = core_ref.lock().unwrap();
  core.log_mut().add(TAG, "arm core network request");
- core.kill();
+ core.alive = false;
  Ok(Response::with((status::Ok, "ok")))
 }
 
