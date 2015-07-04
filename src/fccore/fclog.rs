@@ -3,19 +3,20 @@ use std::vec::Vec;
 use time;
 
 struct LogEntry {
+  tag  : String,
   info : String,
   time_entered : time::Tm
 }
 
 impl LogEntry {
-  pub fn new(info : &str) -> LogEntry {
-    LogEntry{info: info.to_string(), time_entered: time::now()}
+  pub fn new(tag : &str, info : &str) -> LogEntry {
+    LogEntry{tag: tag.to_string(), info: info.to_string(), time_entered: time::now()}
   }
 }
 
 impl ToString for LogEntry {
   fn to_string(&self) -> String {
-    format!("{}: {}", self.time_entered.rfc822(), self.info)
+    format!("{}- {}: {}", self.time_entered.rfc822(), self.tag, self.info)
   }
 }
 
@@ -28,8 +29,8 @@ impl Log {
     Log{entries:Vec::new()}
   }
 
-  pub fn add(&mut self, info : &str) {
-    let entry = LogEntry::new(info);
+  pub fn add(&mut self, tag : &str, info : &str) {
+    let entry = LogEntry::new(tag, info);
     println!("Add {} to log", entry.to_string());
     self.entries.push(entry);
   }

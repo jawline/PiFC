@@ -5,13 +5,15 @@ use fccore::FCCore;
 use std::thread;
 use std::sync::{Arc, Mutex};
 
+const TAG : &'static str = "webserve";
+
 fn unknown() -> IronResult<Response> {
  Ok(Response::with((status::NotFound, "unknown command")))
 }
 
 fn status_report(core_ref : &Arc<Mutex<FCCore>>) -> IronResult<Response> {
  let mut core = core_ref.lock().unwrap();
- core.log_mut().add("serving status request");
+ core.log_mut().add(TAG, "serving status request");
  let boiler_start = format!("<html><body>");
  let status_portion = format!("ALIVE: {}<br/>", core.alive());
  let arm_portion = format!("ARM_SAFETY: {}<br/>ARM_COMMAND: {}<br/>FULLY ARMED: {}<br/>", core.armed_switch(), core.armed_cmd(), core.armed());
@@ -27,20 +29,20 @@ fn get_log(core_ref : &Arc<Mutex<FCCore>>) -> IronResult<Response> {
 
 fn get_config(core_ref : &Arc<Mutex<FCCore>>) -> IronResult<Response> {
  let mut core = core_ref.lock().unwrap();
- core.log_mut().add("serving get config request");
+ core.log_mut().add(TAG, "serving get config request");
  Ok(Response::with((status::Ok, core.config().to_string())))
 }
 
 fn arm_core(core_ref : &Arc<Mutex<FCCore>>) -> IronResult<Response> {
  let mut core = core_ref.lock().unwrap();
- core.log_mut().add("arm core network request");
+ core.log_mut().add(TAG, "arm core network request");
  core.set_armed_command(true);
  Ok(Response::with((status::Ok, "ok")))
 }
 
 fn disarm_core(core_ref : &Arc<Mutex<FCCore>>) -> IronResult<Response> {
  let mut core = core_ref.lock().unwrap();
- core.log_mut().add("disarm core network request");
+ core.log_mut().add(TAG, "disarm core network request");
  core.set_armed_command(false);
  Ok(Response::with((status::Ok, "ok")))
 }

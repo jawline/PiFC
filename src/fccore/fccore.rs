@@ -8,6 +8,8 @@ use pi::light::{Light, LightState};
 use pi::button::{Button, ButtonState};
 use pi::polled_button::PolledButton;
 
+const TAG : &'static str = "core";
+
 pub struct FCCore {
   
   /**
@@ -25,9 +27,24 @@ pub struct FCCore {
    */
   armed_command : bool,
   
-  status_led : Light,
-  arm_switch : PolledButton,
+  /**
+   * The armed status LED
+   */
+  armed_status_led : Light,
+
+  /**
+   * ARM safety switch on the device, if set to off position the FC will disable
+   */
+  armed_safety_switch : PolledButton,
+
+  /**
+   * configuration for the core
+   */
   config : FCConfig,
+
+  /**
+   * Core log, stores log messages and timestamps
+   */
   log : Log
 }
 
@@ -38,8 +55,8 @@ impl FCCore {
       armed_switch: false,
       armed_command: false,
       alive : true,
-      status_led : Light::new(Pin::new(config.status_pin)),
-      arm_switch : PolledButton::new(Pin::new(config.arm_switch_pin)),
+      armed_status_led : Light::new(Pin::new(config.status_pin)),
+      armed_safety_switch : PolledButton::new(Pin::new(config.arm_switch_pin)),
       config: config,
       log: Log::new()
     }
@@ -51,19 +68,19 @@ impl FCCore {
   pub fn update_sensors(&mut self) {
 
     //Switch ARM to true if arm switch is pressed
-    self.armed_switch = match self.arm_switch.read_state() {
+    self.armed_switch = match self.armed_safety_switch.read_state() {
       ButtonState::Pressed => true,
       ButtonState::NotPressed => false
     };
     
     //The ARM from command state is reset to false if the safety is off
     if !self.armed_switch && self.armed_command {
-      self.log_mut().add("set core armed_command to false as switch is false");
+      self.log_mut().add(TAG, "set core armed_command to false as switch is false");
       self.armed_command = false;
     }
     
     //Update armed state LED
-    self.status_led.set_state(match self.armed() {
+    self.armed_status_led.set_state(match self.armed() {
       true => LightState::On,
       false => LightState::Off
     });
@@ -79,10 +96,10 @@ impl FCCore {
    */
   pub fn set_armed_command(&mut self, state : bool) {
     if self.armed_switch {
-      self.log_mut().add(&format!("ARM command request to set to {} handled at core", state));
+      self.log_mut().add(TAG, &format!("ARM command request to set to {} handled at core", state));
       self.armed_command = state;
     } else {
-      self.log_mut().add("ARM command request ignored as armed_switch is disabled");
+      self.log_mut().add(TAG, "ARM command request ignored as armed_switch is disabled");
     }
   }
 
