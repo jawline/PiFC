@@ -40,6 +40,13 @@ fn arm_core(core_ref : &Arc<Mutex<FCCore>>) -> IronResult<Response> {
  Ok(Response::with((status::Ok, "ok")))
 }
 
+fn kill_core(core_ref : &Arc<Mutex<FCCore>>) -> IronResult<Response> {
+ let mut core = core_ref.lock().unwrap();
+ core.log_mut().add(TAG, "arm core network request");
+ core.kill();
+ Ok(Response::with((status::Ok, "ok")))
+}
+
 fn disarm_core(core_ref : &Arc<Mutex<FCCore>>) -> IronResult<Response> {
  let mut core = core_ref.lock().unwrap();
  core.log_mut().add(TAG, "disarm core network request");
@@ -57,6 +64,7 @@ fn page_handler(req : &mut Request, core : &Arc<Mutex<FCCore>>) -> IronResult<Re
     "arm" => arm_core(core),
     "disarm" => disarm_core(core),
     "log" => get_log(core),
+    "kill" => kill_core(core),
     "config" => get_config(core),
     _ => unknown()
    }

@@ -25,7 +25,7 @@ pub struct Log {
 }
 
 impl Log {
-  pub fn new() -> Log {
+  pub fn new(log_file : &str) -> Log {
     Log{entries:Vec::new()}
   }
 
