@@ -1,4 +1,5 @@
 use std::string::ToString;
+use std::fs::File;
 use std::vec::Vec;
 use time;
 
@@ -21,12 +22,13 @@ impl ToString for LogEntry {
 }
 
 pub struct Log {
-  entries : Vec<LogEntry>
+  entries : Vec<LogEntry>,
+  out_file : File
 }
 
 impl Log {
   pub fn new(log_file : &str) -> Log {
-    Log{entries:Vec::new()}
+    Log{entries:Vec::new(), out_file: File::create(log_file).unwrap()}
   }
 
   pub fn add(&mut self, tag : &str, info : &str) {
