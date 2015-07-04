@@ -1,6 +1,7 @@
 use rustc_serialize::json;
 use std::fs::File;
 use std::io::{Read};
+use std::string::ToString;
 
 #[derive(RustcEncodable, RustcDecodable)]
 pub struct FCConfig {
@@ -24,5 +25,11 @@ impl FCConfig {
   pub fn load(base_file : &str) -> FCConfig {
     let text = FCConfig::read_config_file(base_file);
     return json::decode(&text).unwrap();
+  }
+}
+
+impl ToString for FCConfig {
+  fn to_string(&self) -> String {
+    json::encode(self).unwrap()
   }
 }

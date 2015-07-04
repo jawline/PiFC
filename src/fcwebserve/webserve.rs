@@ -32,6 +32,12 @@ fn get_log(core_ref : &Arc<Mutex<FCCore>>) -> IronResult<Response> {
  Ok(Response::with((status::Ok, core.log().to_string())))
 }
 
+fn get_config(core_ref : &Arc<Mutex<FCCore>>) -> IronResult<Response> {
+ let mut core = core_ref.lock().unwrap();
+ core.log_mut().add("serving get config request");
+ Ok(Response::with((status::Ok, core.config().to_string())))
+}
+
 fn arm_core(core_ref : &Arc<Mutex<FCCore>>) -> IronResult<Response> {
  let mut core = core_ref.lock().unwrap();
  core.log_mut().add("arm core network request");
@@ -56,6 +62,7 @@ fn page_handler(req : &mut Request, core : &Arc<Mutex<FCCore>>) -> IronResult<Re
     "arm" => arm_core(core),
     "disarm" => disarm_core(core),
     "log" => get_log(core),
+    "config" => get_config(core),
     _ => unknown()
    }
   } else {
