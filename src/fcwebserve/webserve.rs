@@ -16,7 +16,8 @@ fn status_report(core_ref : &Arc<Mutex<FCCore>>) -> IronResult<Response> {
  
  core.log_mut().add(TAG, "serving status request");
  
- let boiler_start = format!("<html><body>");
+ let boiler_start = format!("<html><head><title>Status</title><body>");
+ let header = "<b>STATUS PAGE</b><br/>";
  let status_portion = format!("ALIVE: {}<br/>", core.alive);
  let arm_portion = format!("ARM_SAFETY: {}<br/>ARM_COMMAND: {}<br/>FULLY ARMED: {}<br/>", core.armed_switch(), core.armed_cmd(), core.armed());
  
@@ -24,7 +25,7 @@ fn status_report(core_ref : &Arc<Mutex<FCCore>>) -> IronResult<Response> {
  
  let html_content_type : Mime = "text/html".parse::<Mime>().unwrap();
  
- Ok(Response::with((html_content_type, status::Ok, format!("{}{}{}{}", boiler_start, status_portion, arm_portion, boiler_end))))
+ Ok(Response::with((html_content_type, status::Ok, format!("{}{}{}{}{}", boiler_start, header, status_portion, arm_portion, boiler_end))))
 }
 
 fn get_log(core_ref : &Arc<Mutex<FCCore>>) -> IronResult<Response> {
@@ -72,13 +73,12 @@ fn page_handler(req : &mut Request, core : &Arc<Mutex<FCCore>>) -> IronResult<Re
   if req.url.path.len() != 0 {
    let base_cmd : &str = &req.url.path[0].clone();
    match base_cmd {
-    "status" => status_report(core),
     "arm" => arm_core(core),
     "disarm" => disarm_core(core),
     "log" => get_log(core),
     "kill" => kill_core(core),
     "config" => get_config(core),
-    _ => unknown()
+    "status" | _ => status_report(core)
    }
   } else {
    unknown()
