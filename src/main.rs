@@ -2,8 +2,6 @@ extern crate rustc_serialize;
 extern crate time;
 extern crate iron;
 
-use std::mem;
-
 mod physical;
 mod fccore;
 mod fcwebserve;
@@ -13,7 +11,6 @@ const TAG : &'static str = "main";
 
 fn main() {
 	let (core, handle) = fccore::spawn_fc(BASE_CFG_FILE);
-	let a = [0; mem::size_of::<i32>()];
 
 	if core.lock().unwrap().config().fc_webserve_enabled {
 		fcwebserve::spawn(&core);
