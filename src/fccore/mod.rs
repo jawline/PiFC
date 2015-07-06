@@ -3,6 +3,7 @@ pub mod fccore;
 pub mod fccore_logic;
 pub mod fclog;
 pub mod sensors;
+pub mod motors;
 
 pub use fccore::fccore::FCCore;
 use std::thread::{JoinHandle};
