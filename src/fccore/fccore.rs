@@ -3,6 +3,7 @@
 use fccore::fcconfig::FCConfig;
 use fccore::fclog::Log;
 use fccore::sensors;
+use fccore::motors;
 
 use physical::gpio::Pin;
 use physical::light::{Light, LightState};
@@ -54,7 +55,12 @@ pub struct FCCore {
     /**
      * Telemetry state
      */
-    pub sensors : sensors::State
+    pub sensors : sensors::State,
+
+    /**
+     * Motors state
+     */
+    pub motors : motors::State
 }
 
 impl FCCore {
