@@ -1,4 +1,4 @@
-use fccore::fclog::Log;
+use fccore::log::Log;
 
 const TAG : &'static str = "motor";
 
