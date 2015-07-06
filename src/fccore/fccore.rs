@@ -2,7 +2,7 @@
 
 use fccore::fcconfig::FCConfig;
 use fccore::fclog::Log;
-use fccore::telemetry;
+use fccore::sensors;
 
 use physical::gpio::Pin;
 use physical::light::{Light, LightState};
@@ -54,7 +54,7 @@ pub struct FCCore {
     /**
      * Telemetry state
      */
-    pub sensors : telemetry::State
+    pub sensors : sensors::State
 }
 
 impl FCCore {
@@ -69,7 +69,7 @@ impl FCCore {
             armed_safety_switch : PolledButton::new(Pin::new(config.arm_switch_pin)),
             config: config,
             log: Log::new(&format!("{}log{}", LOG_DIR, time::now().to_timespec().sec)),
-            sensors: telemetry::State::new()
+            sensors: sensors::State::new()
         }
     }
     
