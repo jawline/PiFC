@@ -9,9 +9,4 @@ impl State {
     }
 
     pub fn sample(&mut self) {}
-
-    pub fn clear(&mut self) {
-        self.acc = (0.0, 0.0, 0.0);
-        self.gyro = (0.0, 0.0, 0.0);
-    }
 }
