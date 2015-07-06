@@ -67,7 +67,7 @@ impl FCCore {
 
     pub fn new(config_file : &str) -> FCCore {
         let config = FCConfig::load(config_file);
-        FCCore {
+        let mut core = FCCore {
             armed_switch: false,
             armed_command: false,
             alive : true,
@@ -77,7 +77,9 @@ impl FCCore {
             log: Log::new(&format!("{}log{}", LOG_DIR, time::now().to_timespec().sec)),
             sensors: sensors::State::new(),
             motors: motors::State::new()
-        }
+        };
+        core.armed_changed();
+        core
     }
     
     /**
@@ -100,6 +102,7 @@ impl FCCore {
         if !self.armed_switch && self.armed_command {
             self.log_mut().add(TAG, "set core armed_command to false as switch is false");
             self.armed_command = false;
+            self.armed_changed();
         }
         
         //Update armed state LED
@@ -122,37 +125,31 @@ impl FCCore {
         if gyr_x + gyr_y + gyr_z != 0.0 {
             self.log_mut().add(TAG, "gyro reading non 0");
         }
-        
-        if !self.armed() {
-            self.reset_all_motors();
+    }
+
+    fn armed_changed(&mut self) {
+        self.log.add(TAG, "armed_changed triggered");
+        if self.armed() {
+            self.enable_all_motors();
+        } else {
+            self.disable_all_motors();
         }
     }
 
-    /**
-     * Reset the power level of all motors to 0
-     */
-    fn reset_all_motors(&mut self) {
-        let mut modified_motors = 0;
-        modified_motors += self.kill_motor_if_powered(MotorID::Motor1);
-        modified_motors += self.kill_motor_if_powered(MotorID::Motor2);
-        modified_motors += self.kill_motor_if_powered(MotorID::Motor3);
-        modified_motors += self.kill_motor_if_powered(MotorID::Motor4);
-        
-        if modified_motors > 0 {
-            self.log.add(TAG, "set motor speeds to 0 because not armed");
-        }
+    fn disable_all_motors(&mut self) {
+        self.log.add(TAG, "disable all motors");
+        self.motors.motor_mut(MotorID::Motor1).disable(&mut self.log);
+        self.motors.motor_mut(MotorID::Motor2).disable(&mut self.log);
+        self.motors.motor_mut(MotorID::Motor3).disable(&mut self.log);
+        self.motors.motor_mut(MotorID::Motor4).disable(&mut self.log);
     }
-    
-    /**
-     * If the motor currenlt has a non 0 power level then set it to 0
-     */
-    fn kill_motor_if_powered(&mut self, id: MotorID) -> usize {
-        if self.motors.motor(id).current_power() > 0 {
-            self.motors.motor_mut(MotorID::Motor1).set_power(0, &mut self.log);
-            1
-        } else {
-            0
-        }
+
+    fn enable_all_motors(&mut self) {
+        self.log.add(TAG, "enable all motors");
+        self.motors.motor_mut(MotorID::Motor1).enable(&mut self.log);
+        self.motors.motor_mut(MotorID::Motor2).enable(&mut self.log);
+        self.motors.motor_mut(MotorID::Motor3).enable(&mut self.log);
+        self.motors.motor_mut(MotorID::Motor4).enable(&mut self.log);
     }
   
     /**
@@ -181,6 +178,8 @@ impl FCCore {
         } else {
             self.log_mut().add(TAG, "ARM command request ignored as armed_switch is disabled");
         }
+
+        self.armed_changed();
     }
     
     /**
@@ -192,11 +191,7 @@ impl FCCore {
      * Set a motors power level
      */
     pub fn set_motor_power(&mut self, motor: MotorID, level: usize) {
-        if self.armed() {
-            self.motors.motor_mut(motor).set_power(level, &mut self.log);
-        } else {
-            self.log.add(TAG, "set motor power request ignored as FC is not armed");
-        }
+        self.motors.motor_mut(motor).set_power(level, &mut self.log);
     }
 
     /**

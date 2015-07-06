@@ -7,6 +7,5 @@ impl State {
     pub fn new() -> State {
         State{acc: (0.0, 0.0, 0.0), gyro: (0.0, 0.0, 0.0)}
     }
-
     pub fn sample(&mut self) {}
 }

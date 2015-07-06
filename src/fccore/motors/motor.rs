@@ -27,13 +27,15 @@ impl Motor {
     }
 
     pub fn disable(&mut self, log: &mut Log) {
-        self.enabled = false;
-        self.power = 0;
-        log.add(TAG, &format!("disabled motor"));
+        if self.enabled {
+            self.enabled = false;
+            self.power = 0;
+            log.add(TAG, "disabled motor");
+        }
     }
 
     pub fn enable(&mut self, log: &mut Log) {
         self.enabled = true;
-        log.add(TAG, &format("enabled motor"));
+        log.add(TAG, "enabled motor");
     }
 }
