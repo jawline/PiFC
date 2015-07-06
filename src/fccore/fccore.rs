@@ -128,10 +128,25 @@ impl FCCore {
         }
         
         if !self.armed() {
+            let mut modified_motors = 0;
+            
+            modified_motors += self.kill_motor_if_powered(MotorID::Motor1);
+            modified_motors += self.kill_motor_if_powered(MotorID::Motor2);
+            modified_motors += self.kill_motor_if_powered(MotorID::Motor3);
+            modified_motors += self.kill_motor_if_powered(MotorID::Motor4);
+            
+            if modified_motors > 0 {
+                self.log.add(TAG, "set motor speeds to 0 because not armed");
+            }
+        }
+    }
+    
+    fn kill_motor_if_powered(&mut self, id: MotorID) -> usize {
+        if self.motors.motor(id).current_power() > 0 {
             self.motors.motor_mut(MotorID::Motor1).set_power(0, &mut self.log);
-            self.motors.motor_mut(MotorID::Motor2).set_power(0, &mut self.log);
-            self.motors.motor_mut(MotorID::Motor3).set_power(0, &mut self.log);
-            self.motors.motor_mut(MotorID::Motor4).set_power(0, &mut self.log);
+            1
+        } else {
+            0
         }
     }
   
