@@ -24,7 +24,7 @@ fn status_report(core_ref : &Arc<Mutex<FCCore>>) -> IronResult<Response> {
 
     let boiler_end = format!("</body></html>");
     let html_content_type : Mime = "text/html".parse::<Mime>().unwrap();
-    Ok(Response::with((html_content_type, status::Ok, format!("{}{}{}{}{}", boiler_start, header, status_portion, acc_portion, arm_portion, boiler_end))))
+    Ok(Response::with((html_content_type, status::Ok, format!("{}{}{}{}{}{}", boiler_start, header, status_portion, acc_portion, arm_portion, boiler_end))))
 }
 
 fn get_log(core_ref : &Arc<Mutex<FCCore>>) -> IronResult<Response> {
