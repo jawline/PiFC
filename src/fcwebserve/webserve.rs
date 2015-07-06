@@ -27,6 +27,17 @@ fn status_report(core_ref : &Arc<Mutex<FCCore>>) -> IronResult<Response> {
     let (gyr_x, gyr_y, gyr_z) = core.sensors.gyro;
     let acc_portion = format!("ACC: ({}, {}, {})<br/>GYR: ({}, {}, {})<br/>", acc_x, acc_y, acc_z, gyr_x, gyr_y, gyr_z);
     
+    //Generate motor data
+    let motor1_power = core.motors.motor1.current_power();
+    let motor2_power = core.motors.motor2.current_power();
+    let motor3_power = core.motors.motor3.current_power();
+    let motor4_power = core.motors.motor4.current_power();
+    let motor_portion = format!("Motor 1: {}<br/>Motor 2: {}<br/>Motor 3: {}<br/>Motor 4: {}<br/>",
+            motor1_power,
+            motor2_power,
+            motor3_power,
+            motor4_power);
+    
     //Generate arm data
     let arm_portion = format!("ARM_SAFETY: {}<br/>ARM_COMMAND: {}<br/>FULLY ARMED: {}<br/>", core.armed_switch(), core.armed_cmd(), core.armed());
 
@@ -36,7 +47,7 @@ fn status_report(core_ref : &Arc<Mutex<FCCore>>) -> IronResult<Response> {
     //Generate HTML mime type to send
     let html_content_type : Mime = "text/html".parse::<Mime>().unwrap();
     
-    Ok(Response::with((html_content_type, status::Ok, format!("{}{}{}{}{}{}", boiler_start, header, status_portion, acc_portion, arm_portion, boiler_end))))
+    Ok(Response::with((html_content_type, status::Ok, format!("{}{}{}{}{}{}{}", boiler_start, header, status_portion, acc_portion, motor_portion, arm_portion, boiler_end))))
 }
 
 fn get_log(core_ref : &Arc<Mutex<FCCore>>) -> IronResult<Response> {
