@@ -126,6 +126,13 @@ impl FCCore {
         if gyr_x + gyr_y + gyr_z != 0.0 {
             self.log_mut().add(TAG, "gyro reading non 0");
         }
+        
+        if !self.armed() {
+            self.motors.motor_mut(MotorID::Motor1).set_power(0, &mut self.log);
+            self.motors.motor_mut(MotorID::Motor2).set_power(0, &mut self.log);
+            self.motors.motor_mut(MotorID::Motor3).set_power(0, &mut self.log);
+            self.motors.motor_mut(MotorID::Motor4).set_power(0, &mut self.log);
+        }
     }
   
     /**
@@ -165,7 +172,11 @@ impl FCCore {
      * Set a motors power level
      */
     pub fn set_motor_power(&mut self, motor: MotorID, level: usize) {
-        self.motors.motor_mut(motor).set_power(level, &mut self.log);
+        if self.armed() {
+            self.motors.motor_mut(motor).set_power(level, &mut self.log);
+        } else {
+            self.log.add(TAG, "set motor power request ignored as FC is not armed");
+        }
     }
 
     /**
