@@ -20,19 +20,19 @@ impl State {
     
     pub fn motor(&self, id: MotorID) -> &Motor {
         match id {
-            Motor1 => &self.motor_1,
-            Motor2 => &self.motor_2,
-            Motor3 => &self.motor_3,
-            Motor4 => &self.motor_4
+            MotorID::Motor1 => &self.motor_1,
+            MotorID::Motor2 => &self.motor_2,
+            MotorID::Motor3 => &self.motor_3,
+            MotorID::Motor4 => &self.motor_4
         }
     }
     
     pub fn motor_mut(&mut self, id: MotorID) -> &mut Motor {
         match id {
-            Motor1 => &mut self.motor_1,
-            Motor2 => &mut self.motor_2,
-            Motor3 => &mut self.motor_3,
-            Motor4 => &mut self.motor_4
+            MotorID::Motor1 => &mut self.motor_1,
+            MotorID::Motor2 => &mut self.motor_2,
+            MotorID::Motor3 => &mut self.motor_3,
+            MotorID::Motor4 => &mut self.motor_4
         }
     }
 }
