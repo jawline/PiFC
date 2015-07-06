@@ -51,7 +51,7 @@ fn status_report(core_ref : &Arc<Mutex<FCCore>>) -> IronResult<Response> {
 }
 
 fn motor_test(core_ref: &Arc<Mutex<FCCore>>) -> IronResult<Response> {
-    let core = core_ref.lock().unwrap();
+    let mut core = core_ref.lock().unwrap();
     let log = core.log_mut();
     
     core.motors.motor_1.set_power(25, log);
