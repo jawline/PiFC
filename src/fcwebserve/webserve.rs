@@ -32,7 +32,7 @@ fn status_report(core_ref : &Arc<Mutex<FCCore>>) -> IronResult<Response> {
     let motor2_power = core.motors.motor_2.current_power();
     let motor3_power = core.motors.motor_3.current_power();
     let motor4_power = core.motors.motor_4.current_power();
-    let motor_portion = format!("Motor 1: {}<br/>Motor 2: {}<br/>Motor 3: {}<br/>Motor 4: {}<br/>",
+    let motor_portion = format!("MOTOR 1: {}<br/>MOTOR 2: {}<br/>MOTOR 3: {}<br/>MOTOR 4: {}<br/>",
             motor1_power,
             motor2_power,
             motor3_power,
