@@ -165,7 +165,7 @@ impl FCCore {
      * Set a motors power level
      */
     pub fn set_motor_power(&mut self, motor: MotorID, level: usize) {
-        self.motors.motor_mut(motor).set_power(&mut self.log);
+        self.motors.motor_mut(motor).set_power(level, &mut self.log);
     }
 
     /**
