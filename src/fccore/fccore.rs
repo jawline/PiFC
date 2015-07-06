@@ -14,6 +14,7 @@ const TAG : &'static str = "core";
 const LOG_DIR : &'static str = "./logs/";
 
 pub struct FCCore {
+
     /**
      * Is the core alive
      */
@@ -53,48 +54,48 @@ pub struct FCCore {
 impl FCCore {
 
     pub fn new(config_file : &str) -> FCCore {
-      let config = FCConfig::load(config_file);
-      FCCore {
-        armed_switch: false,
-        armed_command: false,
-        alive : true,
-        armed_status_led : Light::new(Pin::new(config.status_pin)),
-        armed_safety_switch : PolledButton::new(Pin::new(config.arm_switch_pin)),
-        config: config,
-        log: Log::new(&format!("{}log{}", LOG_DIR, time::now().to_timespec().sec))
-      }
+        let config = FCConfig::load(config_file);
+        FCCore {
+            armed_switch: false,
+            armed_command: false,
+            alive : true,
+            armed_status_led : Light::new(Pin::new(config.status_pin)),
+            armed_safety_switch : PolledButton::new(Pin::new(config.arm_switch_pin)),
+            config: config,
+            log: Log::new(&format!("{}log{}", LOG_DIR, time::now().to_timespec().sec))
+        }
     }
     
     /**
      * Check the state of sensors and react to any changes
      */
     pub fn update_sensors(&mut self) {
-  
-      //Switch ARM to true if arm switch is pressed
-      let safety_state = match self.armed_safety_switch.read_state() {
-        ButtonState::Pressed => true,
-        ButtonState::NotPressed => false
-      };
-  
-      if safety_state && !self.armed_switch {
-        self.log_mut().add(TAG, "physical safety switched to armed");
-        self.armed_switch = true;
-      } else if !safety_state && self.armed_switch {
-        self.log_mut().add(TAG, "physical safety switched to disarmed");
-        self.armed_switch = false;
-      }
-      
-      //The ARM from command state is reset to false if the safety is off
-      if !self.armed_switch && self.armed_command {
-        self.log_mut().add(TAG, "set core armed_command to false as switch is false");
-        self.armed_command = false;
-      }
-      
-      //Update armed state LED
-      self.armed_status_led.set_state(match self.armed() {
-        true => LightState::On,
-        false => LightState::Off
-      });
+    
+        //Switch ARM to true if arm switch is pressed
+        let safety_state = match self.armed_safety_switch.read_state() {
+            ButtonState::Pressed => true,
+            ButtonState::NotPressed => false
+        };
+    
+        if safety_state && !self.armed_switch {
+            self.log_mut().add(TAG, "physical safety switched to armed");
+            self.armed_switch = true;
+        } else if !safety_state && self.armed_switch {
+            self.log_mut().add(TAG, "physical safety switched to disarmed");
+            self.armed_switch = false;
+        }
+        
+        //The ARM from command state is reset to false if the safety is off
+        if !self.armed_switch && self.armed_command {
+            self.log_mut().add(TAG, "set core armed_command to false as switch is false");
+            self.armed_command = false;
+        }
+        
+        //Update armed state LED
+        self.armed_status_led.set_state(match self.armed() {
+            true => LightState::On,
+            false => LightState::Off
+        });
     }
   
     /**
