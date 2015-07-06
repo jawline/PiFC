@@ -13,23 +13,23 @@ pub struct FCConfig {
 
 impl FCConfig {
     fn read_config_file(base_file : &str) -> String {
-      let mut result = String::new();
-      
-      if let Err(_) = File::open(base_file).unwrap().read_to_string(&mut result) {
-        panic!("Could not read from FCConfig file {}", base_file);
-      }
-  
-      return result;
+        let mut result = String::new();
+        
+        if let Err(_) = File::open(base_file).unwrap().read_to_string(&mut result) {
+            panic!("Could not read from FCConfig file {}", base_file);
+        }
+    
+        return result;
     }
   
     pub fn load(base_file : &str) -> FCConfig {
-      let text = FCConfig::read_config_file(base_file);
-      return json::decode(&text).unwrap();
+        let text = FCConfig::read_config_file(base_file);
+        return json::decode(&text).unwrap();
     }
 }
 
 impl ToString for FCConfig {
     fn to_string(&self) -> String {
-      json::encode(self).unwrap()
+        json::encode(self).unwrap()
     }
 }
