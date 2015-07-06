@@ -158,7 +158,7 @@ impl FCCore {
     /**
      * Return an immutable ref to the motors state
      */
-    pub fn motors(&self) -> &motors::State { self.motors }
+    pub fn motors(&self) -> &motors::State { &self.motors }
 
     /**
      * Get the core config struct
