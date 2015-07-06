@@ -13,19 +13,29 @@ fn unknown() -> IronResult<Response> {
 
 fn status_report(core_ref : &Arc<Mutex<FCCore>>) -> IronResult<Response> {
     let mut core = core_ref.lock().unwrap();
-    
     core.log_mut().add(TAG, "serving status request");
     
+    //Generate header
     let boiler_start = format!("<html><head><title>Status</title><body>");
     let header = "<b>STATUS PAGE</b><br/>";
+    
+    //Generate alive data
     let status_portion = format!("ALIVE: {}<br/>", core.alive);
+    
+    //Generate accelerometer and gyroscope data
     let (acc_x, acc_y, acc_z) = core.sensors.acc;
     let (gyr_x, gyr_y, gyr_z) = core.sensors.gyro;
     let acc_portion = format!("ACC: ({}, {}, {})<br/>GYR: ({}, {}, {})<br/>", acc_x, acc_y, acc_z, gyr_x, gyr_y, gyr_z);
+    
+    //Generate arm data
     let arm_portion = format!("ARM_SAFETY: {}<br/>ARM_COMMAND: {}<br/>FULLY ARMED: {}<br/>", core.armed_switch(), core.armed_cmd(), core.armed());
 
+    //Generate footer
     let boiler_end = format!("</body></html>");
+    
+    //Generate HTML mime type to send
     let html_content_type : Mime = "text/html".parse::<Mime>().unwrap();
+    
     Ok(Response::with((html_content_type, status::Ok, format!("{}{}{}{}{}{}", boiler_start, header, status_portion, acc_portion, arm_portion, boiler_end))))
 }
 
