@@ -19,7 +19,9 @@ fn status_report(core_ref : &Arc<Mutex<FCCore>>) -> IronResult<Response> {
     let boiler_start = format!("<html><head><title>Status</title><body>");
     let header = "<b>STATUS PAGE</b><br/>";
     let status_portion = format!("ALIVE: {}<br/>", core.alive);
-    let acc_portion = format!("ACC: {}<br/>GYR: {}<br/>", core.sensors.acc, core.sensors.gyro);
+    let (acc_x, acc_y, acc_z) = core.sensors.acc;
+    let (gyr_x, gyr_y, gyr_z) = core.sensors.gyro;
+    let acc_portion = format!("ACC: ({},{},{})<br/>GYR: ({},{},{})<br/>", acc_x, acc_y, acc_z, gyr_x, gyr_y, gyr_z);
     let arm_portion = format!("ARM_SAFETY: {}<br/>ARM_COMMAND: {}<br/>FULLY ARMED: {}<br/>", core.armed_switch(), core.armed_cmd(), core.armed());
 
     let boiler_end = format!("</body></html>");
