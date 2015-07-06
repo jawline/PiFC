@@ -60,7 +60,7 @@ pub struct FCCore {
     /**
      * Motors state
      */
-    pub motors : motors::State
+    motors : motors::State
 }
 
 impl FCCore {
@@ -154,6 +154,11 @@ impl FCCore {
             self.log_mut().add(TAG, "ARM command request ignored as armed_switch is disabled");
         }
     }
+    
+    /**
+     * Return an immutable ref to the motors state
+     */
+    pub fn motors(&self) -> &motors::State { self.motors }
 
     /**
      * Get the core config struct
