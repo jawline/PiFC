@@ -1,7 +1,5 @@
 use fccore::motors::Motor;
 
-pub enum MotorID { Motor1, Motor2, Motor3, Motor4 }
-
 pub struct State {
     pub motor_1 : Motor,
     pub motor_2 : Motor,
