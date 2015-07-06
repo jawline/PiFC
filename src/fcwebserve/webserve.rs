@@ -50,6 +50,18 @@ fn status_report(core_ref : &Arc<Mutex<FCCore>>) -> IronResult<Response> {
     Ok(Response::with((html_content_type, status::Ok, format!("{}{}{}{}{}{}{}", boiler_start, header, status_portion, acc_portion, motor_portion, arm_portion, boiler_end))))
 }
 
+fn motor_test(core_ref: &Arc<Mutex<FCCore>>) -> IronResult<Response> {
+    let core = core_ref.lock().unwrap();
+    core.motors.motor_1.set_power(25);
+    thread::sleep_ms(250);
+    core.motors.motor_1.set_power(75);
+    thread::sleep_ms(250);
+    core.motors.motor_1.set_power(100);
+    thread::sleep_ms(250);
+    core.motors.motor_1.set_power(0);
+    Ok(Response::with((status::Ok, "ok")))
+}
+
 fn get_log(core_ref : &Arc<Mutex<FCCore>>) -> IronResult<Response> {
     let core = core_ref.lock().unwrap();
     Ok(Response::with((status::Ok, core.log().to_string())))
@@ -100,6 +112,7 @@ fn page_handler(req : &mut Request, core : &Arc<Mutex<FCCore>>) -> IronResult<Re
          "log" => get_log(core),
          "kill" => kill_core(core),
          "config" => get_config(core),
+         "motor_test" => motor_test(core),
          "status" | _ => status_report(core)
         }
     } else {
