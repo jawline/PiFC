@@ -159,6 +159,13 @@ impl FCCore {
      * Return an immutable ref to the motors state
      */
     pub fn motors(&self) -> &motors::State { &self.motors }
+    
+    /**
+     * Set a motors power level
+     */
+    pub fn set_motor_power(&mut self, motor: MotorID, level: usize) {
+        self.motors.motor_mut(motor).set_power(&mut self.log);
+    }
 
     /**
      * Get the core config struct
