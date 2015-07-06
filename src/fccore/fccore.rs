@@ -54,7 +54,7 @@ pub struct FCCore {
     /**
      * Telemetry state
      */
-    telemetry : telemetry::State
+    pub sensors : telemetry::State
 }
 
 impl FCCore {
@@ -69,7 +69,7 @@ impl FCCore {
             armed_safety_switch : PolledButton::new(Pin::new(config.arm_switch_pin)),
             config: config,
             log: Log::new(&format!("{}log{}", LOG_DIR, time::now().to_timespec().sec)),
-            telemetry: telemetry::State::new()
+            sensors: telemetry::State::new()
         }
     }
     
@@ -105,16 +105,16 @@ impl FCCore {
         });
         
         //Take gyroscope and accelerometer readings
-        self.telemetry.sample();
+        self.sensors.sample();
         
         //Log any accelerometer data
-        let (acc_x, acc_y, acc_z) = self.telemetry.acc;
+        let (acc_x, acc_y, acc_z) = self.sensors.acc;
         if acc_x + acc_y + acc_z != 0 {
             self.log_mut().add("accelerometer reading non 0");
         }
         
         //Log any gyro data
-        let (gyr_x, gyr_y, gyr_z) = self.telemtry.gyro;
+        let (gyr_x, gyr_y, gyr_z) = self.sensors.gyro;
         if gyr_x + gyr_y + gyr_z != 0 {
             self.log_mut().add("gyro reading non 0");
         }
