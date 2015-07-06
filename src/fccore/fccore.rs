@@ -1,7 +1,7 @@
 #![allow(dead_code)]
 
 use fccore::fcconfig::FCConfig;
-use fccore::fclog::Log;
+use fccore::log::Log;
 use fccore::sensors;
 use fccore::motors;
 
