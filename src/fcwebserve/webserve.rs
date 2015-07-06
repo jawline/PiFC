@@ -55,19 +55,19 @@ fn status_report(core_ref : &Arc<Mutex<FCCore>>) -> IronResult<Response> {
 fn motor_test(core_ref: &Arc<Mutex<FCCore>>) -> IronResult<Response> {
     let mut core = core_ref.lock().unwrap();
     
-    core.set_moter_power(MotorID::Motor1, 25);
+    core.set_motor_power(MotorID::Motor1, 25);
     thread::sleep_ms(250);
     
-    core.set_moter_power(MotorID::Motor1, 50);
+    core.set_motor_power(MotorID::Motor1, 50);
     thread::sleep_ms(250);
     
-    core.set_moter_power(MotorID::Motor1, 75);
+    core.set_motor_power(MotorID::Motor1, 75);
     thread::sleep_ms(250);
     
-    core.set_moter_power(MotorID::Motor1, 100);
+    core.set_motor_power(MotorID::Motor1, 100);
     thread::sleep_ms(250);
     
-    core.set_moter_power(MotorID::Motor1, 0);
+    core.set_motor_power(MotorID::Motor1, 0);
     thread::sleep_ms(0);
 
     Ok(Response::with((status::Ok, "ok")))
