@@ -1,0 +1,30 @@
+use physical::gpio::Pin;
+use physical::button::{Button, ButtonState};
+use physical::polled_button::PolledButton;
+use fccore::fcconfig::Switch;
+
+pub struct ConfigButton {
+	enabled: bool,
+	disabled_return_value: bool,
+	button: PolledButton
+}
+
+impl ConfigButton {
+	pub fn new(switch: &Switch) -> ConfigButton {
+		ConfigButton{
+			enabled: switch.use_switch,
+			disabled_return_value: switch.disabled_return_value,
+			button: PolledButton::new(Pin::new(switch.pin))
+		}
+	}
+
+	pub fn read_state(&self) -> bool {
+		match self.enabled {
+			true => match self.button.read_state() {
+				ButtonState::Pressed => true,
+				ButtonState::NotPressed => false
+			},
+			false => self.disabled_return_value
+		}
+	}
+}
