@@ -110,13 +110,13 @@ impl FCCore {
         //Log any accelerometer data
         let (acc_x, acc_y, acc_z) = self.sensors.acc;
         if acc_x + acc_y + acc_z != 0 {
-            self.log_mut().add("accelerometer reading non 0");
+            self.log_mut().add(TAG, "accelerometer reading non 0");
         }
         
         //Log any gyro data
         let (gyr_x, gyr_y, gyr_z) = self.sensors.gyro;
         if gyr_x + gyr_y + gyr_z != 0 {
-            self.log_mut().add("gyro reading non 0");
+            self.log_mut().add(TAG, "gyro reading non 0");
         }
     }
   
