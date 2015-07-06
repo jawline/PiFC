@@ -75,7 +75,8 @@ impl FCCore {
             armed_safety_switch : PolledButton::new(Pin::new(config.arm_switch_pin)),
             config: config,
             log: Log::new(&format!("{}log{}", LOG_DIR, time::now().to_timespec().sec)),
-            sensors: sensors::State::new()
+            sensors: sensors::State::new(),
+            motors: motors::State::new()
         }
     }
     
