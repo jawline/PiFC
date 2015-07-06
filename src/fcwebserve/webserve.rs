@@ -19,11 +19,12 @@ fn status_report(core_ref : &Arc<Mutex<FCCore>>) -> IronResult<Response> {
     let boiler_start = format!("<html><head><title>Status</title><body>");
     let header = "<b>STATUS PAGE</b><br/>";
     let status_portion = format!("ALIVE: {}<br/>", core.alive);
+    let acc_portion = format!("ACC: {}<br/>GYR: {}<br/>", core.sensors.acc, core.sensors.gyro);
     let arm_portion = format!("ARM_SAFETY: {}<br/>ARM_COMMAND: {}<br/>FULLY ARMED: {}<br/>", core.armed_switch(), core.armed_cmd(), core.armed());
 
     let boiler_end = format!("</body></html>");
     let html_content_type : Mime = "text/html".parse::<Mime>().unwrap();
-    Ok(Response::with((html_content_type, status::Ok, format!("{}{}{}{}{}", boiler_start, header, status_portion, arm_portion, boiler_end))))
+    Ok(Response::with((html_content_type, status::Ok, format!("{}{}{}{}{}", boiler_start, header, status_portion, acc_portion, arm_portion, boiler_end))))
 }
 
 fn get_log(core_ref : &Arc<Mutex<FCCore>>) -> IronResult<Response> {
