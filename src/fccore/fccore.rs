@@ -4,6 +4,7 @@ use fccore::fcconfig::FCConfig;
 use fccore::log::Log;
 use fccore::sensors;
 use fccore::motors;
+use fccore::motors::MotorID;
 
 use physical::gpio::Pin;
 use physical::light::{Light, LightState};
