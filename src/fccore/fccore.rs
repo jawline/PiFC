@@ -2,6 +2,7 @@
 
 use fccore::fcconfig::FCConfig;
 use fccore::fclog::Log;
+use fccore::telemetry;
 
 use physical::gpio::Pin;
 use physical::light::{Light, LightState};
@@ -48,7 +49,12 @@ pub struct FCCore {
     /**
      * Core log, stores log messages and timestamps
      */
-    log : Log
+    log : Log,
+    
+    /**
+     * Telemetry state
+     */
+    telemetry : telemetry::State
 }
 
 impl FCCore {
@@ -62,7 +68,8 @@ impl FCCore {
             armed_status_led : Light::new(Pin::new(config.status_pin)),
             armed_safety_switch : PolledButton::new(Pin::new(config.arm_switch_pin)),
             config: config,
-            log: Log::new(&format!("{}log{}", LOG_DIR, time::now().to_timespec().sec))
+            log: Log::new(&format!("{}log{}", LOG_DIR, time::now().to_timespec().sec)),
+            telemetry: telemetry::State::new()
         }
     }
     
@@ -96,6 +103,8 @@ impl FCCore {
             true => LightState::On,
             false => LightState::Off
         });
+        
+        self.telemetry.refresh();
     }
   
     /**
