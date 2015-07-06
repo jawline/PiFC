@@ -28,10 +28,10 @@ fn status_report(core_ref : &Arc<Mutex<FCCore>>) -> IronResult<Response> {
     let acc_portion = format!("ACC: ({}, {}, {})<br/>GYR: ({}, {}, {})<br/>", acc_x, acc_y, acc_z, gyr_x, gyr_y, gyr_z);
     
     //Generate motor data
-    let motor1_power = core.motors.motor_1.current_power();
-    let motor2_power = core.motors.motor_2.current_power();
-    let motor3_power = core.motors.motor_3.current_power();
-    let motor4_power = core.motors.motor_4.current_power();
+    let motor1_power = core.motors().motor_1.current_power();
+    let motor2_power = core.motors().motor_2.current_power();
+    let motor3_power = core.motors().motor_3.current_power();
+    let motor4_power = core.motors().motor_4.current_power();
     let motor_portion = format!("MOTOR 1: {}<br/>MOTOR 2: {}<br/>MOTOR 3: {}<br/>MOTOR 4: {}<br/>",
             motor1_power,
             motor2_power,
