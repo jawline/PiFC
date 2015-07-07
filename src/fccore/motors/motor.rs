@@ -22,10 +22,10 @@ impl Motor {
     pub fn current_power(&self) -> usize { self.power }
     pub fn set_power(&mut self, level: usize, log: &mut Log) {
         if self.enabled {
-            log.add(TAG, &format!("Motor set power level to {}", level));
+            log.add(TAG, &format!("motor named {} set power level to {}", self.name, level));
             self.power = level;
         } else {
-            log.add(TAG, &format!("Motor disabled - power request ignored, set level to 0"));
+            log.add(TAG, &format!("motor named {} disabled - power request ignored, set level to 0", self.name));
             self.power = 0;
         }
     }
@@ -34,12 +34,12 @@ impl Motor {
         if self.enabled {
             self.enabled = false;
             self.power = 0;
-            log.add(TAG, "disabled motor");
+            log.add(TAG, "disabled motor named {}", self.name);
         }
     }
 
     pub fn enable(&mut self, log: &mut Log) {
         self.enabled = true;
-        log.add(TAG, "enabled motor");
+        log.add(TAG, "enabled motor named {}", self.name);
     }
 }
