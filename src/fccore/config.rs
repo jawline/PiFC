@@ -30,7 +30,7 @@ impl Config {
     }
   
     pub fn load(base_file : &str) -> FCConfig {
-        let text = FCConfig::read_config_file(base_file);
+        let text = Config::read_config_file(base_file);
         return json::decode(&text).unwrap();
     }
 }
