@@ -1,5 +1,6 @@
 use fccore::motors::Motor;
 use fccore::motors::MotorID;
+use fccore::config;
 use std::slice::{Iter, IterMut};
 use std::vec::Vec;
 
@@ -8,9 +9,9 @@ pub struct State {
 }
 
 impl State {
-    pub fn new() -> State {
+    pub fn new(configs: &[4; config::Motor]) -> State {
         State{
-            motors: vec!(Motor::new(), Motor::new(), Motor::new(), Motor::new())
+            motors: vec!(Motor::new(configs[0]), Motor::new(configs[1]), Motor::new(configs[2]), Motor::new(configs[3]))
         }
     }
     
