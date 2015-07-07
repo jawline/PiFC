@@ -6,7 +6,7 @@ mod physical;
 mod fccore;
 mod fcwebserve;
 
-const BASE_CFG_FILE : &'static str = "./assets/base.cfg";
+const BASE_CFG_FILE : &'static str = "./configs/base.cfg";
 const TAG : &'static str = "main";
 
 fn main() {
