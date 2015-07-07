@@ -1,6 +1,6 @@
 use fccore::motors::Motor;
 use fccore::motors::MotorID;
-use std::slice::Iter;
+use std::slice::{Iter, IterMut};
 use std::vec::Vec;
 
 pub struct State {
@@ -32,7 +32,11 @@ impl State {
         }
     }
     
-    pub fn as_mut_vec(&mut self) -> Iter<Motor> {
+    pub fn iter(&self) -> Iter<Motor> {
         self.motors.iter()
+    }
+    
+    pub fn iter_mut(&mut self) -> Iter<Motor> {
+        self.motors.iter_mut()
     }
 }
