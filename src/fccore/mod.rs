@@ -6,7 +6,7 @@ pub mod sensors;
 pub mod motors;
 pub mod configbutton;
 
-pub use fccore::fccore::FCCore;
+pub use fccore::fccore::Core;
 use std::thread::{JoinHandle};
 use std::sync::{Arc, Mutex};
 
