@@ -15,7 +15,7 @@ use time;
 const TAG : &'static str = "core";
 const LOG_DIR : &'static str = "./logs/";
 
-pub struct FCCore {
+pub struct Core {
 
     /**
      * Is the core alive
@@ -63,11 +63,11 @@ pub struct FCCore {
     motors : motors::State
 }
 
-impl FCCore {
+impl Core {
 
-    pub fn new(config_file : &str) -> FCCore {
+    pub fn new(config_file : &str) -> Core {
         let config = Config::load(config_file);
-        let mut core = FCCore {
+        let mut core = Core {
             armed_switch: false,
             armed_command: false,
             alive : true,
