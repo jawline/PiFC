@@ -1,4 +1,4 @@
-use fccore::FCCore;
+use fccore::Core;
 use std::sync::{Arc, Mutex};
 use std::thread::{spawn, sleep_ms, JoinHandle};
 
