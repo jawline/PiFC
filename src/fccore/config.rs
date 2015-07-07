@@ -11,8 +11,8 @@ pub struct Switch {
 }
 
 #[derive(RustcEncodable, RustcDecodable)]
-pub struct Motor {
-    pub name: String
+pub struct Motor<'a> {
+    pub name: &'a str
 }
 
 #[derive(RustcEncodable, RustcDecodable)]
