@@ -14,22 +14,21 @@ impl State {
         }
     }
     
-    pub fn motor(&self, id: MotorID) -> &Motor {
+    fn motor_index(id: MotorID) -> usize {
         match id {
-            MotorID::FrontLeft => &self.motors[0],
-            MotorID::FrontRight => &self.motors[1],
-            MotorID::BackLeft => &self.motors[2],
-            MotorID::BackRight => &self.motors[3]
+            MotorID::FrontLeft => 0,
+            MotorID::FrontRight => 1,
+            MotorID::BackLeft => 2,
+            MotorID::BackRight => 3
         }
     }
     
+    pub fn motor(&self, id: MotorID) -> &Motor {
+        &self.motors[State::motor_index(id)]
+    }
+    
     pub fn motor_mut(&mut self, id: MotorID) -> &mut Motor {
-        match id {
-            MotorID::FrontLeft => &mut self.motors[0],
-            MotorID::FrontRight => &mut self.motors[1],
-            MotorID::BackLeft => &mut self.motors[2],
-            MotorID::BackRight => &mut self.motors[3]
-        }
+        &mut self.motors[State::motor_index(id)]
     }
     
     pub fn iter(&self) -> Iter<Motor> {
