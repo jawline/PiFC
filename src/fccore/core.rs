@@ -76,7 +76,7 @@ impl Core {
             config: config,
             log: Log::new(&format!("{}log{}", LOG_DIR, time::now().to_timespec().sec)),
             sensors: sensors::State::new(),
-            motors: motors::State::new()
+            motors: motors::State::new(&config.motors)
         };
         core.armed_changed();
         core
