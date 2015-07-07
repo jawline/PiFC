@@ -29,12 +29,12 @@ fn status_report(core_ref : &Arc<Mutex<FCCore>>) -> IronResult<Response> {
     let acc_portion = format!("ACC: ({}, {}, {})<br/>GYR: ({}, {}, {})<br/>", acc_x, acc_y, acc_z, gyr_x, gyr_y, gyr_z);
     
     //Generate motor data
-    let motor1_power = core.motors().motor(MotorID::Motor1).current_power();
-    let motor2_power = core.motors().motor(MotorID::Motor2).current_power();
-    let motor3_power = core.motors().motor(MotorID::Motor3).current_power();
-    let motor4_power = core.motors().motor(MotorID::Motor4).current_power();
+    let motor1_power = core.motors().motor(MotorID::FrontLeft).current_power();
+    let motor2_power = core.motors().motor(MotorID::FrontRight).current_power();
+    let motor3_power = core.motors().motor(MotorID::BackLeft).current_power();
+    let motor4_power = core.motors().motor(MotorID::BackRight).current_power();
 
-    let motor_portion = format!("MOTOR 1: {}<br/>MOTOR 2: {}<br/>MOTOR 3: {}<br/>MOTOR 4: {}<br/>",
+    let motor_portion = format!("MOTOR FL: {}<br/>MOTOR FR: {}<br/>MOTOR BL: {}<br/>MOTOR BR: {}<br/>",
             motor1_power,
             motor2_power,
             motor3_power,
@@ -55,19 +55,19 @@ fn status_report(core_ref : &Arc<Mutex<FCCore>>) -> IronResult<Response> {
 fn motor_test(core_ref: &Arc<Mutex<FCCore>>) -> IronResult<Response> {
     let mut core = core_ref.lock().unwrap();
     
-    core.set_motor_power(MotorID::Motor1, 25);
+    core.set_motor_power(MotorID::FrontLeft, 25);
     thread::sleep_ms(1000);
     
-    core.set_motor_power(MotorID::Motor1, 50);
+    core.set_motor_power(MotorID::FrontLeft, 50);
     thread::sleep_ms(1000);
     
-    core.set_motor_power(MotorID::Motor1, 75);
+    core.set_motor_power(MotorID::FrontLeft, 75);
     thread::sleep_ms(1000);
     
-    core.set_motor_power(MotorID::Motor1, 100);
+    core.set_motor_power(MotorID::FrontLeft, 100);
     thread::sleep_ms(1000);
     
-    core.set_motor_power(MotorID::Motor1, 0);
+    core.set_motor_power(MotorID::FrontLeft, 0);
     thread::sleep_ms(0);
 
     Ok(Response::with((status::Ok, "ok")))
