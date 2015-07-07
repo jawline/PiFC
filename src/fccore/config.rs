@@ -11,11 +11,17 @@ pub struct Switch {
 }
 
 #[derive(RustcEncodable, RustcDecodable)]
+pub struct Motor {
+    pub name: &str
+}
+
+#[derive(RustcEncodable, RustcDecodable)]
 pub struct Config {
     pub fc_webserve_enabled: bool,
     pub fc_webserve_port: usize,
     pub status_pin: usize,
-    pub arm_switch: Switch
+    pub arm_switch: Switch,
+    pub motors: [Motor]
 }
 
 impl Config {
