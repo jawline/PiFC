@@ -41,7 +41,7 @@ impl <'a>Config<'a> {
     }
 }
 
-impl ToString for Config<'a> {
+impl <'a>ToString for Config<'a> {
     fn to_string(&self) -> String {
         json::encode(self).unwrap()
     }
