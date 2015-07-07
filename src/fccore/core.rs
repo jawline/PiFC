@@ -15,7 +15,7 @@ use time;
 const TAG : &'static str = "core";
 const LOG_DIR : &'static str = "./logs/";
 
-pub struct Core<'a> {
+pub struct Core {
 
     /**
      * Is the core alive
@@ -45,7 +45,7 @@ pub struct Core<'a> {
     /**
      * configuration for the core
      */
-    config : Config<'a>,
+    config : Config,
   
     /**
      * Core log, stores log messages and timestamps
@@ -63,7 +63,7 @@ pub struct Core<'a> {
     motors : motors::State
 }
 
-impl <'a>Core<'a> {
+impl Core {
 
     pub fn new(config_file : &str) -> Core {
         let config = Config::load(config_file);
