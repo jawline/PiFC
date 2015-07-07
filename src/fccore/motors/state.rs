@@ -1,6 +1,6 @@
 use fccore::motors::Motor;
 use fccore::motors::MotorID;
-use std::iter;
+use std::slice::Iter;
 
 pub struct State {
     motor_1 : Motor,
