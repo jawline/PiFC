@@ -1,43 +1,38 @@
 use fccore::motors::Motor;
 use fccore::motors::MotorID;
 use std::slice::Iter;
+use std::vec::Vec;
 
 pub struct State {
-    motor_1 : Motor,
-    motor_2 : Motor,
-    motor_3 : Motor,
-    motor_4 : Motor
+    motors : Vec<Motor>
 }
 
 impl State {
     pub fn new() -> State {
         State{
-            motor_1: Motor::new(),
-            motor_2: Motor::new(),
-            motor_3: Motor::new(),
-            motor_4: Motor::new()
+            motors: vec!(Motor::new(), Motor::new(), Motor::new(), Motor::new())
         }
     }
     
     pub fn motor(&self, id: MotorID) -> &Motor {
         match id {
-            MotorID::Motor1 => &self.motor_1,
-            MotorID::Motor2 => &self.motor_2,
-            MotorID::Motor3 => &self.motor_3,
-            MotorID::Motor4 => &self.motor_4
+            MotorID::Motor1 => &self.motors[0],
+            MotorID::Motor2 => &self.motors[1],
+            MotorID::Motor3 => &self.motors[2],
+            MotorID::Motor4 => &self.motors[3]
         }
     }
     
     pub fn motor_mut(&mut self, id: MotorID) -> &mut Motor {
         match id {
-            MotorID::Motor1 => &mut self.motor_1,
-            MotorID::Motor2 => &mut self.motor_2,
-            MotorID::Motor3 => &mut self.motor_3,
-            MotorID::Motor4 => &mut self.motor_4
+            MotorID::Motor1 => &mut self.motors[0],
+            MotorID::Motor2 => &mut self.motors[1],
+            MotorID::Motor3 => &mut self.motors[2],
+            MotorID::Motor4 => &mut self.motors[3]
         }
     }
     
-    pub fn as_mut_vec(&mut self) -> std::vec<&mut Motor> {
-        vec!(&mut self.motor_1, &mut self.motor_2, &mut self.motor_3, &mut self.motor_4)
+    pub fn as_mut_vec(&mut self) -> Iter<Motor> {
+        self.motors.iter()
     }
 }
