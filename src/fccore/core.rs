@@ -73,10 +73,10 @@ impl Core {
             alive : true,
             armed_status_led : Light::new(Pin::new(config.status_pin)),
             armed_safety_switch : ConfigButton::new(&config.arm_switch),
-            config: config,
+            motors: motors::State::new(&config.motors),
             log: Log::new(&format!("{}log{}", LOG_DIR, time::now().to_timespec().sec)),
             sensors: sensors::State::new(),
-            motors: motors::State::new(&config.motors)
+            config: config
         };
         core.armed_changed();
         core
