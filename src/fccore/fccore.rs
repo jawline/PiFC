@@ -135,21 +135,19 @@ impl FCCore {
             self.disable_all_motors();
         }
     }
+    
+    fn enable_all_motors(&mut self) {
+        self.log.add(TAG, "enable all motors");
+        for item in self.motors.iter_mut() {
+            item.enable(&mut self.log);
+        }
+    }
 
     fn disable_all_motors(&mut self) {
         self.log.add(TAG, "disable all motors");
-        self.motors.motor_mut(MotorID::Motor1).disable(&mut self.log);
-        self.motors.motor_mut(MotorID::Motor2).disable(&mut self.log);
-        self.motors.motor_mut(MotorID::Motor3).disable(&mut self.log);
-        self.motors.motor_mut(MotorID::Motor4).disable(&mut self.log);
-    }
-
-    fn enable_all_motors(&mut self) {
-        self.log.add(TAG, "enable all motors");
-        self.motors.motor_mut(MotorID::Motor1).enable(&mut self.log);
-        self.motors.motor_mut(MotorID::Motor2).enable(&mut self.log);
-        self.motors.motor_mut(MotorID::Motor3).enable(&mut self.log);
-        self.motors.motor_mut(MotorID::Motor4).enable(&mut self.log);
+        for item in self.motors.iter_mut() {
+            item.disable(&mut self.log);
+        }
     }
   
     /**
