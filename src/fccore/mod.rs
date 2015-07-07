@@ -1,4 +1,4 @@
-pub mod fcconfig;
+pub mod config;
 pub mod fccore;
 pub mod fccore_logic;
 pub mod log;
@@ -6,7 +6,7 @@ pub mod sensors;
 pub mod motors;
 pub mod configbutton;
 
-pub use fccore::fccore::Core;
+pub use fccore::fccore::FCCore;
 use std::thread::{JoinHandle};
 use std::sync::{Arc, Mutex};
 
