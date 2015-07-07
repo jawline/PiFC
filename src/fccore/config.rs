@@ -21,7 +21,7 @@ pub struct Config<'a> {
     pub fc_webserve_port: usize,
     pub status_pin: usize,
     pub arm_switch: Switch,
-    pub motors: [Motor<'a>]
+    pub motors: [Motor<'a>; 4]
 }
 
 impl <'a>Config<'a> {
