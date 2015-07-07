@@ -11,7 +11,7 @@ pub struct State {
 impl State {
     pub fn new(configs: &[config::Motor]) -> State {
         State{
-            motors: vec!(Motor::new(configs[0]), Motor::new(configs[1]), Motor::new(configs[2]), Motor::new(configs[3]))
+            motors: vec!(Motor::new(&configs[0]), Motor::new(&configs[1]), Motor::new(&configs[2]), Motor::new(&configs[3]))
         }
     }
     
