@@ -37,7 +37,7 @@ impl State {
         }
     }
     
-    pub fn iter(&self) -> Iter<&Motor> {
-        vec!(&self.motor_1, &self.motor_2, &self.motor_3, &self.motor_4).iter()
+    pub fn as_mut_vec(&mut self) -> std::vec<&mut Motor> {
+        vec!(&mut self.motor_1, &mut self.motor_2, &mut self.motor_3, &mut self.motor_4)
     }
 }
