@@ -1,15 +1,19 @@
 use fccore::log::Log;
+use fccore::config;
+use std::string::String;
 
 const TAG : &'static str = "motor";
 
 pub struct Motor {
+    name: String,
     power: usize,
     enabled: bool
 }
 
 impl Motor {
-    pub fn new() -> Motor {
+    pub fn new(config: &config::Motor) -> Motor {
         Motor{
+            name: config.name,
             power: 0,
             enabled: false
         }
