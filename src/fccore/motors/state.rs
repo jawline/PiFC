@@ -36,7 +36,7 @@ impl State {
         self.motors.iter()
     }
     
-    pub fn iter_mut(&mut self) -> Iter<Motor> {
+    pub fn iter_mut(&mut self) -> IterMut<Motor> {
         self.motors.iter_mut()
     }
 }
