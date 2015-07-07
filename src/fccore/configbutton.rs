@@ -1,7 +1,7 @@
 use physical::gpio::Pin;
 use physical::button::{Button, ButtonState};
 use physical::polled_button::PolledButton;
-use fccore::fcconfig::Switch;
+use fccore::config::Switch;
 
 pub struct ConfigButton {
 	enabled: bool,
