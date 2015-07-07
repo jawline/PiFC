@@ -1,10 +1,10 @@
 use iron::prelude::*;
 use iron::status;
 use iron::mime::Mime;
-use fccore::FCCore;
+use Core::Core;
 use std::thread;
 use std::sync::{Arc, Mutex};
-use fccore::motors::MotorID;
+use Core::motors::MotorID;
 
 const TAG : &'static str = "webserve";
 
@@ -12,7 +12,7 @@ fn unknown() -> IronResult<Response> {
     Ok(Response::with((status::NotFound, "unknown command")))
 }
 
-fn status_report(core_ref : &Arc<Mutex<FCCore>>) -> IronResult<Response> {
+fn status_report(core_ref : &Arc<Mutex<Core>>) -> IronResult<Response> {
     let mut core = core_ref.lock().unwrap();
     core.log_mut().add(TAG, "serving status request");
     
@@ -52,7 +52,7 @@ fn status_report(core_ref : &Arc<Mutex<FCCore>>) -> IronResult<Response> {
     Ok(Response::with((html_content_type, status::Ok, format!("{}{}{}{}{}{}{}", boiler_start, header, status_portion, acc_portion, motor_portion, arm_portion, boiler_end))))
 }
 
-fn motor_test(core_ref: &Arc<Mutex<FCCore>>) -> IronResult<Response> {
+fn motor_test(core_ref: &Arc<Mutex<Core>>) -> IronResult<Response> {
     let mut core = core_ref.lock().unwrap();
     
     core.set_motor_power(MotorID::FrontLeft, 25);
@@ -73,39 +73,39 @@ fn motor_test(core_ref: &Arc<Mutex<FCCore>>) -> IronResult<Response> {
     Ok(Response::with((status::Ok, "ok")))
 }
 
-fn get_log(core_ref : &Arc<Mutex<FCCore>>) -> IronResult<Response> {
+fn get_log(core_ref : &Arc<Mutex<Core>>) -> IronResult<Response> {
     let core = core_ref.lock().unwrap();
     Ok(Response::with((status::Ok, core.log().to_string())))
 }
 
-fn get_config(core_ref : &Arc<Mutex<FCCore>>) -> IronResult<Response> {
+fn get_config(core_ref : &Arc<Mutex<Core>>) -> IronResult<Response> {
     let mut core = core_ref.lock().unwrap();
     core.log_mut().add(TAG, "serving get config request");
     Ok(Response::with((status::Ok, core.config().to_string())))
 }
 
-fn arm_core(core_ref : &Arc<Mutex<FCCore>>) -> IronResult<Response> {
+fn arm_core(core_ref : &Arc<Mutex<Core>>) -> IronResult<Response> {
     let mut core = core_ref.lock().unwrap();
     core.log_mut().add(TAG, "arm core network request");
     core.set_armed_command(true);
     Ok(Response::with((status::Ok, "ok")))
 }
 
-fn kill_core(core_ref : &Arc<Mutex<FCCore>>) -> IronResult<Response> {
+fn kill_core(core_ref : &Arc<Mutex<Core>>) -> IronResult<Response> {
     let mut core = core_ref.lock().unwrap();
     core.log_mut().add(TAG, "arm core network request");
     core.alive = false;
     Ok(Response::with((status::Ok, "ok")))
 }
 
-fn disarm_core(core_ref : &Arc<Mutex<FCCore>>) -> IronResult<Response> {
+fn disarm_core(core_ref : &Arc<Mutex<Core>>) -> IronResult<Response> {
     let mut core = core_ref.lock().unwrap();
     core.log_mut().add(TAG, "disarm core network request");
     core.set_armed_command(false);
     Ok(Response::with((status::Ok, "ok")))
 }
 
-fn page_handler(req : &mut Request, core : &Arc<Mutex<FCCore>>) -> IronResult<Response> {    	
+fn page_handler(req : &mut Request, core : &Arc<Mutex<Core>>) -> IronResult<Response> {    	
     
     let mut full_req_path = String::new();
   
@@ -131,7 +131,7 @@ fn page_handler(req : &mut Request, core : &Arc<Mutex<FCCore>>) -> IronResult<Re
     }
 }
 
-pub fn spawn(core : &Arc<Mutex<FCCore>>) {
+pub fn spawn(core : &Arc<Mutex<Core>>) {
     let webserve_core = core.clone();
     thread::spawn(move || {
         let webserve_addr_str : &str = &format!("localhost:{}", webserve_core.lock().unwrap().config().fc_webserve_port);
