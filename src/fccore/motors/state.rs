@@ -1,5 +1,6 @@
 use fccore::motors::Motor;
 use fccore::motors::MotorID;
+use std::iter;
 
 pub struct State {
     motor_1 : Motor,
@@ -34,5 +35,9 @@ impl State {
             MotorID::Motor3 => &mut self.motor_3,
             MotorID::Motor4 => &mut self.motor_4
         }
+    }
+    
+    pub fn iter(&self) -> IntoIter<&Motor> {
+        vec!(self.motor_1, self.motor_2, self.motor_3, self.motor_4).into_iter()
     }
 }
