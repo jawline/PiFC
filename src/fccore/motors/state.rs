@@ -37,7 +37,7 @@ impl State {
         }
     }
     
-    pub fn iter(&self) -> iter::Iter<&Motor> {
+    pub fn iter(&self) -> Iter<&Motor> {
         vec!(self.motor_1, self.motor_2, self.motor_3, self.motor_4).into_iter()
     }
 }
