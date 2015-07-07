@@ -1,7 +1,7 @@
 use rustc_serialize::json;
 use std::fs::File;
 use std::io::{Read};
-use std::string::ToString;
+use std::string::{String, ToString};
 
 #[derive(RustcEncodable, RustcDecodable)]
 pub struct Switch {
@@ -12,7 +12,7 @@ pub struct Switch {
 
 #[derive(RustcEncodable, RustcDecodable)]
 pub struct Motor {
-    pub name: &str
+    pub name: String
 }
 
 #[derive(RustcEncodable, RustcDecodable)]
