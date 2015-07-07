@@ -1,6 +1,6 @@
 #![allow(dead_code)]
 
-use fccore::fcconfig::FCConfig;
+use fccore::fcconfig::Config;
 use fccore::configbutton::ConfigButton;
 use fccore::log::Log;
 use fccore::sensors;
@@ -45,7 +45,7 @@ pub struct FCCore {
     /**
      * configuration for the core
      */
-    config : FCConfig,
+    config : Config,
   
     /**
      * Core log, stores log messages and timestamps
@@ -66,7 +66,7 @@ pub struct FCCore {
 impl FCCore {
 
     pub fn new(config_file : &str) -> FCCore {
-        let config = FCConfig::load(config_file);
+        let config = Config::load(config_file);
         let mut core = FCCore {
             armed_switch: false,
             armed_command: false,
@@ -195,7 +195,7 @@ impl FCCore {
     /**
      * Get the core config struct
      */
-    pub fn config(&self) -> &FCConfig { &self.config }
+    pub fn config(&self) -> &Config { &self.config }
     
     /**
      * Return the core log
