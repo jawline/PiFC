@@ -16,12 +16,12 @@ pub struct Motor<'a> {
 }
 
 #[derive(RustcEncodable, RustcDecodable)]
-pub struct Config {
+pub struct Config<'a> {
     pub fc_webserve_enabled: bool,
     pub fc_webserve_port: usize,
     pub status_pin: usize,
     pub arm_switch: Switch,
-    pub motors: [Motor]
+    pub motors: [Motor<'a>]
 }
 
 impl Config {
