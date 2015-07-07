@@ -11,20 +11,20 @@ pub struct Switch {
 }
 
 #[derive(RustcEncodable, RustcDecodable)]
-pub struct Motor<'a> {
-    pub name: &'a str
+pub struct Motor {
+    pub name: String
 }
 
 #[derive(RustcEncodable, RustcDecodable)]
-pub struct Config<'a> {
+pub struct Config {
     pub fc_webserve_enabled: bool,
     pub fc_webserve_port: usize,
     pub status_pin: usize,
     pub arm_switch: Switch,
-    pub motors: [Motor<'a>; 4]
+    pub motors: [Motor; 4]
 }
 
-impl <'a>Config<'a> {
+impl Config {
     fn read_config_file(base_file : &str) -> String {
         let mut result = String::new();
         
@@ -41,7 +41,7 @@ impl <'a>Config<'a> {
     }
 }
 
-impl <'a>ToString for Config<'a> {
+impl ToString for Config {
     fn to_string(&self) -> String {
         json::encode(self).unwrap()
     }
