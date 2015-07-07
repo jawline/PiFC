@@ -11,14 +11,14 @@ pub struct Switch {
 }
 
 #[derive(RustcEncodable, RustcDecodable)]
-pub struct FCConfig {
+pub struct Config {
     pub fc_webserve_enabled: bool,
     pub fc_webserve_port: usize,
     pub status_pin: usize,
     pub arm_switch: Switch
 }
 
-impl FCConfig {
+impl Config {
     fn read_config_file(base_file : &str) -> String {
         let mut result = String::new();
         
@@ -35,7 +35,7 @@ impl FCConfig {
     }
 }
 
-impl ToString for FCConfig {
+impl ToString for Config {
     fn to_string(&self) -> String {
         json::encode(self).unwrap()
     }
