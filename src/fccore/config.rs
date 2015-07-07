@@ -24,7 +24,7 @@ pub struct Config<'a> {
     pub motors: [Motor<'a>]
 }
 
-impl Config {
+impl <'a>Config<'a> {
     fn read_config_file(base_file : &str) -> String {
         let mut result = String::new();
         
