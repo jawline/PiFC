@@ -13,7 +13,7 @@ pub struct Motor {
 impl Motor {
     pub fn new(config: &config::Motor) -> Motor {
         Motor{
-            name: config.name,
+            name: config.name.clone(),
             power: 0,
             enabled: false
         }
