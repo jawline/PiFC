@@ -25,7 +25,7 @@ pub struct Motor {
 pub struct Config {
     pub fc_webserve_enabled: bool,
     pub fc_webserve_port: usize,
-    pub status_pin: usize,
+    pub armed_led: Light,
     pub arm_switch: Switch,
     pub motors: [Motor; 4]
 }
