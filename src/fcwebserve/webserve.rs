@@ -12,7 +12,7 @@ fn unknown() -> IronResult<Response> {
     Ok(Response::with((status::NotFound, "unknown command")))
 }
 
-fn generate_motor_info(core: &MutexGuard<_, Core>) -> String {
+fn generate_motor_info(core: &MutexGuard<Core>) -> String {
 
     let motor1_power = core.motors().motor(MotorID::FrontLeft).current_power();
     let motor2_power = core.motors().motor(MotorID::FrontRight).current_power();
