@@ -13,14 +13,13 @@ fn unknown() -> IronResult<Response> {
 }
 
 fn generate_motor_info(core: &MutexGuard<Core>) -> String {
+    let mut info = String::new();
 
-    let motor1_power = core.motors().motor(MotorID::FrontLeft).current_power();
-    let motor2_power = core.motors().motor(MotorID::FrontRight).current_power();
-    let motor3_power = core.motors().motor(MotorID::BackLeft).current_power();
-    let motor4_power = core.motors().motor(MotorID::BackRight).current_power();
-
-    format!("MOTOR FL: {}<br/>MOTOR FR: {}<br/>MOTOR BL: {}<br/>MOTOR BR: {}<br/>",
-        motor1_power, motor2_power, motor3_power, motor4_power)
+    for motor in core.motors().iter() {
+        info = info + &format!("MOTOR {}: {}<br/>", motor.name, motor.current_power());
+    }
+    
+    info
 }
 
 fn status_report(core_ref : &Arc<Mutex<Core>>) -> IronResult<Response> {
