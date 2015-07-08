@@ -3,8 +3,8 @@ use physical::light::{Light, LightState};
 use fccore::config::Light;
 
 pub struct ConfigLed {
-	  enabled: bool,
-	  light: Light
+    enabled: bool,
+    light: Light
 }
 
 impl ConfigLed {
@@ -15,12 +15,12 @@ impl ConfigLed {
         }
     }
 
-  	pub fn set(&self, state: bool) {
-    	if self.enabled {
-      	    self.light.set_state(match state {
+    pub fn set(&self, state: bool) {
+        if self.enabled {
+            self.light.set_state(match state {
                 true => LightState::On,
                 false => LightState::Off
             });
         };
-  	}
+    }
 }
