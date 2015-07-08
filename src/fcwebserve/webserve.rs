@@ -16,7 +16,7 @@ fn generate_armed_info(core: &MutexGuard<Core>) -> String {
     let mut info = format!("<b>ARM INFO</b><br/>");
     info = info + &format!("ARM_SAFETY: {}<br/>", core.armed_switch());
     info = info + &format!("ARM_COMMAND: {}<br/>", core.armed_cmd());
-    info = info + &format("FULLY ARMED: {}<br/>", core.armed());
+    info = info + &format!("FULLY ARMED: {}<br/>", core.armed());
     info
 }
 
