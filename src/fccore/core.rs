@@ -176,7 +176,6 @@ impl Core {
         } else {
             self.log_mut().add(TAG, "ARM command request ignored as armed_switch is disabled");
         }
-
         self.armed_changed();
     }
     
