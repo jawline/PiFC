@@ -3,7 +3,7 @@ use iron::status;
 use iron::mime::Mime;
 use fccore::Core;
 use std::thread;
-use std::sync::{Arc, Mutex};
+use std::sync::{Arc, Mutex,MutexGuard};
 use fccore::motors::MotorID;
 
 const TAG : &'static str = "webserve";
@@ -12,7 +12,7 @@ fn unknown() -> IronResult<Response> {
     Ok(Response::with((status::NotFound, "unknown command")))
 }
 
-fn generate_motor_info(core: &mut Core) -> String {
+fn generate_motor_info(core: &MutexGuard<_, Core>) -> String {
 
     let motor1_power = core.motors().motor(MotorID::FrontLeft).current_power();
     let motor2_power = core.motors().motor(MotorID::FrontRight).current_power();
