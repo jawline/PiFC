@@ -43,11 +43,11 @@ fn generate_sensor_info(core: &MutexGuard<Core>) -> String {
 
 fn generate_status_links() -> String {
     let mut info = format!("<a href=\"./log\">Log</a><br/>");
-    info = info + &format!("<a href=\"./arm\"Arm</a><br/>");
-    info = info + &format!("<a href=\"./disarm\"Disarm</a><br/>");
-    info = info + &format!("<a href=\"./config\"Config</a><br/>");
-    info = info + &format!("<a href=\"./motor_test\"Motor Test</a><br/>");
-    info = info + &format!("<a href=\"./kill\"Kill</a><br/>");
+    info = info + &format!("<a href=\"./arm\">Arm</a><br/>");
+    info = info + &format!("<a href=\"./disarm\">Disarm</a><br/>");
+    info = info + &format!("<a href=\"./config\">Config</a><br/>");
+    info = info + &format!("<a href=\"./motor_test\">Motor Test</a><br/>");
+    info = info + &format!("<a href=\"./kill\">Kill</a><br/>");
     info
 }
 
