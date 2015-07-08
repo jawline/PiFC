@@ -5,7 +5,7 @@ use std::string::String;
 const TAG : &'static str = "motor";
 
 pub struct Motor {
-    name: String,
+    pub name: String,
     power: usize,
     enabled: bool
 }
