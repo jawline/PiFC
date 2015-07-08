@@ -4,6 +4,7 @@ pub mod core_logic;
 pub mod log;
 pub mod sensors;
 pub mod motors;
+pub mod configled;
 pub mod configbutton;
 
 pub use fccore::core::Core;
