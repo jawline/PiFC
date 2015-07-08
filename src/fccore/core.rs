@@ -35,7 +35,7 @@ pub struct Core {
     /**
      * The armed status LED
      */
-    armed_status_led : Light,
+    armed_status_led : ConfigLed,
   
     /**
      * ARM safety switch on the device, if set to off position the FC will disable
@@ -71,7 +71,7 @@ impl Core {
             armed_switch: false,
             armed_command: false,
             alive : true,
-            armed_status_led : Light::new(Pin::new(config.status_pin)),
+            armed_status_led : ConfigLed::new(&config.armed_led),
             armed_safety_switch : ConfigButton::new(&config.arm_switch),
             motors: motors::State::new(&config.motors),
             log: Log::new(&format!("{}log{}", LOG_DIR, time::now().to_timespec().sec)),
