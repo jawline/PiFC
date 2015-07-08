@@ -97,19 +97,15 @@ impl Core {
             self.log_mut().add(TAG, "physical safety switched to disarmed");
             self.armed_switch = false;
         }
-        
+
         //The ARM from command state is reset to false if the safety is off
         if !self.armed_switch && self.armed_command {
             self.log_mut().add(TAG, "set core armed_command to false as switch is false");
             self.armed_command = false;
             self.armed_changed();
         }
-        
-        //Update armed state LED
-        self.armed_status_led.set_state(match self.armed() {
-            true => LightState::On,
-            false => LightState::Off
-        });
+
+        self.armed_status_led.set(self.armed());
         
         //Take gyroscope and accelerometer readings
         self.sensors.sample();
