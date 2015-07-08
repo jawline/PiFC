@@ -46,7 +46,7 @@ fn status_report(core_ref : &Arc<Mutex<Core>>) -> IronResult<Response> {
     //Generate alive data
     let status_portion = format!("ALIVE: {}<br/>", core.alive);
     
-    let acc_portion = generate_sensor_info(core);
+    let acc_portion = generate_sensor_info(&core);
     let motor_portion = generate_motor_info(&core);
     
     //Generate armed data
