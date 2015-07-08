@@ -39,7 +39,7 @@ fn status_report(core_ref : &Arc<Mutex<Core>>) -> IronResult<Response> {
     let (gyr_x, gyr_y, gyr_z) = core.sensors.gyro;
     let acc_portion = format!("ACC: ({}, {}, {})<br/>GYR: ({}, {}, {})<br/>", acc_x, acc_y, acc_z, gyr_x, gyr_y, gyr_z);
     
-    let motor_portion = generate_motor_info(core);
+    let motor_portion = generate_motor_info(&core);
     
     //Generate armed data
     let arm_portion = format!("ARM_SAFETY: {}<br/>ARM_COMMAND: {}<br/>FULLY ARMED: {}<br/>", core.armed_switch(), core.armed_cmd(), core.armed());
