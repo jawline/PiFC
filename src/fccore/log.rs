@@ -34,7 +34,7 @@ impl Log {
   
     pub fn add(&mut self, tag : &str, info : &str) {
         let entry = LogEntry::new(tag, info);
-        println!("Add {} to log", entry.to_string());
+        println!("{}", entry.to_string());
 
         let log_string = format!("{}\n", entry.to_string());
 
