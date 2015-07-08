@@ -12,6 +12,17 @@ fn unknown() -> IronResult<Response> {
     Ok(Response::with((status::NotFound, "unknown command")))
 }
 
+fn generate_motor_info(core: &mut Core) -> String {
+
+    let motor1_power = core.motors().motor(MotorID::FrontLeft).current_power();
+    let motor2_power = core.motors().motor(MotorID::FrontRight).current_power();
+    let motor3_power = core.motors().motor(MotorID::BackLeft).current_power();
+    let motor4_power = core.motors().motor(MotorID::BackRight).current_power();
+
+    format!("MOTOR FL: {}<br/>MOTOR FR: {}<br/>MOTOR BL: {}<br/>MOTOR BR: {}<br/>",
+        motor1_power, motor2_power, motor3_power, motor4_power)
+}
+
 fn status_report(core_ref : &Arc<Mutex<Core>>) -> IronResult<Response> {
     let mut core = core_ref.lock().unwrap();
     core.log_mut().add(TAG, "serving status request");
@@ -28,19 +39,9 @@ fn status_report(core_ref : &Arc<Mutex<Core>>) -> IronResult<Response> {
     let (gyr_x, gyr_y, gyr_z) = core.sensors.gyro;
     let acc_portion = format!("ACC: ({}, {}, {})<br/>GYR: ({}, {}, {})<br/>", acc_x, acc_y, acc_z, gyr_x, gyr_y, gyr_z);
     
-    //Generate motor data
-    let motor1_power = core.motors().motor(MotorID::FrontLeft).current_power();
-    let motor2_power = core.motors().motor(MotorID::FrontRight).current_power();
-    let motor3_power = core.motors().motor(MotorID::BackLeft).current_power();
-    let motor4_power = core.motors().motor(MotorID::BackRight).current_power();
-
-    let motor_portion = format!("MOTOR FL: {}<br/>MOTOR FR: {}<br/>MOTOR BL: {}<br/>MOTOR BR: {}<br/>",
-            motor1_power,
-            motor2_power,
-            motor3_power,
-            motor4_power);
+    let motor_portion = generate_motor_info(core);
     
-    //Generate arm data
+    //Generate armed data
     let arm_portion = format!("ARM_SAFETY: {}<br/>ARM_COMMAND: {}<br/>FULLY ARMED: {}<br/>", core.armed_switch(), core.armed_cmd(), core.armed());
 
     //Generate footer
