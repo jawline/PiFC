@@ -41,6 +41,16 @@ fn generate_sensor_info(core: &MutexGuard<Core>) -> String {
     info
 }
 
+fn generate_status_links() -> String {
+    let info = format!("<a href=\"./log\">Log</a>");
+    info = info + format!("<a href=\"./arm\"Arm</a>");
+    info = info + format!("<a href=\"./disarm\"Disarm</a>");
+    info = info + format!("<a href=\"./config\"Config</a>");
+    info = info + format!("<a href=\"./motor_test\"Motor Test</a>");
+    info = info + format!("<a href=\"./kill\"Kill</a>");
+    info
+}
+
 fn status_report(core_ref : &Arc<Mutex<Core>>) -> IronResult<Response> {
     let mut core = core_ref.lock().unwrap();
     core.log_mut().add(TAG, "serving status request");
