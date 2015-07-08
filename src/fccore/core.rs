@@ -1,6 +1,7 @@
 #![allow(dead_code)]
 
 use fccore::config::Config;
+use fccore::configled::ConfigLed;
 use fccore::configbutton::ConfigButton;
 use fccore::log::Log;
 use fccore::sensors;
