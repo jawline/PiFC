@@ -1,6 +1,6 @@
 use physical::gpio::Pin;
 use physical::light::{Light, LightState};
-use fccore::config:;
+use fccore::config;
 
 pub struct ConfigLed {
     enabled: bool,
