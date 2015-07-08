@@ -11,6 +11,12 @@ pub struct Switch {
 }
 
 #[derive(RustcEncodable, RustcDecodable)]
+pub struct Light {
+    pub use_switch: bool,
+    pub pin: usize
+}
+
+#[derive(RustcEncodable, RustcDecodable)]
 pub struct Motor {
     pub name: String
 }
