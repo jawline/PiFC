@@ -12,6 +12,14 @@ fn unknown() -> IronResult<Response> {
     Ok(Response::with((status::NotFound, "unknown command")))
 }
 
+fn generate_armed_info(core: &MutexGuard<Core>) -> String {
+    let mut info = format!("<b>ARM INFO</b><br/>");
+    info = info + &format!("ARM_SAFETY: {}<br/>", core.armed_switch());
+    info = info + &format!("ARM_COMMAND: {}<br/>", core.armed_cmd());
+    info = info + &format("FULLY ARMED: {}<br/>", core.armed());
+    info
+}
+
 fn generate_motor_info(core: &MutexGuard<Core>) -> String {
     let mut info = format!("<b>MOTOR INFO</b><br/>");
 
@@ -19,7 +27,6 @@ fn generate_motor_info(core: &MutexGuard<Core>) -> String {
         info = info + &format!("MOTOR {}: {}<br/>", motor.name, motor.current_power());
     }
     
-    info = info + "<br/>";
     info
 }
 
@@ -31,7 +38,6 @@ fn generate_sensor_info(core: &MutexGuard<Core>) -> String {
     let (gyr_x, gyr_y, gyr_z) = core.sensors.gyro;
     info = info + &format!("ACC: ({}, {}, {})<br/>GYR: ({}, {}, {})<br/>", acc_x, acc_y, acc_z, gyr_x, gyr_y, gyr_z);
 
-    info = info + "<br/>";
     info
 }
 
@@ -46,19 +52,17 @@ fn status_report(core_ref : &Arc<Mutex<Core>>) -> IronResult<Response> {
     //Generate alive data
     let status_portion = format!("ALIVE: {}<br/><br/>", core.alive);
     
-    let acc_portion = generate_sensor_info(&core);
-    let motor_portion = generate_motor_info(&core);
+    let arm_portion = format!("{}<br/>", generate_armed_info(&core));
+    let acc_portion = format!("{}<br/>", generate_sensor_info(&core));
+    let motor_portion = format!("{}<br/>", generate_motor_info(&core));
     
-    //Generate armed data
-    let arm_portion = format!("ARM_SAFETY: {}<br/>ARM_COMMAND: {}<br/>FULLY ARMED: {}<br/>", core.armed_switch(), core.armed_cmd(), core.armed());
-
     //Generate footer
     let boiler_end = format!("</body></html>");
     
     //Generate HTML mime type to send
     let html_content_type : Mime = "text/html".parse::<Mime>().unwrap();
     
-    Ok(Response::with((html_content_type, status::Ok, format!("{}{}{}{}{}{}{}", boiler_start, header, status_portion, acc_portion, motor_portion, arm_portion, boiler_end))))
+    Ok(Response::with((html_content_type, status::Ok, format!("{}{}{}{}{}{}{}", boiler_start, header, status_portion, arm_portion, acc_portion, motor_portion, boiler_end))))
 }
 
 fn motor_test(core_ref: &Arc<Mutex<Core>>) -> IronResult<Response> {
