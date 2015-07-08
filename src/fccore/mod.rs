@@ -1,6 +1,6 @@
 pub mod config;
 pub mod core;
-pub mod fccore_logic;
+pub mod core_logic;
 pub mod log;
 pub mod sensors;
 pub mod motors;
@@ -17,7 +17,7 @@ const TAG : &'static str = "fccore";
  */
 pub fn spawn_fc(base_cfg_path : &str) -> (Arc<Mutex<Core>>, JoinHandle<()>) {
     let core = Arc::new(Mutex::new(Core::new(base_cfg_path)));
-    let handle = fccore_logic::start_logic_thread(&core);
+    let handle = core_logic::start_logic_thread(&core);
     core.lock().unwrap().log_mut().add(TAG, "done spawning core");
     return (core, handle);
 }
