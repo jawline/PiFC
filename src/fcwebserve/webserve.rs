@@ -31,7 +31,7 @@ fn generate_sensor_info(core: &MutexGuard<Core>) -> String {
     let (gyr_x, gyr_y, gyr_z) = core.sensors.gyro;
     let info += &format!("ACC: ({}, {}, {})<br/>GYR: ({}, {}, {})<br/>", acc_x, acc_y, acc_z, gyr_x, gyr_y, gyr_z);
 
-    info += "<br/>";
+    info = info + "<br/>";
     info
 }
 
