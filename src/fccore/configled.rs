@@ -1,6 +1,6 @@
 use physical::gpio::Pin;
 use physical::light::{Light, LightState};
-use fccore::config::Light;
+use fccore::config:;
 
 pub struct ConfigLed {
     enabled: bool,
@@ -8,7 +8,7 @@ pub struct ConfigLed {
 }
 
 impl ConfigLed {
-    pub fn new(led: &Light) -> ConfigLed {
+    pub fn new(led: &config::Light) -> ConfigLed {
         ConfigLed{
             enabled: led.use_switch,
             light: Light::new(Pin::new(led.pin))
