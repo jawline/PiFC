@@ -13,12 +13,25 @@ fn unknown() -> IronResult<Response> {
 }
 
 fn generate_motor_info(core: &MutexGuard<Core>) -> String {
-    let mut info = String::new();
+    let mut info = format!("<b>MOTOR INFO</b><br/>");
 
     for motor in core.motors().iter() {
         info = info + &format!("MOTOR {}: {}<br/>", motor.name, motor.current_power());
     }
     
+    info = info + "<br/>";
+    info
+}
+
+fn generate_sensor_info(core: &MutexGuard<Core>) -> String {
+    let mut info = format!("<b>SENSOR INFO</b><br/>");
+    
+    //Generate accelerometer and gyroscope data
+    let (acc_x, acc_y, acc_z) = core.sensors.acc;
+    let (gyr_x, gyr_y, gyr_z) = core.sensors.gyro;
+    let info += &format!("ACC: ({}, {}, {})<br/>GYR: ({}, {}, {})<br/>", acc_x, acc_y, acc_z, gyr_x, gyr_y, gyr_z);
+
+    info += "<br/>";
     info
 }
 
@@ -33,11 +46,7 @@ fn status_report(core_ref : &Arc<Mutex<Core>>) -> IronResult<Response> {
     //Generate alive data
     let status_portion = format!("ALIVE: {}<br/>", core.alive);
     
-    //Generate accelerometer and gyroscope data
-    let (acc_x, acc_y, acc_z) = core.sensors.acc;
-    let (gyr_x, gyr_y, gyr_z) = core.sensors.gyro;
-    let acc_portion = format!("ACC: ({}, {}, {})<br/>GYR: ({}, {}, {})<br/>", acc_x, acc_y, acc_z, gyr_x, gyr_y, gyr_z);
-    
+    let acc_portion = generate_sensor_info(core);
     let motor_portion = generate_motor_info(&core);
     
     //Generate armed data
