@@ -102,8 +102,6 @@ impl Core {
             self.armed_command = false;
             self.armed_changed();
         }
-
-        self.armed_status_led.set(self.armed());
         
         //Take gyroscope and accelerometer readings
         self.sensors.sample();
@@ -123,11 +121,14 @@ impl Core {
 
     fn armed_changed(&mut self) {
         self.log.add(TAG, "armed_changed triggered");
+
         if self.armed() {
             self.enable_all_motors();
         } else {
             self.disable_all_motors();
         }
+
+        self.armed_status_led.set(self.armed());
     }
     
     fn enable_all_motors(&mut self) {

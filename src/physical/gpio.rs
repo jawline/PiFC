@@ -67,10 +67,9 @@ impl Pin {
         
         let mut direction = String::new();
         let read_result = file_open_res.unwrap().read_to_string(&mut direction);
-        let direction_str : &str = &direction;
         
         match read_result {
-            Ok(_) => match direction_str {
+            Ok(_) => match direction.trim() {
                      "in" => Some(Direction::In),
                      "out" => Some(Direction::Out),
                      _ => None
