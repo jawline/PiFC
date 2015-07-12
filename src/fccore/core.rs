@@ -8,9 +8,6 @@ use fccore::sensors;
 use fccore::motors;
 use fccore::motors::MotorID;
 
-use physical::gpio::Pin;
-use physical::light::{Light, LightState};
-
 use time;
 
 const TAG : &'static str = "core";
