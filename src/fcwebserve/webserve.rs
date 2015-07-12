@@ -174,7 +174,7 @@ fn page_handler(req : &mut Request, core : &Arc<Mutex<Core>>) -> IronResult<Resp
 pub fn spawn(core : &Arc<Mutex<Core>>) {
     let webserve_core = core.clone();
     thread::spawn(move || {
-        let webserve_addr_str : &str = &format!("localhost:{}", webserve_core.lock().unwrap().config().fc_webserve_port);
+        let webserve_addr_str : &str = &format!("{}", webserve_core.lock().unwrap().config().fc_webserve_addr);
         webserve_core.lock().unwrap().log_mut().add(TAG, &format!("Starting webserve on {}", webserve_addr_str));
         Iron::new(move |req: &mut Request| {
             page_handler(req, &webserve_core)
