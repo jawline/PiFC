@@ -118,10 +118,9 @@ impl Pin {
         
         let mut pin_value = String::new();
         let read_result = file_open_res.unwrap().read_to_string(&mut pin_value);
-        let pin_value_str : &str = &pin_value;
         
         match read_result {
-            Ok(_) => match pin_value_str {
+            Ok(_) => match pin_value.trim() {
                      "1" => Some(State::High),
                      "0" => Some(State::Low),
                      _ => None
