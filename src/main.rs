@@ -12,7 +12,7 @@ const TAG : &'static str = "main";
 fn main() {
 	let (core, handle) = fccore::spawn_fc(BASE_CFG_FILE);
 
-	if core.lock().unwrap().config().fc_webserve_enabled {
+	if core.lock().unwrap().config().webserve.enabled {
 		fcwebserve::spawn(&core);
 	} else {
 		core.lock().unwrap().log_mut().add(TAG, "webserve disabled by config");

@@ -22,9 +22,14 @@ pub struct Motor {
 }
 
 #[derive(RustcEncodable, RustcDecodable)]
+pub struct Webserve {
+    pub enabled: bool,
+    pub address: String
+}
+
+#[derive(RustcEncodable, RustcDecodable)]
 pub struct Config {
-    pub fc_webserve_enabled: bool,
-    pub fc_webserve_addr: String,
+    pub webserve: Webserve,
     pub armed_led: Light,
     pub arm_switch: Switch,
     pub motors: [Motor; 4]
