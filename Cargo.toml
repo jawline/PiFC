@@ -9,3 +9,6 @@ authors = [ "Blake Loring <blake_l@parsed.uk>" ]
 rustc-serialize = "*"
 iron = "*"
 time = "*"
+
+[dependencies.physical]
+path = "physical"

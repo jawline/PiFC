@@ -1,8 +1,8 @@
 extern crate rustc_serialize;
 extern crate time;
 extern crate iron;
+extern crate physical;
 
-mod physical;
 mod fccore;
 mod fcwebserve;
 

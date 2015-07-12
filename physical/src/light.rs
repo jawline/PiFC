@@ -1,6 +1,6 @@
 #![allow(dead_code)]
 
-use physical::gpio::{Pin, Direction, State};
+use gpio::{Pin, Direction, State};
 
 pub enum LightState { On, Off }
 
