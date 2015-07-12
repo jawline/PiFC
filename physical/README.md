@@ -1,3 +1,3 @@
-#PiFC
+#Pi Physical Library
 
-Building a Raspberry Pi flight controller in Rust
+A library to use GPIO access on Linux
