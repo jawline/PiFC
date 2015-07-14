@@ -44,17 +44,13 @@ impl Log {
 
         self.entries.push(entry);
     }
-
-    fn generate_log_string(&self) -> String {
-        self.entries.iter().fold(String::new(), |curr, next| curr + &next.to_string())
-    }
 }
 
 impl ToString for Log {
     fn to_string(&self) -> String {
         match self.entries.is_empty() {
             true => format!{"Log Empty"},
-            false => self.generate_log_string()
+            false => self.entries.iter().fold(String::new(), |curr, next| curr + &next.to_string())
         }
     }
 }
