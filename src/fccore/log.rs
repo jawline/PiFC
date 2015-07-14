@@ -46,7 +46,7 @@ impl Log {
     }
 
     fn generate_log_string(&self) -> String {
-        self.entries.map(|&item| item.to_string()).fold(|curr, &next| curr + next );
+        self.entries.iter().map(|&item| item.to_string()).fold(|curr, &next| curr + next );
     }
 }
 
