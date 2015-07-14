@@ -46,11 +46,7 @@ impl Log {
     }
 
     fn generate_log_string(&self) -> String {
-        let mut log_data = String::new(); 
-        for item in &self.entries {
-            log_data = log_data + &format!("{}\n", item.to_string());
-        }
-        log_data
+        self.entries.map(|&item| item.to_string()).fold(|curr, &next| curr + next );
     }
 }
 
