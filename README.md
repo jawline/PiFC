@@ -6,6 +6,7 @@ An attempt at building a quadcopter flight controller in Rust - using the Raspbe
 - GPIO access on Pi
 - Basic Core
 - Base structures for all the initial components
+- Serve logs & take test instructions via web
 
 #To Do
 - Real accelerometer data
