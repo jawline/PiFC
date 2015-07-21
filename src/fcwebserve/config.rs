@@ -19,4 +19,9 @@ impl Config {
     
         return result;
     }
+    
+    pub fn load(base_file : &str) -> Config {
+        let text = Config::read_config_file(base_file);
+        return json::decode(&text).unwrap();
+    }
 }
