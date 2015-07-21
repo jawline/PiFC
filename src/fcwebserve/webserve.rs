@@ -175,7 +175,7 @@ fn page_handler(req : &mut Request, core : &Arc<Mutex<Core>>) -> IronResult<Resp
 fn start_webserve_thread(core : Arc<Mutex<Core>>, config: &Config) {
     thread::spawn(move || {
         let webserve_addr = &config.webserve_address as &str;
-        core.lock().unwrap().log_mut().add(TAG, &format!("Starting webserve on {}", webserve_addr)));
+        core.lock().unwrap().log_mut().add(TAG, &format!("Starting webserve on {}", webserve_addr));
         Iron::new(move |req: &mut Request| {
             page_handler(req, &core)
         }).http(webserve_addr).unwrap();
