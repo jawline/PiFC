@@ -183,7 +183,7 @@ fn start_webserve_thread(core : Arc<Mutex<Core>>, config: &Config) {
 }
 
 pub fn spawn(core : &Arc<Mutex<Core>>, config_path: &str) {
-    let webserve_config = Config::read_config_file(config_path);
+    let webserve_config = Config::load(config_path);
     if webserve_config.enabled {
         start_webserve_thread(core.clone(), &webserve_config);
     } else {
