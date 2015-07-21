@@ -5,6 +5,7 @@ use fccore::Core;
 use std::thread;
 use std::sync::{Arc, Mutex,MutexGuard};
 use fccore::motors::MotorID;
+use fcwebserve::config::Config;
 
 const TAG : &'static str = "webserve";
 
@@ -171,13 +172,21 @@ fn page_handler(req : &mut Request, core : &Arc<Mutex<Core>>) -> IronResult<Resp
     }
 }
 
-pub fn spawn(core : &Arc<Mutex<Core>>) {
-    let webserve_core = core.clone();
+fn start_webserve_thread(core : Arc<Mutex<Core>>, config: &Config) {
     thread::spawn(move || {
-        let webserve_addr_str : &str = &format!("{}", webserve_core.lock().unwrap().config().webserve.address);
-        webserve_core.lock().unwrap().log_mut().add(TAG, &format!("Starting webserve on {}", webserve_addr_str));
+        let webserve_addr = &config.webserve_address as &str;
+        core.lock().unwrap().log_mut().add(TAG, &format!("Starting webserve on {}", webserve_addr)));
         Iron::new(move |req: &mut Request| {
-            page_handler(req, &webserve_core)
-        }).http(webserve_addr_str).unwrap();
+            page_handler(req, &core)
+        }).http(webserve_addr).unwrap();
     });
+}
+
+pub fn spawn(core : &Arc<Mutex<Core>>, config_path: &str) {
+    let webserve_config = Config::new(config_path);
+    if webserve_config.enabled {
+        start_webserve_thread(core.clone(), &webserve_config);
+    } else {
+        core.lock().unwrap().log_mut().add(TAG, "Log disabled by configuration file");
+    }
 }
