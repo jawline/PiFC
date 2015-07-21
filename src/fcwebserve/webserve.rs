@@ -178,7 +178,7 @@ fn start_webserve_thread(core : Arc<Mutex<Core>>, config: &Config) {
         core.lock().unwrap().log_mut().add(TAG, &format!("Starting webserve on {}", webserve_addr));
         Iron::new(move |req: &mut Request| {
             page_handler(req, &core)
-        }).http(&webserve_addr).unwrap();
+        }).http(&webserve_addr as &str).unwrap();
     });
 }
 
