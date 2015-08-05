@@ -38,7 +38,7 @@ impl Log {
 
         let log_string = format!("{}\n", entry.to_string());
 
-        if let Err(_) = self.out_file.write_all(log_string.as_bytes()) {
+        if self.out_file.write_all(log_string.as_bytes()).is_err() {
             println!("Could not write to log file");
         }
 
