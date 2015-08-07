@@ -26,10 +26,7 @@ impl Pin {
         
         let mut export_file = export_file_res.unwrap();
         
-        match export_file.write_all(fmt_port.as_bytes()) {
-            Ok(_) => true,
-            Err(_) => false
-        }
+        !export_file.write_all(fmt_port.as_bytes()).is_ok()
     }
     
     fn get_pin_folder(&self) -> String {
@@ -51,10 +48,7 @@ impl Pin {
             Direction::Out => "out"
         };
 
-        match direction_file.write_all(dir.as_bytes()) {
-            Ok(_) => true,
-            Err(_) => false
-        }
+        direction_file.write_all(dir.as_bytes()).is_ok()
     }
 
     pub fn get_mode(&self) -> Option<Direction> {
@@ -103,10 +97,7 @@ impl Pin {
             State::Low => "0"
         };
 
-        match value_file.write_all(state_str.as_bytes()) {
-            Ok(_) => true,
-            Err(_) => false
-        }
+        value_file.write_all(state_str.as_bytes()).is_ok()
     }
 
     pub fn read(&self) -> Option<State> {
