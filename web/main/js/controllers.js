@@ -13,3 +13,7 @@ function CommandsCtrl($scope) {
 function StatusCtrl($scope, $restService) {
 	$scope.rest = $restService;
 }
+
+function LogsCtrl($scope, $restService) {
+	$scope.rest = $restService;
+}

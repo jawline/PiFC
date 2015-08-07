@@ -99,8 +99,6 @@ fn page_handler(req : &mut Request, core : &Arc<Mutex<Core>>) -> IronResult<Resp
     for item in &req.url.path {
         full_req_path = full_req_path + "/" + item;
     }
-  
-    core.lock().unwrap().log_mut().add(TAG, &format!("Request: {}", full_req_path));
     
     let response = if req.url.path.len() != 0 {
         let base_cmd : &str = &req.url.path[0].clone();
