@@ -4,7 +4,7 @@ use gpio::{Pin, Direction, State};
 pub enum LightState { On, Off }
 
 pub struct Light {
-    pin : Pin
+    pin: Pin
 }
 
 impl Light {
