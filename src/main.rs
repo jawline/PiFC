@@ -1,6 +1,8 @@
 extern crate rustc_serialize;
 extern crate time;
 extern crate iron;
+extern crate staticfile;
+extern crate mount;
 extern crate physical;
 
 mod fccore;

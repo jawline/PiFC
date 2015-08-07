@@ -1,13 +1,13 @@
 [package]
-
 name = "fcpi"
 version = "0.0.1"
 authors = [ "Blake Loring <blake_l@parsed.uk>" ]
 
 [dependencies]
-
 rustc-serialize = "*"
 iron = "*"
+staticfile = "*"
+mount = "*"
 time = "*"
 
 [dependencies.physical]

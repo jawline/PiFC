@@ -6,7 +6,9 @@ use std::string::{String, ToString};
 #[derive(RustcEncodable, RustcDecodable)]
 pub struct Config {
     pub enabled: bool,
-    pub address: String
+    pub static_dir: String,
+    pub api_address: String,
+    pub static_address: String
 }
 
 impl Config {

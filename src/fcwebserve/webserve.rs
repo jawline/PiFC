@@ -1,6 +1,9 @@
 use iron::prelude::*;
 use iron::status;
 use iron::mime::Mime;
+use std::path::Path;
+use staticfile::Static;
+use mount::Mount;
 use fccore::Core;
 use std::thread;
 use std::sync::{Arc, Mutex,MutexGuard};
@@ -173,12 +176,23 @@ fn page_handler(req : &mut Request, core : &Arc<Mutex<Core>>) -> IronResult<Resp
 }
 
 fn start_webserve_thread(core : Arc<Mutex<Core>>, config: &Config) {
-    let webserve_addr = config.address.clone();
+    let webserve_addr = config.api_address.clone();
+    let static_addr = config.static_address.clone();
+    let static_dir = config.static_dir.clone();
+
+    //Launch the REST server
     thread::spawn(move || {
         core.lock().unwrap().log_mut().add(TAG, &format!("Starting webserve on {}", webserve_addr));
         Iron::new(move |req: &mut Request| {
             page_handler(req, &core)
         }).http(&webserve_addr as &str).unwrap();
+    });
+
+    //Launch the static file server
+    thread::spawn(move || {
+        let mut mount = Mount::new();
+        mount.mount("/", Static::new(Path::new(&static_dir)));
+        Iron::new(mount).http(&static_addr as &str).unwrap();
     });
 }
 
