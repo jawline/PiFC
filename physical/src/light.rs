@@ -1,5 +1,4 @@
 #![allow(dead_code)]
-
 use gpio::{Pin, Direction, State};
 
 pub enum LightState { On, Off }
@@ -11,7 +10,7 @@ pub struct Light {
 impl Light {
     pub fn new(pin : Pin) -> Light {
         pin.set_mode(Direction::Out);
-        Light{pin : pin}
+        Light{pin: pin}
     }
     
     pub fn set_state(&self, state : LightState) {
