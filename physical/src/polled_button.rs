@@ -1,14 +1,13 @@
 #![allow(dead_code)]
-
 use button::{Button, ButtonState};
 use gpio::{Pin, Direction, State};
 
 pub struct PolledButton {
-    pin : Pin
+    pin: Pin
 }
 
 impl PolledButton {
-    pub fn new(pin : Pin) -> PolledButton {
+    pub fn new(pin: Pin) -> PolledButton {
         pin.set_mode(Direction::In);
         PolledButton{pin : pin}
     }
