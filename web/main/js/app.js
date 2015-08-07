@@ -14,6 +14,9 @@ imcluelessSite.config([ '$routeProvider', function($routeProvider) {
 		templateUrl : 'partials/error404.html'
 	}).when('/logs', {
 		templateUrl : 'partials/logs.html'
+	}).when('/commands', {
+		templateUrl : 'partials/commands.html',
+		controller : 'CommandsCtrl'
 	}).when('/status', {
 		templateUrl : 'partials/status.html'
 	}).otherwise({
