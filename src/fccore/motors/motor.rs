@@ -4,6 +4,7 @@ use std::string::String;
 
 const TAG : &'static str = "motor";
 
+#[derive(RustcEncodable)]
 pub struct Motor {
     pub name: String,
     power: usize,

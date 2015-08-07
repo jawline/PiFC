@@ -7,21 +7,15 @@ use mount::Mount;
 use fccore::Core;
 use std::thread;
 use std::sync::{Arc, Mutex,MutexGuard};
+use hyper::header::AccessControlAllowOrigin;
 use fccore::motors::MotorID;
 use fcwebserve::config::Config;
+use fcwebserve::status::Status;
 
 const TAG : &'static str = "webserve";
 
-fn unknown() -> IronResult<Response> {
-    Ok(Response::with((status::NotFound, "unknown command")))
-}
-
-fn generate_armed_info(core: &MutexGuard<Core>) -> String {
-    let mut info = format!("<b>ARM INFO</b><br/>");
-    info = info + &format!("ARM_SAFETY: {}<br/>", core.armed_switch());
-    info = info + &format!("ARM_COMMAND: {}<br/>", core.armed_cmd());
-    info = info + &format!("FULLY ARMED: {}<br/>", core.armed());
-    info
+fn unknown() -> Response {
+    Response::with((status::NotFound, "unknown command"))
 }
 
 fn generate_motor_info(core: &MutexGuard<Core>) -> String {
@@ -45,43 +39,20 @@ fn generate_sensor_info(core: &MutexGuard<Core>) -> String {
     info
 }
 
-fn generate_status_links() -> String {
-    let mut info = format!("<a href=\"./log\">Log</a><br/>");
-    info = info + &format!("<a href=\"./arm\">Arm</a><br/>");
-    info = info + &format!("<a href=\"./disarm\">Disarm</a><br/>");
-    info = info + &format!("<a href=\"./config\">Config</a><br/>");
-    info = info + &format!("<a href=\"./motor_test\">Motor Test</a><br/>");
-    info = info + &format!("<a href=\"./kill\">Kill</a><br/>");
-    info
-}
-
-fn status_report(core_ref : &Arc<Mutex<Core>>) -> IronResult<Response> {
+fn status_report(core_ref : &Arc<Mutex<Core>>) -> Response {
     let mut core = core_ref.lock().unwrap();
     core.log_mut().add(TAG, "serving status request");
-    
-    //Generate header
-    let boiler_start = format!("<html><head><title>Status</title><body>");
-    let header = "<b>STATUS PAGE</b><br/>";
-    
-    //Generate alive data
-    let status_portion = format!("ALIVE: {}<br/><br/>", core.alive);
-    
-    let arm_portion = format!("{}<br/>", generate_armed_info(&core));
+
     let acc_portion = format!("{}<br/>", generate_sensor_info(&core));
     let motor_portion = format!("{}<br/>", generate_motor_info(&core));
     
-    let status_links = generate_status_links();
-    
-    //Generate footer
-    let boiler_end = format!("</body></html>");
-    
     //Generate HTML mime type to send
-    let html_content_type : Mime = "text/html".parse::<Mime>().unwrap();
+    let json_content_type : Mime = "application/json".parse::<Mime>().unwrap();
     
-    Ok(Response::with((html_content_type, status::Ok, format!("{}{}{}{}{}{}{}{}", boiler_start, header, status_portion, arm_portion, acc_portion, motor_portion, status_links, boiler_end))))
+    Response::with((json_content_type, status::Ok, Status::from(&core).to_string()))
 }
 
-fn motor_test(core_ref: &Arc<Mutex<Core>>) -> IronResult<Response> {
+fn motor_test(core_ref: &Arc<Mutex<Core>>) -> Response {
     let mut core = core_ref.lock().unwrap();
     
     core.set_motor_power(MotorID::FrontLeft, 25);
@@ -114,39 +85,39 @@ fn motor_test(core_ref: &Arc<Mutex<Core>>) -> IronResult<Response> {
     core.set_motor_power(MotorID::BackRight, 0);
     thread::sleep_ms(0);
 
-    Ok(Response::with((status::Ok, "ok")))
+    Response::with((status::Ok, "ok"))
 }
 
-fn get_log(core_ref : &Arc<Mutex<Core>>) -> IronResult<Response> {
+fn get_log(core_ref : &Arc<Mutex<Core>>) -> Response {
     let core = core_ref.lock().unwrap();
-    Ok(Response::with((status::Ok, core.log().to_string())))
+    Response::with((status::Ok, core.log().to_string()))
 }
 
-fn get_config(core_ref : &Arc<Mutex<Core>>) -> IronResult<Response> {
+fn get_config(core_ref : &Arc<Mutex<Core>>) -> Response {
     let mut core = core_ref.lock().unwrap();
     core.log_mut().add(TAG, "serving get config request");
-    Ok(Response::with((status::Ok, core.config().to_string())))
+    Response::with((status::Ok, core.config().to_string()))
 }
 
-fn arm_core(core_ref : &Arc<Mutex<Core>>) -> IronResult<Response> {
+fn arm_core(core_ref : &Arc<Mutex<Core>>) -> Response {
     let mut core = core_ref.lock().unwrap();
     core.log_mut().add(TAG, "arm core network request");
     core.set_armed_command(true);
-    Ok(Response::with((status::Ok, "ok")))
+    Response::with((status::Ok, "ok"))
 }
 
-fn kill_core(core_ref : &Arc<Mutex<Core>>) -> IronResult<Response> {
+fn kill_core(core_ref : &Arc<Mutex<Core>>) -> Response {
     let mut core = core_ref.lock().unwrap();
     core.log_mut().add(TAG, "arm core network request");
     core.alive = false;
-    Ok(Response::with((status::Ok, "ok")))
+    Response::with((status::Ok, "ok"))
 }
 
-fn disarm_core(core_ref : &Arc<Mutex<Core>>) -> IronResult<Response> {
+fn disarm_core(core_ref : &Arc<Mutex<Core>>) -> Response {
     let mut core = core_ref.lock().unwrap();
     core.log_mut().add(TAG, "disarm core network request");
     core.set_armed_command(false);
-    Ok(Response::with((status::Ok, "ok")))
+    Response::with((status::Ok, "ok"))
 }
 
 fn page_handler(req : &mut Request, core : &Arc<Mutex<Core>>) -> IronResult<Response> {    	
@@ -159,9 +130,9 @@ fn page_handler(req : &mut Request, core : &Arc<Mutex<Core>>) -> IronResult<Resp
   
     core.lock().unwrap().log_mut().add(TAG, &format!("Request: {}", full_req_path));
     
-    if req.url.path.len() != 0 {
+    let response = if req.url.path.len() != 0 {
         let base_cmd : &str = &req.url.path[0].clone();
-        match base_cmd {
+        let mut response = match base_cmd {
          "arm" => arm_core(core),
          "disarm" => disarm_core(core),
          "log" => get_log(core),
@@ -169,10 +140,14 @@ fn page_handler(req : &mut Request, core : &Arc<Mutex<Core>>) -> IronResult<Resp
          "config" => get_config(core),
          "motor_test" => motor_test(core),
          "status" | _ => status_report(core)
-        }
+        };
+        response.headers.set(AccessControlAllowOrigin::Any);
+        response
     } else {
         unknown()
-    }
+    };
+
+    Ok(response)
 }
 
 fn start_webserve_thread(core : Arc<Mutex<Core>>, config: &Config) {

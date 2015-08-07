@@ -1,7 +1,7 @@
 use rustc_serialize::json;
 use std::fs::File;
 use std::io::{Read};
-use std::string::{String, ToString};
+use std::string::String;
 
 #[derive(RustcEncodable, RustcDecodable)]
 pub struct Config {

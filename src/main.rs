@@ -4,6 +4,7 @@ extern crate iron;
 extern crate staticfile;
 extern crate mount;
 extern crate physical;
+extern crate hyper;
 
 mod fccore;
 mod fcwebserve;

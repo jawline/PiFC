@@ -5,10 +5,11 @@ authors = [ "Blake Loring <blake_l@parsed.uk>" ]
 
 [dependencies]
 rustc-serialize = "*"
-iron = "*"
 staticfile = "*"
 mount = "*"
 time = "*"
+hyper = "0.5.2"
+iron = "0.1.19"
 
 [dependencies.physical]
 path = "physical"
