@@ -7,7 +7,7 @@ pub enum Direction {In, Out}
 pub enum State {High, Low}
 
 pub struct Pin {
-    port : usize
+    port: usize
 }
 
 impl Pin {
