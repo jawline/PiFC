@@ -20,7 +20,6 @@ fn unknown() -> Response {
 
 fn status_report(core_ref : &Arc<Mutex<Core>>) -> Response {
     let mut core = core_ref.lock().unwrap();
-    core.log_mut().add(TAG, "serving status request");
     let json_content_type : Mime = "application/json".parse::<Mime>().unwrap();
     Response::with((json_content_type, status::Ok, Status::from(&core).to_string()))
 }

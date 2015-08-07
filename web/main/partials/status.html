@@ -22,6 +22,25 @@
 			<p>Gyroscope: {{rest.status.sensor_info.gyroscope}}</p>
 		</div>
 
+		<hr class="featurette-divider">
+		<b>Motor Info</b>
+      	<hr class="featurette-divider">
+		<div>
+			<div ng-repeat='motor in rest.status.motor_info'>
+				<div>
+					Name: {{motor.name}}
+				</div>
+				<div>
+					Power: {{motor.power}}
+				</div>
+				<div>
+					Enabled: {{motor.enabled}}
+				</div>
+			</div>
+		</div>
+
+		<hr class="featurette-divider">
+		<b>Raw</b>
       	<hr class="featurette-divider">
 		<p>{{rest}}</p>
 	  </div>
