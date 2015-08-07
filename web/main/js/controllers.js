@@ -10,8 +10,6 @@ function CommandsCtrl($scope) {
 	$scope.api_url = API_URL;
 }
 
-function StatusCtrl($scope, $http) {
-	$http.get(API_URL + "/status").success(function(data) {
-		$scope.status = data;
-	});
+function StatusCtrl($scope, $restService) {
+	$scope.rest = $restService;
 }

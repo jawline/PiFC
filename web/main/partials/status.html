@@ -3,7 +3,27 @@
 	  <div class="panel-body">
 		<h2>Status</h2>
       	<hr class="featurette-divider">
-		<p>{{status}}</p>
+		<p>Alive: {{rest.status.alive}}</p>
+
+      	<hr class="featurette-divider">
+		<b>Armed</b>
+      	<hr class="featurette-divider">
+		<div>
+			<p>Armed: {{rest.status.armed}}</p>
+			<p>Armed Switch: {{rest.status.armed_switch}}</p>
+			<p>Armed Command: {{rest.status.armed_cmd}}</p>
+		</div>
+
+		<hr class="featurette-divider">
+		<b>Sensors</b>
+      	<hr class="featurette-divider">
+		<div>
+			<p>Accelerometer: {{rest.status.sensor_info.accelerometer}}</p>
+			<p>Gyroscope: {{rest.status.sensor_info.gyroscope}}</p>
+		</div>
+
+      	<hr class="featurette-divider">
+		<p>{{rest}}</p>
 	  </div>
 	</div>
 </div>

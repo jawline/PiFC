@@ -2,7 +2,7 @@
 
 /* App Module */
 
-var imcluelessSite = angular.module('imcluelessSite', [ 'ngRoute' ]);
+var imcluelessSite = angular.module('imcluelessSite', [ 'ngRoute', 'RestServices']);
 
 imcluelessSite.config([ '$routeProvider', function($routeProvider) {
 	$routeProvider.when('/', {

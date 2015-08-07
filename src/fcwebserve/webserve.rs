@@ -18,37 +18,10 @@ fn unknown() -> Response {
     Response::with((status::NotFound, "unknown command"))
 }
 
-fn generate_motor_info(core: &MutexGuard<Core>) -> String {
-    let mut info = format!("<b>MOTOR INFO</b><br/>");
-
-    for motor in core.motors().iter() {
-        info = info + &format!("MOTOR {}: {}<br/>", motor.name, motor.current_power());
-    }
-    
-    info
-}
-
-fn generate_sensor_info(core: &MutexGuard<Core>) -> String {
-    let mut info = format!("<b>SENSOR INFO</b><br/>");
-    
-    //Generate accelerometer and gyroscope data
-    let (acc_x, acc_y, acc_z) = core.sensors.acc;
-    let (gyr_x, gyr_y, gyr_z) = core.sensors.gyro;
-    info = info + &format!("ACC: ({}, {}, {})<br/>GYR: ({}, {}, {})<br/>", acc_x, acc_y, acc_z, gyr_x, gyr_y, gyr_z);
-
-    info
-}
-
 fn status_report(core_ref : &Arc<Mutex<Core>>) -> Response {
     let mut core = core_ref.lock().unwrap();
     core.log_mut().add(TAG, "serving status request");
-
-    let acc_portion = format!("{}<br/>", generate_sensor_info(&core));
-    let motor_portion = format!("{}<br/>", generate_motor_info(&core));
-    
-    //Generate HTML mime type to send
     let json_content_type : Mime = "application/json".parse::<Mime>().unwrap();
-    
     Response::with((json_content_type, status::Ok, Status::from(&core).to_string()))
 }
 

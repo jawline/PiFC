@@ -4,7 +4,6 @@ use std::string::String;
 
 const TAG : &'static str = "motor";
 
-#[derive(RustcEncodable)]
 pub struct Motor {
     pub name: String,
     power: usize,
@@ -42,5 +41,9 @@ impl Motor {
     pub fn enable(&mut self, log: &mut Log) {
         self.enabled = true;
         log.add(TAG, &format!("enabled motor named {}", self.name));
+    }
+
+    pub fn enabled(&self) -> bool {
+        self.enabled
     }
 }
