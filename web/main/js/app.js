@@ -21,6 +21,9 @@ imcluelessSite.config([ '$routeProvider', function($routeProvider) {
 	}).when('/status', {
 		templateUrl: 'partials/status.html',
 		controller: 'StatusCtrl'
+	}).when('/configs', {
+		templateUrl: 'partials/configs.html',
+		controller: 'ConfigsCtrl'
 	}).otherwise({
 		redirectTo : '/error404'
 	});

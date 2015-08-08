@@ -17,3 +17,7 @@ function StatusCtrl($scope, $restService) {
 function LogsCtrl($scope, $restService) {
 	$scope.rest = $restService;
 }
+
+function ConfigsCtrl($scope, $restService) {
+	$scope.rest = $restService;
+}

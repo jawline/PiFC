@@ -68,7 +68,8 @@ fn get_log(core_ref : &Arc<Mutex<Core>>) -> Response {
 fn get_config(core_ref : &Arc<Mutex<Core>>) -> Response {
     let mut core = core_ref.lock().unwrap();
     core.log_mut().add(TAG, "serving get config request");
-    Response::with((status::Ok, core.config().to_string()))
+    let json_content_type : Mime = "application/json".parse::<Mime>().unwrap();
+    Response::with((json_content_type, status::Ok, core.config().to_string()))
 }
 
 fn arm_core(core_ref : &Arc<Mutex<Core>>) -> Response {

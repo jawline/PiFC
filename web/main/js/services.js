@@ -3,6 +3,7 @@
 angular.module('RestServices', []).factory('$restService', function($http) {
 	var rest = {
 		status: {},
+		config: {},
 		logs: ""
 	};
 
@@ -20,8 +21,15 @@ angular.module('RestServices', []).factory('$restService', function($http) {
 		});
 	}
 
+	function reloadConfig() {
+		$http.get(API_URL + "/config").success(function(data) {
+			rest.config = data;
+		});
+	}
+
 	reloadStatus();
 	reloadLog()
+	reloadConfig();
 
 	return rest;
 });
