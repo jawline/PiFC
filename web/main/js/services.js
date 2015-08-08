@@ -31,5 +31,17 @@ angular.module('RestServices', []).factory('$restService', function($http) {
 	reloadLog()
 	reloadConfig();
 
+	rest.arm = function(cb) {
+		$http.get(API_URL + "/arm").success(function(data) {
+			cb(data);
+		});
+	}
+
+	rest.disarm = function(cb) {
+		$http.get(API_URL + "/disarm").success(function(data) {
+			cb(data);
+		});
+	}
+
 	return rest;
 });

@@ -6,8 +6,22 @@ var API_URL = location.protocol+'//'+location.hostname + ":" + API_PORT;
 /* Controllers */
 function LandingCtrl($scope) {}
 
-function CommandsCtrl($scope) {
+function CommandsCtrl($scope, $restService) {
 	$scope.api_url = API_URL;
+	
+	$scope.arm = function() {
+		$restService.arm(function(data) {
+			$scope.arm_result = data;
+		});
+	}
+
+	$scope.disarm = function() {
+		$restService.disarm(function(data) {
+			$scope.arm_result = data;
+		});
+	}
+
+	$scope.arm_result = "Empty";
 }
 
 function StatusCtrl($scope, $restService) {
