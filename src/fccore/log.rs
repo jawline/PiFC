@@ -50,7 +50,7 @@ impl ToString for Log {
     fn to_string(&self) -> String {
         match self.entries.is_empty() {
             true => format!{"Log Empty"},
-            false => self.entries.iter().fold(String::new(), |curr, next| curr + &next.to_string())
+            false => self.entries.iter().fold(String::new(), |curr, next| curr + "\n" + &next.to_string())
         }
     }
 }
