@@ -65,6 +65,11 @@ fn get_log(core_ref : &Arc<Mutex<Core>>) -> Response {
     Response::with((status::Ok, core.log().to_string()))
 }
 
+fn get_log_min(core_ref : &Arc<Mutex<Core>>) -> Response {
+    let core = core_ref.lock().unwrap();
+    Response::with((status::Ok, core.log().to_string_lines_max(10)))
+}
+
 fn get_config(core_ref : &Arc<Mutex<Core>>) -> Response {
     let mut core = core_ref.lock().unwrap();
     core.log_mut().add(TAG, "serving get config request");
@@ -107,6 +112,7 @@ fn page_handler(req : &mut Request, core : &Arc<Mutex<Core>>) -> IronResult<Resp
          "arm" => arm_core(core),
          "disarm" => disarm_core(core),
          "log" => get_log(core),
+         "log_reduced" => get_log_min(core),
          "kill" => kill_core(core),
          "config" => get_config(core),
          "motor_test" => motor_test(core),

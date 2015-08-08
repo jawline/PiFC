@@ -44,13 +44,25 @@ impl Log {
 
         self.entries.push(entry);
     }
+
+    pub fn to_string_lines_max(&self, max: usize) -> String {
+        let to_skip = match max != 0 && self.entries.len() > max {
+            true => self.entries.len() - max,
+            false => 0
+        };
+
+        match self.entries.is_empty() {
+            true => format!{"Log Empty"},
+            false => self.entries.iter().skip(to_skip).fold(String::new(), |curr, next| curr + "\n" + &next.to_string())
+        }
+    }
 }
 
 impl ToString for Log {
     fn to_string(&self) -> String {
         match self.entries.is_empty() {
             true => format!{"Log Empty"},
-            false => self.entries.iter().fold(String::new(), |curr, next| curr + "\n" + &next.to_string())
+        false => self.to_string_lines_max(0)
         }
     }
 }

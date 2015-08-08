@@ -21,6 +21,13 @@ angular.module('RestServices', []).factory('$restService', function($http) {
 		});
 	}
 
+	function reloadLogMin() {
+		$http.get(API_URL + "/log_reduced").success(function(data) {
+			rest.logs_min = data;
+			setTimeout(reloadLogMin, 250);
+		});
+	}
+
 	function reloadConfig() {
 		$http.get(API_URL + "/config").success(function(data) {
 			rest.config = data;
@@ -28,7 +35,8 @@ angular.module('RestServices', []).factory('$restService', function($http) {
 	}
 
 	reloadStatus();
-	reloadLog()
+	reloadLog();
+	reloadLogMin();
 	reloadConfig();
 
 	rest.arm = function(cb) {
