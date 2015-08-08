@@ -51,5 +51,11 @@ angular.module('RestServices', []).factory('$restService', function($http) {
 		});
 	}
 
+	rest.motor_test = function(cb) {
+		$http.get(API_URL + "/motor_test").success(function(data) {
+			cb(data);
+		});		
+	}
+
 	return rest;
 });

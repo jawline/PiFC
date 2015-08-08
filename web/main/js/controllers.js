@@ -26,7 +26,14 @@ function StatusCtrl($scope, $restService) {
 		});
 	}
 
+	$scope.motor_test = function() {
+		$restService.motor_test(function(data) {
+			$scope.motor_result = data;
+		});
+	}
+
 	$scope.arm_result = "Empty";
+	$scope.motor_result = "Empty";
 }
 
 function LogsCtrl($scope, $restService) {
