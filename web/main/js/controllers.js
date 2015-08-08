@@ -8,7 +8,12 @@ function LandingCtrl($scope) {}
 
 function CommandsCtrl($scope, $restService) {
 	$scope.api_url = API_URL;
-	
+}
+
+function StatusCtrl($scope, $restService) {
+	$scope.rest = $restService;
+	$scope.api_url = API_URL;
+
 	$scope.arm = function() {
 		$restService.arm(function(data) {
 			$scope.arm_result = data;
@@ -22,10 +27,6 @@ function CommandsCtrl($scope, $restService) {
 	}
 
 	$scope.arm_result = "Empty";
-}
-
-function StatusCtrl($scope, $restService) {
-	$scope.rest = $restService;
 }
 
 function LogsCtrl($scope, $restService) {

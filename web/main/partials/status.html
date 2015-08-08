@@ -8,6 +8,15 @@
       	<hr class="featurette-divider">
 		<b>Armed</b>
       	<hr class="featurette-divider">
+
+      	<div class="row" style="margin-bottom: 10px;">
+	      	<button class="col-xs-2 btn btn-success" ng-click="arm();">Remote Arm</button>
+			<button style="margin-left: 20px;" class="col-xs-2 btn btn-success" ng-click="disarm();">Remote Disarm</button>
+			<pre class="col-xs-2" style="margin-left: 20px;">{{arm_result}}</pre>
+      	</div>
+
+      	<hr class="featurette-divider">
+
 		<div>
 			<p>Armed: {{rest.status.armed}}</p>
 			<p>Armed Switch: {{rest.status.armed_switch}}</p>
@@ -25,6 +34,13 @@
 		<hr class="featurette-divider">
 		<b>Motor Info</b>
       	<hr class="featurette-divider">
+
+		<div class="row" style="margin-bottom: 10px;">
+			<div><a class="col-xs-2 btn btn-success" href="{{api_url}}/motor_test">Motors Test</a></div>
+      	</div>
+
+      	<hr class="featurette-divider">
+
 		<div>
 			<div ng-repeat='motor in rest.status.motor_info'>
 				<div>
@@ -43,6 +59,13 @@
 		<b>Raw</b>
       	<hr class="featurette-divider">
 		<p><pre>{{rest.status}}</pre></p>
+
+		<hr class="featurette-divider">
+		<b>Kill FC</b>
+		<hr class="featurette-divider">
+		<div class="row" style="margin-bottom: 10px;">
+			<a class="col-xs-2 btn btn-success" href="{{api_url}}/kill">Kill</a>
+      	</div>
 	  </div>
 	</div>
 </div>

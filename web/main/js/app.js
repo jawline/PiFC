@@ -9,7 +9,8 @@ imcluelessSite.config([ '$routeProvider', function($routeProvider) {
 		redirectTo : '/landing'
 	}).when('/landing', {
 		templateUrl : 'partials/landing.html',
-		controller : 'LandingCtrl'
+		controller : 'LandingCtrl',
+		redirectTo : '/status'
 	}).when('/error404', {
 		templateUrl : 'partials/error404.html'
 	}).when('/logs', {
