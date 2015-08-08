@@ -24,6 +24,11 @@
 		</div>
 
 		<hr class="featurette-divider">
+		<b>Reduced Log</b>
+      	<hr class="featurette-divider">
+		<p><pre>{{rest.logs_min}}</pre></p>
+
+		<hr class="featurette-divider">
 		<b>Sensors</b>
       	<hr class="featurette-divider">
 		<div>
@@ -33,12 +38,6 @@
 
 		<hr class="featurette-divider">
 		<b>Motor Info</b>
-      	<hr class="featurette-divider">
-
-		<div class="row" style="margin-bottom: 10px;">
-			<div><a class="col-xs-2 btn btn-success" href="{{api_url}}/motor_test">Motors Test</a></div>
-      	</div>
-
       	<hr class="featurette-divider">
 
 		<div>
@@ -56,11 +55,13 @@
 		</div>
 
 		<hr class="featurette-divider">
-		<b>Reduced Log</b>
-      	<hr class="featurette-divider">
-		<p><pre>{{rest.logs_min}}</pre></p>
 
-		<hr class="featurette-divider">
+		<div class="row" style="margin-bottom: 10px;">
+			<div><a class="col-xs-2 btn btn-success" href="{{api_url}}/motor_test">Motors Test</a></div>
+      	</div>
+
+      	<hr class="featurette-divider">
+
 		<b>Raw</b>
       	<hr class="featurette-divider">
 		<p><pre>{{rest.status}}</pre></p>
