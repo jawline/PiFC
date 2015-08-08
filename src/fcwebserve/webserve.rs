@@ -34,7 +34,6 @@ fn motor_test(core_ref: &Arc<Mutex<Core>>) -> Response {
         core.set_motor_power(MotorID::BackLeft, 25);
         core.set_motor_power(MotorID::BackRight, 25);
     }
-
     thread::sleep_ms(1000);
     
     {
@@ -44,7 +43,6 @@ fn motor_test(core_ref: &Arc<Mutex<Core>>) -> Response {
         core.set_motor_power(MotorID::BackLeft, 50);
         core.set_motor_power(MotorID::BackRight, 50);
     }
-
     thread::sleep_ms(1000);
     
     {
@@ -54,7 +52,6 @@ fn motor_test(core_ref: &Arc<Mutex<Core>>) -> Response {
         core.set_motor_power(MotorID::BackLeft, 75);
         core.set_motor_power(MotorID::BackRight, 75);
     }
-
     thread::sleep_ms(1000);
     
     {
@@ -64,7 +61,6 @@ fn motor_test(core_ref: &Arc<Mutex<Core>>) -> Response {
         core.set_motor_power(MotorID::BackLeft, 100);
         core.set_motor_power(MotorID::BackRight, 100);
     }
-
     thread::sleep_ms(1000);
     
     {
@@ -74,7 +70,6 @@ fn motor_test(core_ref: &Arc<Mutex<Core>>) -> Response {
         core.set_motor_power(MotorID::BackLeft, 0);
         core.set_motor_power(MotorID::BackRight, 0);
     }
-
     thread::sleep_ms(0);
 
     Response::with((status::Ok, "ok"))
@@ -152,6 +147,8 @@ fn start_webserve_thread(core : Arc<Mutex<Core>>, config: &Config) {
     let static_addr = config.static_address.clone();
     let static_dir = config.static_dir.clone();
 
+    let alt_core = core.clone();
+
     //Launch the REST server
     thread::spawn(move || {
         core.lock().unwrap().log_mut().add(TAG, &format!("Starting webserve on {}", webserve_addr));
@@ -162,6 +159,7 @@ fn start_webserve_thread(core : Arc<Mutex<Core>>, config: &Config) {
 
     //Launch the static file server
     thread::spawn(move || {
+        alt_core.lock().unwrap().log_mut().add(TAG, &format!("Starting static serve on {} files at {}", &static_addr, &static_dir));
         let mut mount = Mount::new();
         mount.mount("/", Static::new(Path::new(&static_dir)));
         Iron::new(mount).http(&static_addr as &str).unwrap();
@@ -173,6 +171,6 @@ pub fn spawn(core : &Arc<Mutex<Core>>, config_path: &str) {
     if webserve_config.enabled {
         start_webserve_thread(core.clone(), &webserve_config);
     } else {
-        core.lock().unwrap().log_mut().add(TAG, "Log disabled by configuration file");
+        core.lock().unwrap().log_mut().add(TAG, "Webserve disabled by configuration file");
     }
 }
