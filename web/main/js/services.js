@@ -10,6 +10,7 @@ angular.module('RestServices', []).factory('$restService', function($http) {
 	function reloadStatus() {
 		$http.get(API_URL + "/status").success(function(data) {
 			rest.status = data;
+		}).then(function() {
 			setTimeout(reloadStatus, 100);
 		});
 	}
@@ -17,6 +18,7 @@ angular.module('RestServices', []).factory('$restService', function($http) {
 	function reloadLog() {
 		$http.get(API_URL + "/log").success(function(data) {
 			rest.logs = data;
+		}).then(function() {
 			setTimeout(reloadLog, 250);
 		});
 	}
@@ -24,6 +26,7 @@ angular.module('RestServices', []).factory('$restService', function($http) {
 	function reloadLogMin() {
 		$http.get(API_URL + "/log_reduced").success(function(data) {
 			rest.logs_min = data;
+		}).then(function() {
 			setTimeout(reloadLogMin, 250);
 		});
 	}

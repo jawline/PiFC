@@ -10,6 +10,11 @@ struct LogEntry {
     time_entered : time::Tm
 }
 
+pub enum Lines {
+    All,
+    Limit(usize)
+}
+
 impl LogEntry {
     pub fn new(tag : &str, info : &str) -> LogEntry {
         LogEntry{tag: tag.to_string(), info: info.to_string(), time_entered: time::now()}
@@ -45,10 +50,11 @@ impl Log {
         self.entries.push(entry);
     }
 
-    pub fn to_string_lines_max(&self, max: usize) -> String {
-        let to_skip = match max != 0 && self.entries.len() > max {
-            true => self.entries.len() - max,
-            false => 0
+    pub fn to_string_lines_max(&self, lines: Lines) -> String {
+
+        let to_skip = match lines {
+            Lines::Limit(size) if self.entries.len() > size => self.entries.len() - size,
+            _ => 0
         };
 
         match self.entries.is_empty() {
@@ -60,9 +66,6 @@ impl Log {
 
 impl ToString for Log {
     fn to_string(&self) -> String {
-        match self.entries.is_empty() {
-            true => format!{"Log Empty"},
-        false => self.to_string_lines_max(0)
-        }
+        self.to_string_lines_max(Lines::All)
     }
 }

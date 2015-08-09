@@ -9,6 +9,7 @@ use std::thread;
 use std::sync::{Arc, Mutex,MutexGuard};
 use hyper::header::AccessControlAllowOrigin;
 use fccore::motors::MotorID;
+use fccore::log::Lines;
 use fcwebserve::config::Config;
 use fcwebserve::status::Status;
 
@@ -19,8 +20,8 @@ fn unknown() -> Response {
 }
 
 fn status_report(core_ref : &Arc<Mutex<Core>>) -> Response {
-    let mut core = core_ref.lock().unwrap();
     let json_content_type : Mime = "application/json".parse::<Mime>().unwrap();
+    let core = core_ref.lock().unwrap();
     Response::with((json_content_type, status::Ok, Status::from(&core).to_string()))
 }
 
@@ -82,7 +83,7 @@ fn get_log(core_ref : &Arc<Mutex<Core>>) -> Response {
 
 fn get_log_min(core_ref : &Arc<Mutex<Core>>) -> Response {
     let core = core_ref.lock().unwrap();
-    Response::with((status::Ok, core.log().to_string_lines_max(10)))
+    Response::with((status::Ok, core.log().to_string_lines_max(Lines::Limit(10))))
 }
 
 fn get_config(core_ref : &Arc<Mutex<Core>>) -> Response {
@@ -146,7 +147,6 @@ fn start_webserve_thread(core : Arc<Mutex<Core>>, config: &Config) {
     let webserve_addr = config.api_address.clone();
     let static_addr = config.static_address.clone();
     let static_dir = config.static_dir.clone();
-
     let alt_core = core.clone();
 
     //Launch the REST server
