@@ -31,6 +31,7 @@ imcluelessSite.config([ '$routeProvider', function($routeProvider) {
 }]).run(function ($rootScope, $location) {
 	$rootScope.$watch(function {
 		return $location.path();
-   	},  
-	function(newValue, oldValue) {}, true);
+   	}, function(newValue, oldValue) {
+   		$location.path('/error404');
+   	}, true);
 });
