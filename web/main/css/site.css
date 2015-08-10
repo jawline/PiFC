@@ -37,7 +37,6 @@ body > #entire-container {
 	color: white;
 }
 
-
 .navbar.navbar-disabled{
 	display:none;
 }
@@ -47,7 +46,6 @@ body > #entire-container {
 #ng-view.navbar-disabled {
 	height: calc(100%);
 }
-
 
 /** Bootstrap overides */
 .navbar-default {
@@ -154,7 +152,6 @@ body > #entire-container {
     }
 }
 .columns .thumbnail {
-  /* Just in case there are inline attributes */
   width: 100% !important;
   height: auto !important;
   display:inline-block;
@@ -165,7 +162,7 @@ body > #entire-container {
 }
 
 .header-background {
-  background-color: #E67E22;
+  background-color: #3A96B2;
 }
 
 .page-background {
