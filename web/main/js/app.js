@@ -28,4 +28,9 @@ imcluelessSite.config([ '$routeProvider', function($routeProvider) {
 	}).otherwise({
 		redirectTo : '/error404'
 	});
-}]).run(function ($rootScope) {});
+}]).run(function ($rootScope, $location) {
+	$rootScope.$watch(function {
+		return $location.path();
+   	},  
+	function(newValue, oldValue) {}, true);
+});
