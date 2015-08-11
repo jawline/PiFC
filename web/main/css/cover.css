@@ -35,6 +35,10 @@ body {
   text-shadow: 0 1px 3px rgba(0,0,0,.5);
 }
 
+.inner-cover {
+  min-height: 800px;
+}
+
 /* Extra markup and styles for table-esque vertical and horizontal centering */
 .site-wrapper {
   display: table;
@@ -56,6 +60,11 @@ body {
 /* Padding for spacing */
 .inner {
   padding: 30px;
+}
+
+.center {
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /*
@@ -81,8 +90,9 @@ body {
   color: rgba(255,255,255,.75);
   border-bottom: 2px solid transparent;
 }
-.masthead-nav > li > a:hover,
-.masthead-nav > li > a:focus {
+
+.mynav .masthead-nav > li > a:hover,
+.mynav .masthead-nav > li > a:focus {
   background-color: transparent;
   border-bottom-color: #a9a9a9;
   border-bottom-color: rgba(255,255,255,.25);
@@ -104,6 +114,7 @@ body {
   display: block;
   width: 100%;
   max-width: 200px;
+  margin-bottom: 10px;
 }
 
 .site-wrapper .half-divider {
@@ -152,7 +163,7 @@ body {
  * Affix and center
  */
 
-@media (min-width: 768px) {
+@media (min-width: 992px) and (min-height: 800px) {
   /* Pull out the header and footer */
   .masthead {
     position: fixed;
