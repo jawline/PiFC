@@ -72,7 +72,7 @@ body {
 .masthead-nav > li + li {
   margin-left: 20px;
 }
-.navbar-default .masthead-nav > li > a {
+.mynav .masthead-nav > li > a {
   padding-right: 0;
   padding-left: 0;
   font-size: 16px;
@@ -92,6 +92,18 @@ body {
 .masthead-nav > .active > a:focus {
   color: #fff;
   border-bottom-color: #fff;
+}
+
+.site-wrapper hr {
+  opacity: 0.2;
+}
+
+.site-wrapper .intro-image {
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  width: 100%;
+  max-width: 200px;
 }
 
 @media (min-width: 768px) {
