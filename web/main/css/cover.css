@@ -72,7 +72,7 @@ body {
 .masthead-nav > li + li {
   margin-left: 20px;
 }
-.masthead-nav > li > a {
+.navbar-default .masthead-nav > li > a {
   padding-right: 0;
   padding-left: 0;
   font-size: 16px;
