@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <link href="./dist/css/bootstrap.css" rel="stylesheet">
     <link href="css/site.css" rel="stylesheet">
-    <link href="css/header.css" rel="stylesheet">
+    <link href="css/cover.css" rel="stylesheet">
+    <link href="css/cpanel.css" rel="stylesheet">
     <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
     <title>Drone Command Center</title>
 </head>
@@ -16,8 +17,8 @@
 
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
-                <button id="navbar-clickable" type="button" style="background: none; margin-right: 10px; height: 44px; border: 0; width: 44px;" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
-                    <span id="navbar-icon" class="glyphicon glyphicon-chevron-down"></span>
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                    <span class="sr-only">Toggle navigation</span>  <span class="icon-bar"></span>  <span class="icon-bar"></span><span class="icon-bar"></span>
                 </button>
                 <b><a style="font-size: 1.8em; color: white; font-family: logoFont;" class="navbar-brand" href="./index.html">DRONE</a></b>
             </div>
@@ -40,25 +41,16 @@
 
     <script src="https://code.jquery.com/jquery.js"></script>
     <script src="js/bootstrap.min.js"></script>
+
     <script src="lib/angular/angular.js"></script>
     <script src="lib/angular/angular-route.js"></script>
     <script src="js/app.js"></script>
     <script src="js/services.js"></script>
     <script src="js/controllers.js"></script>
     <script src="js/directives.js"></script>
-    <script>
-        $(document).ready(function() {
-            $('#navbar-clickable').click(function() {
-                if ($('#navbar-icon').hasClass('glyphicon-chevron-down')) {
-                    $('#navbar-icon').removeClass('glyphicon-chevron-down');
-                    $('#navbar-icon').addClass('glyphicon-chevron-up');
-                } else if ($('#navbar-icon').hasClass('glyphicon-chevron-up')) {
-                    $('#navbar-icon').removeClass('glyphicon-chevron-up');
-                    $('#navbar-icon').addClass('glyphicon-chevron-down');
-                }
-            });
-        });
-    </script>
+    <script type="text/javascript" src="js/utils.js"></script>
+
+
 </body>
 
 </html>
