@@ -13,7 +13,6 @@
 <body class="page-background">
 	<div id="site-wrapper">
         <nav class="header-background shadowed navbar navbar-default navbar-enabled mynav" role="navigation">
-
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
                 <button id="navbar-clickable" type="button" style="background: none; margin-right: 10px; height: 44px; border: 0; width: 44px;" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
@@ -21,7 +20,6 @@
                 </button>
                 <b><a style="font-size: 1.8em; color: white; font-family: logoFont;" class="navbar-brand" href="./index.html">DRONE</a></b>
             </div>
-
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="navbar">
                 <ul class="masthead-nav nav navbar-nav">
@@ -29,15 +27,10 @@
                     <li class="navlink" ng-class="{active:tabSelected=='logs'}"><a ng-class="{active : tab == 'logs'}" href="#/logs">Logs</a></li>
                     <li class="navlink" ng-class="{active:tabSelected=='configs'}"><a ng-class="{active : tab == 'configs'}" href="#/configs">Configs</a></li>
                 </ul>
-
             </div>
-            <!-- /.navbar-collapse -->
         </nav>
-
 	   <div style="width: 100%;" data-ng-view id="ng-view"></div>
-
     </div>
-
     <script src="https://code.jquery.com/jquery.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="lib/angular/angular.js"></script>
@@ -60,5 +53,4 @@
         });
     </script>
 </body>
-
 </html>
