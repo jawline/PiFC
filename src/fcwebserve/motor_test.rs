@@ -51,7 +51,6 @@ pub fn motor_test(core_ref: &Arc<Mutex<Core>>) -> Response {
         core.set_motor_power(MotorID::BackLeft, 0);
         core.set_motor_power(MotorID::BackRight, 0);
     }
-    thread::sleep_ms(0);
 
     Response::with((status::Ok, "ok"))
 }
