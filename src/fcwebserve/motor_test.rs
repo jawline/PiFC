@@ -1,5 +1,5 @@
 use iron::prelude::*;
-use std::sync::{Arc, Mutex, MutexGuard};
+use std::sync::{Arc, Mutex};
 use fccore::Core;
 use fccore::motors::MotorID;
 use iron::status;

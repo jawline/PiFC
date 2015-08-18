@@ -11,7 +11,6 @@ mod fcwebserve;
 
 const BASE_CFG_FILE : &'static str = "./configs/base.cfg";
 const WEBSERVE_CFG_FILE : &'static str = "./configs/webserve.cfg";
-const TAG : &'static str = "main";
 
 fn main() {
 	let (core, handle) = fccore::spawn_fc(BASE_CFG_FILE);

@@ -6,7 +6,7 @@ use staticfile::Static;
 use mount::Mount;
 use fccore::Core;
 use std::thread;
-use std::sync::{Arc, Mutex, MutexGuard};
+use std::sync::{Arc, Mutex};
 use hyper::header::AccessControlAllowOrigin;
 use fccore::log::Lines;
 use fcwebserve::config::Config;
