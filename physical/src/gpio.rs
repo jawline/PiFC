@@ -20,13 +20,11 @@ impl Pin {
         let fmt_port = &format!("{}", port);
         let export_file_res = File::create("/sys/class/gpio/export");
         
-        if let Err(_) = export_file_res {
-            return false;
+        if File::create("/sys/class/gpio/export").is_ok() {
+            export_file_res.unwrap().write_all(fmt_port.as_bytes()).is_ok()
+        } else {
+            false
         }
-        
-        let mut export_file = export_file_res.unwrap();
-        
-        !export_file.write_all(fmt_port.as_bytes()).is_ok()
     }
     
     fn get_pin_folder(&self) -> String {
@@ -34,41 +32,38 @@ impl Pin {
     }
 
     pub fn set_mode(&self, direction : Direction) -> bool {
-        
         let direction_file_res = File::create(self.get_pin_folder() + "direction");
-        
-        if let Err(_) = direction_file_res {
-            return false;
+        if direction_file_res.is_ok() {
+            let mut direction_file = direction_file_res.unwrap();        
+            
+            let dir = match direction {
+                Direction::In => "in",
+                Direction::Out => "out"
+            };
+
+            direction_file.write_all(dir.as_bytes()).is_ok()
+        } else {
+            false
         }
-
-        let mut direction_file = direction_file_res.unwrap();        
-        
-        let dir = match direction {
-            Direction::In => "in",
-            Direction::Out => "out"
-        };
-
-        direction_file.write_all(dir.as_bytes()).is_ok()
     }
 
     pub fn get_mode(&self) -> Option<Direction> {
-        
         let file_open_res = File::open(self.get_pin_folder() + "direction");
-        
-        if let Err(_) = file_open_res {
-            return None;
-        }
-        
-        let mut direction = String::new();
-        let read_result = file_open_res.unwrap().read_to_string(&mut direction);
-        
-        match read_result {
-            Ok(_) => match direction.trim() {
-                     "in" => Some(Direction::In),
-                     "out" => Some(Direction::Out),
-                     _ => None
-                  },
-            Err(_) => None
+        if file_open_res.is_ok() {        
+            let mut direction = String::new();
+            let read_result = file_open_res.unwrap().read_to_string(&mut direction);
+            
+            if read_result.is_ok() {
+                match direction.trim() {
+                    "in" => Some(Direction::In),
+                    "out" => Some(Direction::Out),
+                    _ => None
+                }
+            } else {
+                None
+            }
+        } else {
+            None
         }
     }
 
