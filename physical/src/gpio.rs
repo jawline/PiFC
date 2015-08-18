@@ -98,20 +98,20 @@ impl Pin {
     pub fn read(&self) -> Option<State> {
         let file_open_res = File::open(self.get_pin_folder() + "value");
         
-        if let Err(_) = file_open_res {
-            return None;
-        }
-        
-        let mut pin_value = String::new();
-        let read_result = file_open_res.unwrap().read_to_string(&mut pin_value);
-        
-        match read_result {
-            Ok(_) => match pin_value.trim() {
-                     "1" => Some(State::High),
-                     "0" => Some(State::Low),
-                     _ => None
-                  },
-            Err(_) => None
+        if file_open_res.is_ok() {
+            let mut pin_value = String::new();
+            let read_result = file_open_res.unwrap().read_to_string(&mut pin_value);
+            
+            match read_result {
+                Ok(_) => match pin_value.trim() {
+                         "1" => Some(State::High),
+                         "0" => Some(State::Low),
+                         _ => None
+                      },
+                Err(_) => None
+            }
+        } else {
+            None
         }
     }
 }
