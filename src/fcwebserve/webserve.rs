@@ -9,7 +9,7 @@ use std::thread;
 use std::sync::{Arc, Mutex};
 use hyper::header::AccessControlAllowOrigin;
 use fcwebserve::config::Config;
-use fcwebserve::status::Status;
+use fcwebserve::status::status_report;
 use fcwebserve::motor_test::motor_test;
 use fcwebserve::arming::*;
 use fcwebserve::log::*;
@@ -19,12 +19,6 @@ const TAG : &'static str = "webserve";
 fn unknown(core_ref : &Arc<Mutex<Core>>) -> Response {
     core_ref.lock().unwrap().log_mut().add(TAG, "Unhandled REST request");
     Response::with((status::NotFound, "unknown command"))
-}
-
-fn status_report(core_ref : &Arc<Mutex<Core>>) -> Response {
-    let json_content_type : Mime = "application/json".parse::<Mime>().unwrap();
-    let core = core_ref.lock().unwrap();
-    Response::with((json_content_type, status::Ok, Status::from(&core).to_string()))
 }
 
 fn get_config(core_ref : &Arc<Mutex<Core>>) -> Response {
