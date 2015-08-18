@@ -8,11 +8,11 @@ use fccore::Core;
 use std::thread;
 use std::sync::{Arc, Mutex};
 use hyper::header::AccessControlAllowOrigin;
-use fccore::log::Lines;
 use fcwebserve::config::Config;
 use fcwebserve::status::Status;
 use fcwebserve::motor_test::motor_test;
 use fcwebserve::arming::*;
+use fcwebserve::log::*;
 
 const TAG : &'static str = "webserve";
 
@@ -25,16 +25,6 @@ fn status_report(core_ref : &Arc<Mutex<Core>>) -> Response {
     let json_content_type : Mime = "application/json".parse::<Mime>().unwrap();
     let core = core_ref.lock().unwrap();
     Response::with((json_content_type, status::Ok, Status::from(&core).to_string()))
-}
-
-fn get_log(core_ref : &Arc<Mutex<Core>>) -> Response {
-    let core = core_ref.lock().unwrap();
-    Response::with((status::Ok, core.log().to_string()))
-}
-
-fn get_log_min(core_ref : &Arc<Mutex<Core>>) -> Response {
-    let core = core_ref.lock().unwrap();
-    Response::with((status::Ok, core.log().to_string_lines_max(Lines::Limit(10))))
 }
 
 fn get_config(core_ref : &Arc<Mutex<Core>>) -> Response {
