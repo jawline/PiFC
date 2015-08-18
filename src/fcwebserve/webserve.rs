@@ -12,10 +12,12 @@ use fccore::log::Lines;
 use fcwebserve::config::Config;
 use fcwebserve::status::Status;
 use fcwebserve::motor_test::motor_test;
+use fcwebserve::arming::*;
 
 const TAG : &'static str = "webserve";
 
-fn unknown() -> Response {
+fn unknown(core_ref : &Arc<Mutex<Core>>) -> Response {
+    core_ref.lock().unwrap().log_mut().add(TAG, "Unhandled REST request");
     Response::with((status::NotFound, "unknown command"))
 }
 
@@ -42,27 +44,6 @@ fn get_config(core_ref : &Arc<Mutex<Core>>) -> Response {
     Response::with((json_content_type, status::Ok, core.config().to_string()))
 }
 
-fn arm_core(core_ref : &Arc<Mutex<Core>>) -> Response {
-    let mut core = core_ref.lock().unwrap();
-    core.log_mut().add(TAG, "arm core network request");
-    core.set_armed_command(true);
-    Response::with((status::Ok, "arm_cmd set"))
-}
-
-fn disarm_core(core_ref : &Arc<Mutex<Core>>) -> Response {
-    let mut core = core_ref.lock().unwrap();
-    core.log_mut().add(TAG, "disarm core network request");
-    core.set_armed_command(false);
-    Response::with((status::Ok, "arm_cmd unset"))
-}
-
-fn kill_core(core_ref : &Arc<Mutex<Core>>) -> Response {
-    let mut core = core_ref.lock().unwrap();
-    core.log_mut().add(TAG, "arm core network request");
-    core.alive = false;
-    Response::with((status::Ok, "ok"))
-}
-
 fn page_handler(req : &mut Request, core : &Arc<Mutex<Core>>) -> IronResult<Response> {    	
     
     let mut full_req_path = String::new();
@@ -86,7 +67,7 @@ fn page_handler(req : &mut Request, core : &Arc<Mutex<Core>>) -> IronResult<Resp
         response.headers.set(AccessControlAllowOrigin::Any);
         response
     } else {
-        unknown()
+        unknown(core)
     };
 
     Ok(response)
