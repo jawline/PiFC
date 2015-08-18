@@ -81,18 +81,18 @@ impl Pin {
         
         let value_file_create_res = File::create(self.get_pin_folder() + "value");
         
-        if let Err(_) = value_file_create_res {
-            return false;
-        }
-        
-        let mut value_file = value_file_create_res.unwrap();
-        
-        let state_str = match state {
-            State::High => "1",
-            State::Low => "0"
-        };
+        if value_file_create_res.is_ok() {
+            let mut value_file = value_file_create_res.unwrap();
+            
+            let state_str = match state {
+                State::High => "1",
+                State::Low => "0"
+            };
 
-        value_file.write_all(state_str.as_bytes()).is_ok()
+            value_file.write_all(state_str.as_bytes()).is_ok()
+        } else {
+            false
+        }
     }
 
     pub fn read(&self) -> Option<State> {
