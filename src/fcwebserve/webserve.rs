@@ -1,6 +1,5 @@
 use iron::prelude::*;
 use iron::status;
-use iron::mime::Mime;
 use std::path::Path;
 use staticfile::Static;
 use mount::Mount;
@@ -9,6 +8,7 @@ use std::thread;
 use std::sync::{Arc, Mutex};
 use hyper::header::AccessControlAllowOrigin;
 use fcwebserve::config::Config;
+use fcwebserve::core_config::get_config;
 use fcwebserve::status::status_report;
 use fcwebserve::motor_test::motor_test;
 use fcwebserve::arming::*;
@@ -21,13 +21,6 @@ fn unknown(core_ref : &Arc<Mutex<Core>>) -> Response {
     Response::with((status::NotFound, "unknown command"))
 }
 
-fn get_config(core_ref : &Arc<Mutex<Core>>) -> Response {
-    let mut core = core_ref.lock().unwrap();
-    core.log_mut().add(TAG, "serving get config request");
-    let json_content_type : Mime = "application/json".parse::<Mime>().unwrap();
-    Response::with((json_content_type, status::Ok, core.config().to_string()))
-}
-
 fn page_handler(req : &mut Request, core : &Arc<Mutex<Core>>) -> IronResult<Response> {    	
     
     let mut full_req_path = String::new();
@@ -38,6 +31,7 @@ fn page_handler(req : &mut Request, core : &Arc<Mutex<Core>>) -> IronResult<Resp
     
     let response = if req.url.path.len() != 0 {
         let base_cmd : &str = &req.url.path[0].clone();
+
         let mut response = match base_cmd {
          "arm" => arm_core(core),
          "disarm" => disarm_core(core),
@@ -48,6 +42,7 @@ fn page_handler(req : &mut Request, core : &Arc<Mutex<Core>>) -> IronResult<Resp
          "motor_test" => motor_test(core),
          "status" | _ => status_report(core)
         };
+
         response.headers.set(AccessControlAllowOrigin::Any);
         response
     } else {

@@ -1,6 +1,6 @@
 use rustc_serialize::json;
 use std::fs::File;
-use std::io::{Read};
+use std::io::Read;
 use std::string::String;
 
 #[derive(RustcEncodable, RustcDecodable)]
