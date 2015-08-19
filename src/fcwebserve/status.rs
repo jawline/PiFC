@@ -28,7 +28,8 @@ struct MotorInfo {
 #[derive(RustcEncodable)]
 struct SensorInfo {
     pub accelerometer: (f64, f64, f64),
-    pub gyroscope: (f64, f64, f64)
+    pub gyroscope: (f64, f64, f64),
+    pub gps: (f64, f64)
 }
 
 impl Status {
@@ -49,7 +50,8 @@ impl Status {
     fn generate_sensor_info(core: &MutexGuard<Core>) -> SensorInfo {
         SensorInfo{
             accelerometer: core.sensors.acc,
-            gyroscope: core.sensors.gyro
+            gyroscope: core.sensors.gyro,
+            gps: core.sensors.gps
         }
     }
 
