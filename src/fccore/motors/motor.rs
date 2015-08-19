@@ -20,6 +20,7 @@ impl Motor {
     }
     
     pub fn current_power(&self) -> usize { self.power }
+
     pub fn set_power(&mut self, level: usize, log: &mut Log) {
         if self.enabled {
             log.add(TAG, &format!("motor named {} set power level to {}", self.name, level));
@@ -43,7 +44,5 @@ impl Motor {
         log.add(TAG, &format!("enabled motor named {}", self.name));
     }
 
-    pub fn enabled(&self) -> bool {
-        self.enabled
-    }
+    pub fn enabled(&self) -> bool { self.enabled }
 }
