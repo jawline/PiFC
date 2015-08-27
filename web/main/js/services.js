@@ -10,6 +10,7 @@ angular.module('RestServices', []).factory('$restService', function($http) {
 	function reloadStatus() {
 		$http.get(API_URL + "/status").success(function(data) {
 			rest.status = data;
+			rest.armed_text = rest.status.armed ? "Armed" : "Disarmed";
 		}).then(function() {
 			setTimeout(reloadStatus, 100);
 		});
