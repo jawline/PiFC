@@ -44,7 +44,6 @@ fn page_handler(req : &mut Request, core : &Arc<Mutex<Core>>) -> IronResult<Resp
         };
 
         response.headers.set(AccessControlAllowOrigin::Any);
-
         response
     } else {
         unknown(core)

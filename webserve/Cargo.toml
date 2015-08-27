@@ -1,0 +1,15 @@
+[package]
+name = "fcwebserve"
+version = "0.0.1"
+authors = [ "Blake Loring <blake_l@parsed.uk>" ]
+
+[dependencies]
+rustc-serialize = "*"
+staticfile = "*"
+mount = "*"
+time = "*"
+hyper = "0.6.10"
+iron = "0.1.19"
+
+[dependencies.fccore]
+path = "../core/"

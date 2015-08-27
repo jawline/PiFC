@@ -1,0 +1,11 @@
+[package]
+name = "fccore"
+version = "0.0.1"
+authors = [ "Blake Loring <blake_l@parsed.uk>" ]
+
+[dependencies]
+rustc-serialize = "*"
+time = "*"
+
+[dependencies.physical]
+path = "../physical"
