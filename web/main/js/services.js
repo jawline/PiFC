@@ -7,11 +7,20 @@ angular.module('RestServices', []).factory('$restService', function($http) {
 		logs: ""
 	};
 
+	rest.armed_text = "";
+	rest.live_text = "Not Live Yet (Making Initial Request)";
+
 	function reloadStatus() {
 		$http.get(API_URL + "/status").success(function(data) {
 			rest.status = data;
 			rest.armed_text = rest.status.armed ? "Armed" : "Disarmed";
+			rest.live_text = "Live (Updating)";
 		}).then(function() {
+			setTimeout(reloadStatus, 100);
+		}, function(data) {
+			rest.live_text = "Not Live (Not Updating)";
+			rest.status = {};
+			rest.status.alive = false;
 			setTimeout(reloadStatus, 100);
 		});
 	}
