@@ -18,8 +18,6 @@ impl Motor {
             enabled: false
         }
     }
-    
-    pub fn current_power(&self) -> usize { self.power }
 
     pub fn set_power(&mut self, level: usize, log: &mut Log) {
         if self.enabled {
@@ -45,4 +43,5 @@ impl Motor {
     }
 
     pub fn enabled(&self) -> bool { self.enabled }
+    pub fn current_power(&self) -> usize { self.power }
 }
