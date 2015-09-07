@@ -16,3 +16,4 @@ An attempt at building a quadcopter flight controller in Rust - using the Raspbe
 - First level flight
 - Work out how to give the damn thing instructions remotely
 - A whole bunch of other stuff
+- Finish building the hardware (WOOPS)
