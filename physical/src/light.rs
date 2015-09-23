@@ -8,12 +8,12 @@ pub struct Light {
 }
 
 impl Light {
-    pub fn new(pin : Pin) -> Light {
+    pub fn new(pin: Pin) -> Light {
         pin.set_mode(Direction::Out);
         Light{pin: pin}
     }
     
-    pub fn set_state(&self, state : LightState) {
+    pub fn set_state(&self, state: LightState) {
         match state {
             LightState::On => self.pin.write(State::High),
             LightState::Off => self.pin.write(State::Low)

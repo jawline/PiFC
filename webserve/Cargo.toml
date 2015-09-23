@@ -8,8 +8,8 @@ rustc-serialize = "*"
 staticfile = "*"
 mount = "*"
 time = "*"
-hyper = "0.6.10"
-iron = "0.1.19"
+hyper = "*"
+iron = "*"
 
 [dependencies.fccore]
 path = "../core/"
