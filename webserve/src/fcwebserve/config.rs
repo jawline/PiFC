@@ -12,7 +12,7 @@ pub struct Config {
 }
 
 impl Config {
-    fn read_config_file(base_file : &str) -> String {
+    fn read_config_file(base_file: &str) -> String {
         let mut result = String::new();
         
         if let Err(_) = File::open(base_file).unwrap().read_to_string(&mut result) {
@@ -22,7 +22,7 @@ impl Config {
         return result;
     }
     
-    pub fn load(base_file : &str) -> Config {
+    pub fn load(base_file: &str) -> Config {
         let text = Config::read_config_file(base_file);
         return json::decode(&text).unwrap();
     }

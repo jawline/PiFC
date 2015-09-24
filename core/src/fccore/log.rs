@@ -4,6 +4,8 @@ use std::vec::Vec;
 use std::io::Write;
 use time;
 
+const LOG_MAX: usize = 500;
+
 struct LogEntry {
     tag  : String,
     info : String,
@@ -28,13 +30,13 @@ impl ToString for LogEntry {
 }
 
 pub struct Log {
-    entries : Vec<LogEntry>,
-    out_file : File
+    entries: Vec<LogEntry>,
+    out_file: File
 }
 
 impl Log {
-    pub fn new(log_file : &str) -> Log {
-       Log{entries:Vec::new(), out_file: File::create(log_file).unwrap()}
+    pub fn new(log_file: &str) -> Log {
+       Log{entries:Vec::with_capacity(LOG_MAX), out_file: File::create(log_file).unwrap()}
     }
   
     pub fn add(&mut self, tag : &str, info : &str) {
@@ -48,6 +50,19 @@ impl Log {
         }
 
         self.entries.push(entry);
+        self.reduce_log();
+    }
+
+    /**
+     * Limits the number of log lines stored in total
+     */
+    pub fn reduce_log(&mut self) {
+        if self.entries.len() > LOG_MAX {
+            let amount_to_reduce = self.entries.len() - LOG_MAX;
+            for _ in 0..amount_to_reduce {
+                self.entries.remove(0);
+            }
+        }
     }
 
     pub fn to_string_lines_max(&self, lines: Lines) -> String {
