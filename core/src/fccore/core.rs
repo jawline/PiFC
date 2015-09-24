@@ -72,7 +72,7 @@ impl Core {
             armed_status_led : ConfigLed::new(&config.armed_led),
             armed_safety_switch : ConfigButton::new(&config.arm_switch),
             motors: motors::State::new(&config.motors),
-            log: Log::new(&format!("{}log{}", LOG_DIR, time::now().to_timespec().sec)),
+            log: Log::new(&format!("{}log{}", LOG_DIR, time::now().to_timespec().sec), &config.log_config),
             sensors: sensors::State::new(),
             config: config
         };

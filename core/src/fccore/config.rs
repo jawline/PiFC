@@ -22,9 +22,15 @@ pub struct Motor {
 }
 
 #[derive(RustcEncodable, RustcDecodable)]
+pub struct LogConfig {
+    pub log_limit: usize
+}
+
+#[derive(RustcEncodable, RustcDecodable)]
 pub struct Config {
     pub armed_led: Light,
     pub arm_switch: Switch,
+    pub log_config: LogConfig,
     pub motors: [Motor; 4]
 }
 

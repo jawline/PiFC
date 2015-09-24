@@ -2,9 +2,8 @@ use std::string::ToString;
 use std::fs::File;
 use std::vec::Vec;
 use std::io::Write;
+use fccore::config::LogConfig;
 use time;
-
-const LOG_MAX: usize = 500;
 
 struct LogEntry {
     tag  : String,
@@ -31,12 +30,13 @@ impl ToString for LogEntry {
 
 pub struct Log {
     entries: Vec<LogEntry>,
-    out_file: File
+    out_file: File,
+    limit: usize
 }
 
 impl Log {
-    pub fn new(log_file: &str) -> Log {
-       Log{entries:Vec::with_capacity(LOG_MAX), out_file: File::create(log_file).unwrap()}
+    pub fn new(log_file: &str, config: &LogConfig) -> Log {
+       Log{entries:Vec::with_capacity(config.log_limit), out_file: File::create(log_file).unwrap(), limit: config.log_limit}
     }
   
     pub fn add(&mut self, tag : &str, info : &str) {
@@ -57,8 +57,8 @@ impl Log {
      * Limits the number of log lines stored in total
      */
     pub fn reduce_log(&mut self) {
-        if self.entries.len() > LOG_MAX {
-            let amount_to_reduce = self.entries.len() - LOG_MAX;
+        if self.entries.len() > self.limit {
+            let amount_to_reduce = self.entries.len() - self.limit;
             for _ in 0..amount_to_reduce {
                 self.entries.remove(0);
             }
