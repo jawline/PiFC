@@ -22,12 +22,8 @@ fn unknown(core_ref : &Arc<Mutex<Core>>) -> Response {
 }
 
 fn page_handler(req : &mut Request, core : &Arc<Mutex<Core>>) -> IronResult<Response> {    	
-    
-    let mut full_req_path = String::new();
   
-    for item in &req.url.path {
-        full_req_path = full_req_path + "/" + item;
-    }
+    let full_req_path = req.url.path.iter().fold(String::new(), |curr, next| curr + "/" + next);
     
     let response = if req.url.path.len() != 0 {
         let base_cmd : &str = &req.url.path[0].clone();

@@ -6,9 +6,9 @@ use fccore::config::LogConfig;
 use time;
 
 struct LogEntry {
-    tag  : String,
-    info : String,
-    time_entered : time::Tm
+    tag: String,
+    info: String,
+    time_entered: time::Tm
 }
 
 pub enum Lines {

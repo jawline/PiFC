@@ -34,17 +34,11 @@ struct SensorInfo {
 
 impl Status {
     fn generate_motor_info(core: &MutexGuard<Core>) -> Vec<MotorInfo> {
-        let mut motor_info = Vec::new();
-
-        for motor in core.motors().iter() {
-            motor_info.push(MotorInfo{
+        core.motors().iter().map(|motor| MotorInfo {
                 name: motor.name.clone(),
                 power: motor.current_power(),
                 enabled: motor.enabled()
-            });
-        }
-
-        motor_info
+        }).collect()
     }
 
     fn generate_sensor_info(core: &MutexGuard<Core>) -> SensorInfo {

@@ -9,7 +9,7 @@ pub struct ConfigLed {
 
 impl ConfigLed {
     pub fn new(led: &config::Light) -> ConfigLed {
-        ConfigLed{
+        ConfigLed {
             enabled: led.use_switch,
             light: Light::new(Pin::new(led.pin))
         }

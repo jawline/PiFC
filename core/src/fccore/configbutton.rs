@@ -11,7 +11,7 @@ pub struct ConfigButton {
 
 impl ConfigButton {
 	pub fn new(switch: &Switch) -> ConfigButton {
-		ConfigButton{
+		ConfigButton {
 			enabled: switch.use_switch,
 			disabled_return_value: switch.disabled_return_value,
 			button: PolledButton::new(Pin::new(switch.pin))

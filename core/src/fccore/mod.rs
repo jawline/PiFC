@@ -11,7 +11,7 @@ pub use fccore::core::Core;
 use std::thread::{JoinHandle};
 use std::sync::{Arc, Mutex};
 
-const TAG : &'static str = "fccore";
+const TAG: &'static str = "fccore";
 
 /**
  * create a core instance and a core logic thread and return a mutex and handle to them
