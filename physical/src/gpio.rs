@@ -11,12 +11,12 @@ pub struct Pin {
 }
 
 impl Pin {
-    pub fn new(port : usize) -> Pin {
+    pub fn new(port: usize) -> Pin {
         Pin::export_pin(port);
         Pin{port:port}
     }
     
-    fn export_pin(port : usize) -> bool {
+    fn export_pin(port: usize) -> bool {
         let fmt_port = &format!("{}", port);
         let export_file_res = File::create("/sys/class/gpio/export");
         
@@ -31,7 +31,7 @@ impl Pin {
         format!("/sys/class/gpio/gpio{}/", self.port)
     }
 
-    pub fn set_mode(&self, direction : Direction) -> bool {
+    pub fn set_mode(&self, direction: Direction) -> bool {
         let direction_file_res = File::create(self.get_pin_folder() + "direction");
         if direction_file_res.is_ok() {
             let mut direction_file = direction_file_res.unwrap();        
@@ -67,7 +67,7 @@ impl Pin {
         }
     }
 
-    pub fn write(&self, state : State) -> bool {
+    pub fn write(&self, state: State) -> bool {
         let current_mode_op = self.get_mode();
         
         let can_write = match current_mode_op {
