@@ -2,7 +2,7 @@ use fccore::Core;
 use std::sync::{Arc, Mutex};
 use std::thread::{spawn, sleep_ms, JoinHandle};
 
-const TAG : &'static str = "fccore_logic";
+const TAG: &'static str = "fccore_logic";
 
 pub fn start_logic_thread(core: &Arc<Mutex<Core>>) -> JoinHandle<()> {
     let thread_core = core.clone();

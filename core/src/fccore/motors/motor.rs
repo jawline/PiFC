@@ -2,7 +2,7 @@ use fccore::log::Log;
 use fccore::config;
 use std::string::String;
 
-const TAG : &'static str = "motor";
+const TAG: &'static str = "motor";
 
 pub struct Motor {
     pub name: String,
