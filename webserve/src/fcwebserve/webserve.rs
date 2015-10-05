@@ -12,7 +12,7 @@ use fcwebserve::core_config::get_config;
 use fcwebserve::status::status_report;
 use fcwebserve::motor_test::motor_test;
 use fcwebserve::arming::*;
-use fcwebserve::log::*;
+use fcwebserve::wlog::*;
 
 const TAG : &'static str = "webserve";
 

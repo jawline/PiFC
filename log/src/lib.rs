@@ -1,8 +1,9 @@
+extern crate time;
+
 use std::string::ToString;
 use std::fs::File;
 use std::vec::Vec;
 use std::io::Write;
-use time;
 
 struct LogEntry {
     tag: String,

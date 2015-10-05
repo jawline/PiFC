@@ -1,4 +1,4 @@
-use fccore::log::Log;
+use log::Log;
 use fccore::config;
 use std::string::String;
 

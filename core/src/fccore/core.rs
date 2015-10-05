@@ -3,7 +3,7 @@
 use fccore::config::Config;
 use fccore::configled::ConfigLed;
 use fccore::configbutton::ConfigButton;
-use use log::Log;
+use log::Log;
 use fccore::sensors;
 use fccore::motors;
 use fccore::motors::MotorID;
@@ -72,7 +72,7 @@ impl Core {
             armed_status_led: ConfigLed::new(&config.armed_led),
             armed_safety_switch: ConfigButton::new(&config.arm_switch),
             motors: motors::State::new(&config.motors),
-            log: Log::new(&format!("{}log{}", LOG_DIR, time::now().to_timespec().sec), &config.log_config.log_limit),
+            log: Log::new(&format!("{}log{}", LOG_DIR, time::now().to_timespec().sec), config.log_config.log_limit),
             sensors: sensors::State::new(),
             config: config
         };

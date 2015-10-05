@@ -13,3 +13,6 @@ iron = "*"
 
 [dependencies.fccore]
 path = "../core/"
+
+[dependencies.log]
+path = "../log"

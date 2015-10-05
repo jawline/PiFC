@@ -1,7 +1,6 @@
 pub mod config;
 pub mod core;
 pub mod core_logic;
-pub mod log;
 pub mod sensors;
 pub mod motors;
 pub mod configled;
