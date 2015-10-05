@@ -2,7 +2,6 @@ use std::string::ToString;
 use std::fs::File;
 use std::vec::Vec;
 use std::io::Write;
-use fccore::config::LogConfig;
 use time;
 
 struct LogEntry {
@@ -35,8 +34,8 @@ pub struct Log {
 }
 
 impl Log {
-    pub fn new(log_file: &str, config: &LogConfig) -> Log {
-       Log{entries:Vec::with_capacity(config.log_limit), out_file: File::create(log_file).unwrap(), limit: config.log_limit}
+    pub fn new(log_file: &str, limit: usize) -> Log {
+       Log{entries: Vec::with_capacity(limit), out_file: File::create(log_file).unwrap(), limit: limit}
     }
   
     pub fn add(&mut self, tag : &str, info : &str) {
