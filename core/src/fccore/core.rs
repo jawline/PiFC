@@ -3,7 +3,7 @@
 use fccore::config::Config;
 use fccore::configled::ConfigLed;
 use fccore::configbutton::ConfigButton;
-use log::Log;
+use simplelog::Log;
 use fccore::sensors;
 use fccore::motors;
 use fccore::motors::MotorID;

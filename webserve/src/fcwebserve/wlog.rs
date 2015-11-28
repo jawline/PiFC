@@ -1,5 +1,5 @@
 use iron::prelude::*;
-use log::Lines;
+use simplelog::Lines;
 use std::sync::{Arc, Mutex};
 use fccore::Core;
 use iron::status;

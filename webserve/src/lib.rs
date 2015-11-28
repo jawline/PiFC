@@ -3,7 +3,7 @@ extern crate iron;
 extern crate staticfile;
 extern crate mount;
 extern crate hyper;
-extern crate log;
+extern crate simplelog;
 extern crate fccore;
 
 pub mod fcwebserve;
