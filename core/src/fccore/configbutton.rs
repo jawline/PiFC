@@ -1,6 +1,6 @@
-use physical::gpio::Pin;
-use physical::button::{Button, ButtonState};
-use physical::polled_button::PolledButton;
+use piphysical::gpio::Pin;
+use piphysical::button::{Button, ButtonState};
+use piphysical::polled_button::PolledButton;
 use fccore::config::Switch;
 
 pub struct ConfigButton {

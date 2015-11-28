@@ -6,9 +6,7 @@ authors = [ "Blake Loring <blake_l@parsed.uk>" ]
 [dependencies]
 time = "*"
 rustc-serialize = "*"
-
-[dependencies.physical]
-path = "../physical"
+piphysical = { git = "https://github.com/jawline/PiPhysical.git" }
 
 [dependencies.log]
 path = "../log"

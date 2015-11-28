@@ -1,5 +1,5 @@
-use physical::gpio::Pin;
-use physical::light::{Light, LightState};
+use piphysical::gpio::Pin;
+use piphysical::light::{Light, LightState};
 use fccore::config;
 
 pub struct ConfigLed {
