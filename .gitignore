@@ -2,3 +2,4 @@
 *target*
 *lock
 logs/log*
+*.DS_store
